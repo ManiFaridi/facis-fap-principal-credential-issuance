@@ -2,7 +2,7 @@
   "openapi": "3.1.0",
   "info": {
     "title": "FACIS FAP PCI ORCE API",
-    "version": "0.5.0-rc.12",
+    "version": "0.5.0-rc.16",
     "description": "HTTP contract preserved from Sprint Review 1 while implementation runs entirely in ORCE flows and uibuilder. Provider and tenant administration use Keycloak-backed server sessions. Paths remain application-relative; the deployment prefix is supplied by PCI_ORCE_BASE_PATH."
   },
   "servers": [

@@ -6,7 +6,7 @@ FAP PCI runs inside XFSC ORCE and provides tenant onboarding, delegated issuer a
 
 | Distribution | Reference |
 |---|---|
-| Application source version | `0.5.0-rc.12`, as recorded in `VERSION` and `package.json` |
+| Application source version | `0.5.0-rc.16`, as recorded in `VERSION` and `package.json` |
 | Packaged PCI container | [`ecofacis/fap-pci:1.0.0`](https://hub.docker.com/r/ecofacis/fap-pci/tags?name=1.0.0), built from source `0.5.0-rc.12` at commit `3fef8e3048f3`; it does not contain changes merged after that commit and is superseded by the image of the next release candidate |
 | Packaging base | `ecofacis/xfsc-orce:2.0.15` |
 | Published documentation | [FAP PCI documentation](https://eclipse-xfsc.github.io/facis-fap-principal-credential-issuance/) |
@@ -33,7 +33,7 @@ Use Node.js 20 or newer, Python 3, OpenSSL and the pinned dependencies. The sour
 4. Follow [participant setup](docs/testing/participant-test.md) and the [test walkthrough](docs/testing/acceptance-walkthrough.md).
 5. Use the [operations runbook](docs/operations/runbook.md) for recovery, maintenance and uninstall.
 
-The source artifact interface is `dist/fap-pci-flow.json`, `dist/ground-zero.sh` and `dist/ui/`. For an existing instance, use the [artifact upgrade](docs/operations/upgrade-0.5.0-rc.12.md). Import PCI flows through the established modified-flows deployment and retain the instance's persistent data. The [operating profiles](docs/known-gaps.md) describe dependency ownership, transport, supported formats and retention.
+The source artifact interface is `dist/fap-pci-flow.json`, `dist/ground-zero.sh` and `dist/ui/`. For an existing instance deployed from the image, follow [deploying the application image](docs/operations/deployment.md#deploying-the-application-image); for an instance maintained with the hot installer, the [rc.12 artifact upgrade](docs/operations/upgrade-0.5.0-rc.12.md) procedure applies with the current `dist/`. Import PCI flows through the established modified-flows deployment and retain the instance's persistent data. The [operating profiles](docs/known-gaps.md) describe dependency ownership, transport, supported formats and retention.
 
 ## Source layout
 

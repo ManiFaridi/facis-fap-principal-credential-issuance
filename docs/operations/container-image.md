@@ -10,7 +10,7 @@ This page records the 1.0.0 package, which was produced by capturing a running O
 | Repository | [ecofacis/fap-pci](https://hub.docker.com/r/ecofacis/fap-pci) |
 | Release tag | `ecofacis/fap-pci:1.0.0` |
 | ORCE packaging base | `ecofacis/xfsc-orce:2.0.15` |
-| Application source version | `0.5.0-rc.12` |
+| Application source version | `0.5.0-rc.12` (package 1.0.0); current source `0.5.0-rc.16` |
 
 The 1.0.0 packaging procedure captures the running ORCE container filesystem and explicitly copies `/data` into the resulting image before publication. This includes PCI flows, UI/configuration and the installed dependencies present in that release snapshot. Docker commit alone omits mounted-volume contents; the separate `/data` embedding step is part of this package's preparation.
 

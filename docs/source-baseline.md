@@ -4,7 +4,7 @@
 |---|---|
 | Reviewed repository | `https://github.com/eclipse-xfsc/facis-fap-principal-credential-issuance` |
 | Reviewed source commit | `3fef8e3048f3803b8aecbd99f582a3c4c05295b0` |
-| Application source version | `0.5.0-rc.12` |
+| Application source version | `0.5.0-rc.12` (reviewed commit); current source `0.5.0-rc.16` |
 | Docker Hub package | `ecofacis/fap-pci:1.0.0` |
 | ORCE packaging base | `ecofacis/xfsc-orce:2.0.15` |
 | Current source baseline | `2fa3a8af9e4a329f01d629b3510a03d95b3fb397` (`main`, tag `qa-ready-22-10-2026`); every later change enters through a reviewed pull request |

@@ -119,6 +119,7 @@ test/tests/static/image-scan.test.mjs
 test/tests/static/licence-headers.test.mjs
 test/tests/static/module-source.test.mjs
 test/tests/static/public-url-audit.test.mjs
+test/tests/static/record-pull-requests.test.mjs
 test/tests/static/release-versions.test.mjs
 test/tests/static/security-host-authority.test.mjs
 test/tests/static/sr2-contract.test.mjs
@@ -128,6 +129,7 @@ tools/build-api-examples.mjs
 tools/build-flows.mjs
 tools/build-lifecycle-flow.mjs
 tools/build-requirement-audit.mjs
+tools/build-requirement-test-matrix.mjs
 tools/build-requirements.mjs
 tools/build-sr2-api.mjs
 tools/build-test-source.mjs
@@ -142,6 +144,7 @@ tools/lib/bundle-graph.mjs
 tools/lib/bundle-inputs.mjs
 tools/lib/module-source.mjs
 tools/preview-fixture.mjs
+tools/record-pull-requests.mjs
 tools/refresh-release-inventory.mjs
 tools/release-artifacts.mjs
 tools/signoff-gate.mjs

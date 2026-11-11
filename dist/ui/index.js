@@ -146,7 +146,7 @@ const runtime = {
   uiPath: uiPath(inferredBasePath),
   apiBasePath: withBasePath("/api/v1", inferredBasePath),
   configured: false,
-  version: "0.5.0-rc.12",
+  version: "0.5.0-rc.16",
 };
 function applyPublicConfiguration(configuration) {
   const configuredBasePath = normalizeBasePath(configuration && configuration.orceBasePath !== undefined ? configuration.orceBasePath: "");
@@ -4051,7 +4051,7 @@ const App = {
   </main>
   <footer>
     <span>FACIS.FAP_PCI</span>
-    <span>Credential workspace · 0.5.0-rc.12</span>
+    <span>Credential workspace · 0.5.0-rc.16</span>
   </footer>
 </div>
 `

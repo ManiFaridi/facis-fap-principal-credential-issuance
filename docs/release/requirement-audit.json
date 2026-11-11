@@ -1,5 +1,5 @@
 {
-  "version": "0.5.0-rc.12",
+  "version": "0.5.0-rc.16",
   "sourceCommit": null,
   "reviewedAt": null,
   "historicalCi": {
@@ -1294,13 +1294,16 @@
       },
       "responsibility": "SOURCE_REFERENCED",
       "implementation": [
-        "test/bdd",
-        "test/live/wallet.mjs",
-        "test/browser/runtime.mjs",
-        "test/bdd/features/native-wallet.feature"
+        "scripts/run-ux-bdd.py",
+        "scripts/collect-ux-environment.py",
+        "test/bdd/features/steps/administration.py",
+        "test/bdd/features/steps/pci.py"
       ],
       "checks": [
-        "test/bdd/requirements.txt",
+        "test/bdd/features/administration.feature",
+        "test/bdd/features/offer.feature",
+        "test/bdd/features/runtime.feature",
+        "test/ux-runner/test_summary.py",
         ".github/workflows/ci.yml",
         "test/tests/integration/rc5-closure.test.mjs"
       ],
