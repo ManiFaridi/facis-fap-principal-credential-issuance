@@ -47,6 +47,22 @@ The selected official Executor has older pinned dependencies; include its depend
 
 The additional `ux`/`offer` cases and their opt-in synthetic-data setup are described in [the acceptance walkthrough](acceptance-walkthrough.md). The Executor pack automates a subset; the full table and all SRS milestone criteria still need executed evidence. Extend it with the operator's wallet/IdP harness instead of replacing unavailable actions with mocks.
 
+## Deployment record
+
+Every test run names the deployment it ran against. `scripts/record-deployment.py`
+records the release candidate tag and its commit, the image references and the digests
+the pods actually run, the Helm releases and the version reported by `/healthz`, and
+checks that the version matches the tag, that every container runs a digest and that
+every container is ready (exit code 1 otherwise). It reads only and records no Secret.
+
+```bash
+python3 scripts/record-deployment.py --environment IONOS --tag v0.5.0-rc.16 \
+  --base-url https://<provider-host><base-path> --out /private/evidence/deployment-ionos.json
+```
+
+The record of each QA deployment is part of the evidence package of the release
+candidate and of the receipt below.
+
 ## Receipt
 
 Copy `docs/release/acceptance.example.json` to `docs/release/acceptance.json`. For every one of the 109 SRS/TDR audit rows, supply actual PASS evidence, named reviewer and review date. Also complete `technicalClauses` for all 83 individual provisions; accepting a broad group does not accept its unchecked clauses. These are local audit IDs for unnumbered PDF provisions. `environments` must include `IONOS` and `OSC`. `artifacts` maps every path returned by `tools/release-artifacts.mjs` to its SHA-256, including source, distribution, participant service/record flow, charts, contracts, tests and build inputs. Copy the mapping from `docs/release/artifacts.json` for the exact unpacked candidate; regenerate it after any change. Each evidence entry has `id`, relative `path`, and `sha256`; each requirement or clause references the relevant evidence IDs. Store only sanitized evidence approved for the repository.
