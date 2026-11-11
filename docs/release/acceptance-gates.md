@@ -16,7 +16,7 @@ updated in the pull request that records the evidence.
 | Participant service | Go 1.25 build, protobuf generation, vet and race tests in CI | `ci` workflow, `participant` job | open |
 | PostgreSQL | Migration, isolation and concurrency tests against a server in CI | `ci` workflow, `node` job | open |
 | Helm and Kubernetes | Chart lint and template validation, manifest schema check, lifecycle run in the designated environments | `ci` workflow, `charts` job; `security-scans`, `manifests` job; deployment records | open |
-| Reproducible image | Application and participant images built by the release workflow from the tagged commit, with SBOM and scan; digest recorded with the deployment | `release-container-sbom` workflow; `docs/release/artifacts.json` | open |
+| Reproducible image | Application and participant images built by the `Images` workflow from the tagged commit on the base image recorded by digest, with SBOM, scan and start-up check; digests recorded with the deployment | `image` workflow run; `deployment/image/base-image.lock`; `docs/release/artifacts.json` | open |
 | Native issuance and revocation | Issuance, presentation and revocation against the pinned OCM/TSA and participant services, including signed status retrieval, with the wallet | live acceptance receipts (`docs/testing/live-acceptance.md`) | open |
 | Browser | DOM fixture and component regressions in CI; the deployed XFSC BDD Executor run (`@pci-ux`, twelve scenarios) on both installations with its summary committed | `ci` workflow, `browser` job; `docs/testing/evidence/fr61-ux-summary.json` | open |
 | Documentation | Strict MkDocs build and publication for the current source | `docs` workflow run | open |

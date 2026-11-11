@@ -23,6 +23,7 @@ const SCOPE = [
   { dir: 'test', ext: ['.mjs', '.py'] },
   { dir: 'scripts', ext: ['.py', '.mjs', '.sh'] },
   { dir: 'automation', ext: ['.py', '.mjs', '.sh'] },
+  { dir: 'deployment/image', ext: ['.mjs', '.sh'] },
   { dir: 'reference/participant-data-repository', ext: ['.go'] }
 ];
 const FILES = ['build.js'];

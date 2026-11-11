@@ -47,6 +47,8 @@ backend/sr2/store.js
 backend/sr2/transport.js
 backend/sr2/wire.js
 build.js
+deployment/image/entrypoint.sh
+deployment/image/seed-data.mjs
 scripts/collect-ux-environment.py
 scripts/run-ux-bdd.py
 shared/public-url.js
@@ -97,6 +99,7 @@ test/support/ui-bridge.mjs
 test/support/ui-source.mjs
 test/tests/bdd/tenant-foundation.test.mjs
 test/tests/integration/auth-characterisation.test.mjs
+test/tests/integration/image-seed.test.mjs
 test/tests/integration/issuer-features.test.mjs
 test/tests/integration/issuer-modules.test.mjs
 test/tests/integration/rc9-sandbox.test.mjs
@@ -107,6 +110,7 @@ test/tests/integration/sr2-ui.test.mjs
 test/tests/integration/ui-transport.test.mjs
 test/tests/integration/workspace-lifecycle.test.mjs
 test/tests/static/bundle-graph.test.mjs
+test/tests/static/image-scan.test.mjs
 test/tests/static/licence-headers.test.mjs
 test/tests/static/module-source.test.mjs
 test/tests/static/public-url-audit.test.mjs
@@ -123,6 +127,7 @@ tools/build-sr2-api.mjs
 tools/build-test-source.mjs
 tools/build-ui.mjs
 tools/check-documentation.mjs
+tools/check-image-scan.mjs
 tools/check-maintainability.mjs
 tools/extract-schema.mjs
 tools/format-source.mjs

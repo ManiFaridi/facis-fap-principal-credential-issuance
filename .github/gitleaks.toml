@@ -20,4 +20,5 @@ paths = [
 ]
 regexes = [
   '''ephemeral-ci-only''',
+  '''startup-check''',
 ]
