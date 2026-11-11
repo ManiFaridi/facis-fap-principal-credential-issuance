@@ -78,6 +78,28 @@ service method in `backend/sr2/service.js` and its extensions (`issuance.js`,
 against fixtures, and `test/support/sr2-http.mjs` runs `handleSr2` with the in-memory
 store, so a change can be exercised end to end without ORCE.
 
+## Deployment repository package
+
+The deployment content of a release (charts, ground-zero, flow and UI artifacts,
+installers, operator scripts and documentation) is published to
+`eclipse-xfsc/deployment` under `PCI/`. It is generated, not copied by hand:
+
+```bash
+node tools/export-deployment-package.mjs --out <deployment-checkout>/PCI \
+  --application-image <registry>/<project>/fap-pci@sha256:<digest> \
+  --participant-image <registry>/<project>/fap-pci-participant@sha256:<digest>
+```
+
+The export takes the files of `PACKAGE_FILES` unchanged, rewrites documentation links
+to files outside the package into links at the source commit, points the ArgoCD
+example at the deployment repository, and writes `README.md`, `SOURCE.json`,
+`deployment/images.json` and `deployment-sha256.txt`. It refuses a dirty tree and
+image references without a digest. The export is committed in the deployment
+repository through a pull request reviewed and merged by that repository's
+maintainers. `test/tests/static/release-versions.test.mjs` fails when a site that
+states the release version (ground-zero, charts, package, reviewed installer
+versions) disagrees with `VERSION`.
+
 ## Changing a feature
 
 Change the action module and the view panel, not the generated flow in `dist/` or the

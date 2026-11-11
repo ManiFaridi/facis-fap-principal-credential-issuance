@@ -114,10 +114,12 @@ test/tests/integration/tenant-theme.test.mjs
 test/tests/integration/ui-transport.test.mjs
 test/tests/integration/workspace-lifecycle.test.mjs
 test/tests/static/bundle-graph.test.mjs
+test/tests/static/deployment-package.test.mjs
 test/tests/static/image-scan.test.mjs
 test/tests/static/licence-headers.test.mjs
 test/tests/static/module-source.test.mjs
 test/tests/static/public-url-audit.test.mjs
+test/tests/static/release-versions.test.mjs
 test/tests/static/security-host-authority.test.mjs
 test/tests/static/sr2-contract.test.mjs
 test/ux-runner/test_summary.py
@@ -133,6 +135,7 @@ tools/build-ui.mjs
 tools/check-documentation.mjs
 tools/check-image-scan.mjs
 tools/check-maintainability.mjs
+tools/export-deployment-package.mjs
 tools/extract-schema.mjs
 tools/format-source.mjs
 tools/lib/bundle-graph.mjs
