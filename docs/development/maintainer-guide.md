@@ -38,6 +38,46 @@ and delegation rules, and `store.js` is the persistence boundary. The memory fix
 do not establish PostgreSQL migration or concurrency behaviour; the `node` CI job runs
 those against a server.
 
+## How a request flows through ORCE
+
+`tools/build-flows.mjs` generates `dist/fap-pci-flow.json` from `backend/sr2/routes.json`
+and the module list in the script. Every module (M1 Infrastructure, M2 Registration, M3
+Provider administration, M4 Tenant reconciliation, M5 Authentication, M6 Email, M7
+Tenant administration, M8 to M13 for the issuer, M17 Tenant identity) becomes one ORCE
+tab with one Function node, and every route of the module becomes an `http in` node
+followed by a `change` node that sets `msg.pciAction` and `msg.pciTransport = "http"`
+and feeds the Function node. Scheduled work enters the same Function node through
+`inject` nodes with `pciTransport = "internal"` and `pciInternal = true`. The Function
+node has two outputs: the first goes to the module's `http response` node, the second
+to a link node that returns a browser-bridge result to the shared `PCI_Interface` tab.
+
+The source of a Function node is assembled, not written: the shared URL helpers of
+`shared/public-url.js`, then `backend/functions/_common.js` (configuration from the
+environment, errors, `emit`, `requireSession`, the pool), `_identity.js` and
+`_bridge.js`, then for the issuer modules the SR2 modules of
+`tools/lib/bundle-inputs.mjs` in dependency order (`domain.js` first, `http.js` last),
+each stripped of its `import`/`export` syntax by `tools/lib/module-source.mjs` after
+the bundle-graph check, and finally the module's own file under `backend/functions/`
+(`auth.js`, `tenant.js`, `issuer-admin.js`, ...). `__PCI_SR2_BUILD_ID__` is replaced by
+the hash of the SR2 source, so a redeployed flow invalidates cached adapters. Node IDs
+are hashes of stable names, so a rebuilt flow updates the existing nodes in place.
+
+The browser does not call these routes directly. `src/services/transport.js` sends a
+command over the uibuilder socket; `_bridge.js` validates the grant that
+`POST /api/v1/auth/bridge` issued for the session, sets `pciBridgeApproved` and the
+trusted headers, and the `PCI_Interface` tab routes the command to the module's link-in
+node. The SR2 wrapper `handleSr2` in `backend/sr2/http.js` accepts a request only from
+HTTP or from an approved bridge command, then runs the same checks for both.
+
+To follow one request: find the action in `backend/sr2/routes.json` (or in the
+`moduleSpecs` of `tools/build-flows.mjs` for the non-issuer modules), open the module's
+file under `backend/functions/`, and for an issuer action follow `handleSr2` to the
+service method in `backend/sr2/service.js` and its extensions (`issuance.js`,
+`presentation.js`, `revocation.js`), which call the store and the native adapters.
+`test/support/function-node.mjs` runs a Function node with the real shared helpers
+against fixtures, and `test/support/sr2-http.mjs` runs `handleSr2` with the in-memory
+store, so a change can be exercised end to end without ORCE.
+
 ## Changing a feature
 
 Change the action module and the view panel, not the generated flow in `dist/` or the
