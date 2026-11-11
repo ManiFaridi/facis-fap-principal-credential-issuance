@@ -61,12 +61,12 @@ bindings before anything is flattened; the build fails closed. The test builds u
 the same module lists.
 
 `npm run format` applies `tools/format-source.mjs` to `backend`, `src`, `shared`,
-`tools` and `build.js`; the formatter proves AST equivalence before and after and
+`tools`, `test` and `build.js`; the formatter proves AST equivalence before and after and
 leaves string and template literals unchanged. `npm run format:check` fails CI on an
 unformatted file.
 
-`npm run check:maintainability` applies `tools/maintainability-rules.json`: at most
-240 characters per line (string and template literals that contain an SQL statement
+`npm run check:maintainability` applies `tools/maintainability-rules.json` to the same
+scope, `test` included: at most 240 characters per line (string and template literals that contain an SQL statement
 are exempt), 900 lines per authored file and three statement starts per line; for
 `src/issuer/`, 240 lines per module, 350 per view module, 100 lines per function and
 decision complexity 20, with composition factories (`createPci*`) exempt from the

@@ -13,9 +13,7 @@ import assert from 'node:assert/strict';
 import { inspectBundleGraph } from '../../../tools/lib/bundle-graph.mjs';
 import { measureSource, sourceViolations } from '../../../tools/check-maintainability.mjs';
 import { formatSource } from '../../../tools/format-source.mjs';
-
 const inspect = (modules, extra = {}) => inspectBundleGraph(Object.keys(modules), { load: file => modules[file], ...extra });
-
 test('bundle graph accepts an ordered named dependency', () => {
   assert.deepEqual(inspect({ 'a.js': 'export const a = 1;', 'b.js': "import {a} from './a.js'; export const b = a;" }).errors, []);
 });
@@ -29,16 +27,20 @@ test('bundle graph rejects cross-module top-level collisions', () => {
   assert.match(inspect({ 'a.js': 'const value = 1;', 'b.js': 'const value = 2;' }).errors.join(' '), /collision/);
 });
 test('bundle graph catches cycles between import facades', () => {
-  const r = inspect({ 'a.js': "import {b} from './b.js'; export function a(){return b();}",
-    'b.js': "import {a} from './a.js'; export function b(){return a();}" });
+  const r = inspect({
+    'a.js': "import {b} from './b.js'; export function a(){return b();}",
+    'b.js': "import {a} from './a.js'; export function b(){return a();}"
+  });
   assert.match(r.errors.join(' '), /Module cycle/);
 });
 test('bundle graph rejects dependency order that would create a temporal dead zone', () => {
-  assert.match(inspect({ 'b.js': "import {a} from './a.js'; export const b=a;", 'a.js': 'export const a=1;' }).errors.join(' '), /precede importer/);
+  assert.match(inspect({ 'b.js': "import {a} from './a.js'; export const b=a;", 'a.js': 'export const a=1;' }).errors.join(' '),
+    /precede importer/);
 });
 test('bundle graph checks aliases, default imports and namespace imports', () => {
   for (const value of ["{a as renamed}", '* as all', 'defaultValue']) {
-    assert.match(inspect({ 'a.js': 'export const a=1;', 'b.js': `import ${value} from './a.js';` }).errors.join(' '), /Unsupported binding/);
+    assert.match(inspect({ 'a.js': 'export const a=1;', 'b.js': `import ${value} from './a.js';` }).errors.join(' '),
+      /Unsupported binding/);
   }
 });
 test('bundle graph requires explicit external runtime bindings', () => {
@@ -52,18 +54,22 @@ test('bundle graph permits only explicitly copied side-effect assets', () => {
   assert.deepEqual(inspect(modules, { assets: ['theme.css'] }).errors, []);
 });
 test('bundle graph validates compatibility re-exports', () => {
-  assert.deepEqual(inspect({ 'a.js': 'export const a=1;', 'b.js': "export {a} from './a.js';",
-    'c.js': "import {a} from './b.js'; export const c=a;" }).errors, []);
+  assert.deepEqual(inspect({
+    'a.js': 'export const a=1;',
+    'b.js': "export {a} from './a.js';",
+    'c.js': "import {a} from './b.js'; export const c=a;"
+  }).errors, []);
 });
 test('maintainability gate rejects dense lines, packed statements and oversized modules', () => {
-  assert.match(sourceViolations({ file: 'src/issuer/example.js', lines: 300, maxLine: 400,
-    maxStatementsPerLine: 8, functions: [] }).join(' '), /line exceeds/);
-  assert.ok(sourceViolations({ file: 'src/issuer/example.js', lines: 300, maxLine: 80,
-    maxStatementsPerLine: 1, functions: [] }).some(e => e.includes('module exceeds')));
+  assert.match(sourceViolations({ file: 'src/issuer/example.js', lines: 300, maxLine: 400, maxStatementsPerLine: 8, functions: [] }).join(
+    ' '), /line exceeds/);
+  assert.ok(sourceViolations({ file: 'src/issuer/example.js', lines: 300, maxLine: 80, maxStatementsPerLine: 1, functions: [] }).some(e => e
+    .includes('module exceeds')));
 });
 test('function limits apply to backend/ with the service and issuance factories exempt from the length rule only', () => {
   const metric = (file, functions) => ({ file, lines: 100, maxLine: 80, maxStatementsPerLine: 1, functions });
-  const long = { name: 'handleThing', line: 3, lines: 150, complexity: 5 }, dense = { name: 'decide', line: 9, lines: 20, complexity: 30 };
+  const long = { name: 'handleThing', line: 3, lines: 150, complexity: 5 },
+  dense = { name: 'decide', line: 9, lines: 20, complexity: 30 };
   const backend = sourceViolations(metric('backend/sr2/example.js', [long, dense]), new Set()).join(' ');
   assert.match(backend, /example\.js:3: handler exceeds 100 lines/);
   assert.match(backend, /example\.js:9: function complexity exceeds 20/);
@@ -79,7 +85,7 @@ test('function metrics do not charge inner branches to a composition factory', (
   assert.equal(metrics.functions.find(f => f.name === 'action').complexity, 2);
 });
 test('formatter wraps long call and operator chains without changing literal values', () => {
-  const source = 'export const result = call(' + Array.from({length:35}, (_,i) => `"argument${i}"`).join(',') + ');';
+  const source = 'export const result = call(' + Array.from({ length: 35 }, (_, i) => `"argument${i}"`).join(',') + ');';
   const result = formatSource(source);
   assert.ok(Math.max(...result.split('\n').map(line => line.length)) <= 160);
   assert.equal(formatSource(result), result);

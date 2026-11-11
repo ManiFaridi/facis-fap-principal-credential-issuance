@@ -18,12 +18,10 @@ import crypto from 'node:crypto';
 import url from 'node:url';
 import zlib from 'node:zlib';
 import { stripModuleSyntax } from '../../tools/lib/module-source.mjs';
-
 const read = file => fs.readFileSync(file, 'utf8');
 const sharedUrl = stripModuleSyntax(read('shared/public-url.js'), 'shared/public-url.js');
 const common = read('backend/functions/_common.js').replaceAll('__FAP_PCI_VERSION__', 'test') + '\n' + read(
   'backend/functions/_identity.js') + '\n' + read('backend/functions/_bridge.js');
-
 export const defaultEnvironment = {
   PCI_MAIN_HOST: 'pci.example.com',
   PCI_BASE_DOMAIN: 'example.com',
@@ -36,27 +34,22 @@ export const defaultEnvironment = {
   PCI_KEYCLOAK_UI_CLIENT_ID: 'fap-pci-ui',
   PCI_SESSION_TTL_MINUTES: '480'
 };
-
 /** A fake pg.Pool: `handler(sql, args)` returns `{ rows }` or throws; every query is recorded. */
 export function fakePg(handler) {
   const calls = [];
   class Pool {
     constructor(options) {
       this.options = options;
-    }
-    async query(sql, args = []) {
+    } async query(sql, args = []) {
       calls.push({ sql, args });
       const result = await handler(sql, args);
       return result || { rows: [] };
-    }
-    async connect() {
+    } async connect() {
       return { query: this.query.bind(this), release() {} };
-    }
-    async end() {}
+    } async end() {}
   }
   return { Pool, calls };
 }
-
 /**
  * Executes `backend/functions/<file>` once for `msg`.
  * Returns the node's return value (the output array of the Function node), the
@@ -102,14 +95,20 @@ export async function runFunctionNode(file, { msg, environment = {}, libs = {}, 
   const output = await run(...Object.values(context), overrides);
   return { output, msg, logs, pool, store };
 }
-
 /** Builds a Function-node message for an HTTP request routed through the gateway. */
 export function httpMessage(action, { host = 'pci.example.com', headers = {}, body, url: path = '/api/v1/' + action } = {}) {
   return {
     _msgid: 'test-' + action,
     pciAction: action,
     pciTransport: 'http',
-    req: { method: body ? 'POST': 'GET', url: path, originalUrl: path, headers: { host, ...headers }, params: {}, query: {} },
+    req: {
+      method: body ? 'POST': 'GET',
+      url: path,
+      originalUrl: path,
+      headers: { host, ...headers },
+      params: {},
+      query: {}
+    },
     res: {},
     payload: body
   };

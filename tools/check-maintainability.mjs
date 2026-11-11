@@ -168,11 +168,11 @@ export function checkMaintainability(root = process.cwd()) {
   ];
   return {
     status: errors.length ? 'FAIL': 'PASS',
-    scope: 'Authored JavaScript in backend, src, shared, tools and build.js',
+    scope: 'Authored JavaScript in backend, src, shared, tools, test and build.js',
     excluded: [
       'Generated dist and .build',
       'Pinned vendor sources',
-      'Test fixture sources',
+      'Test fixtures (JSON)',
       'SQL template literals (line length only)'
     ],
     rules: {

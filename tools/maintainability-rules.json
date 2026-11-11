@@ -5,7 +5,8 @@
     "src",
     "shared",
     "tools",
-    "build.js"
+    "build.js",
+    "test"
   ],
   "lineLength": 240,
   "fileLines": 900,
