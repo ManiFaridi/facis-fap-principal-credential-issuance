@@ -8,6 +8,7 @@
 //
 // Prepared with AI-assisted tools and reviewed by the author.
 // Assisted-by: AI
+import { applyPciTheme } from '../../state/theme.js';
 /** Tenant operations with explicit state and I/O dependencies. */
 export function createPciTenantActions(state, dependencies) {
   const { metadata, branding, settings, notice, metadataForm, authServers, publication } = state;
@@ -21,6 +22,7 @@ export function createPciTenantActions(state, dependencies) {
       if (kind === 'branding') {
         branding.value = saved;
         props.tenant.branding = clone(saved.draft);
+        applyPciTheme(window?.document?.documentElement, props.tenant.branding);
       } if (kind === 'issuer-settings') settings.value = saved;
       notice.value = publish ? 'Saved and activated locally.': 'Settings saved.';
     });

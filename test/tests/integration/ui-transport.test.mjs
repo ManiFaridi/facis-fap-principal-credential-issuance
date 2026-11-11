@@ -199,11 +199,13 @@ test('disconnect rejects uncertain work once and never automatically resends a m
     h.close();
   }
 });
-test('branding accepts tenant identity but cannot remove the shared visual standard', () => {
+test('branding defaults to the shared visual standard and accepts readable tenant choices', () => {
   const value = sr2Branding({ title: 'Example organization', description: 'Credentials', footer: 'Support', layout: 'focused' });
   assert.equal(value.accent, '#005fff');
   assert.equal(value.font, 'system');
   assert.equal(value.corners, 'rounded');
-  for (const override of [{ font: 'serif' }, { corners: 'square' }, { accent: '#173c67' }, { background: '#ffffff' }]) assert.throws(() =>
+  for (const override of [{ font: 'serif' }, { corners: 'square' }, { accent: '#173c67' }, { background: '#ffffff' }]) assert.doesNotThrow(
+    () => sr2Branding({ ...value, ...override }));
+  for (const override of [{ font: 'fantasy' }, { corners: 'blob' }, { accent: '#ffff00' }, { background: '#111111' }]) assert.throws(() =>
     sr2Branding({ ...value, ...override }));
 });

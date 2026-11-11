@@ -45,6 +45,7 @@ const applyPublicConfiguration=()=>{};const completeLoginFromLocation=async()=>n
 const onBridgeReconnect=()=>()=>{};const initializeBridge=()=>{store.live.connected=true;};const bridgePing=async()=>({pong:true});
 ${source('src/state/store.js')}
 ${source('src/state/reducers.js')}
+${source('src/state/theme.js')}
 ${source('src/components/feedback.js')}
 const request=async(path,options={})=>{
   const response=await fetch(path,{...options,headers:{accept:'application/json',...(options.body?{'content-type':'application/json'}:{}),...(options.headers||{})}});

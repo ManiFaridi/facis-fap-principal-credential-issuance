@@ -104,6 +104,9 @@ export function sr2Metadata(value, origin) {
     tokenKeyRef: sr2Name(value.tokenKeyRef || 'preauth')
   };
 }
+export const SR2_BRANDING_FONTS = ['system', 'sans', 'serif', 'rounded', 'mono'];
+export const SR2_BRANDING_LAYOUTS = ['wide', 'focused', 'full'];
+export const SR2_BRANDING_CORNERS = ['rounded', 'soft', 'square'];
 export function sr2Branding(value) {
   sr2Object(value, [
     'title',
@@ -140,10 +143,10 @@ export function sr2Branding(value) {
   const font = value.font || 'system',
   layout = value.layout || 'wide',
   corners = value.corners || 'rounded';
-  sr2Assert(font === 'system' && ['wide', 'focused'].includes(layout) && corners === 'rounded',
-    'Use the FACIS sans-serif font and rounded corners.');
-  sr2Assert(accent.toLowerCase() === '#005fff' && background.toLowerCase() === '#e1e7ef' && foreground.toLowerCase() === '#1f2937',
-    'Use the shared FACIS blue, gray and text palette.');
+  // The same option lists as src/state/theme.js (asserted by test/tests/integration/tenant-theme.test.mjs).
+  sr2Assert(SR2_BRANDING_FONTS.includes(font), 'Choose one of the supported font stacks: ' + SR2_BRANDING_FONTS.join(', ') + '.');
+  sr2Assert(SR2_BRANDING_LAYOUTS.includes(layout), 'Choose one of the supported page widths: ' + SR2_BRANDING_LAYOUTS.join(', ') + '.');
+  sr2Assert(SR2_BRANDING_CORNERS.includes(corners), 'Choose one of the supported corner styles: ' + SR2_BRANDING_CORNERS.join(', ') + '.');
   return {
     title: sr2Text(value.title, 100),
     description: sr2Text(value.description, 1000, true),

@@ -45,6 +45,7 @@ export const PCI_UI_MODULES = [
   "src/utils/pkce.js",
   "src/state/store.js",
   "src/state/reducers.js",
+  "src/state/theme.js",
   "src/services/transport.js",
   "src/components/feedback.js",
   "src/services/api.js",

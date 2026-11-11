@@ -32,6 +32,7 @@ const source = file => stripModuleSyntax(fs.readFileSync(file, 'utf8'), file).re
 const logo = 'data:image/svg+xml;base64,' + fs.readFileSync('src/assets/facis-logo.svg').toString('base64');
 let browser;
 const failures = [], geometries = [];
+const field = (page, name) => page.locator('.settings-panel label').filter({ hasText: new RegExp('^\\s*' + name) }).locator('select');
 try {
   browser = await chromium.launch({
     headless: true,
@@ -83,6 +84,7 @@ try {
       const onBridgeReconnect = () => () => {}, initializeBridge = () => { store.live.connected = true; }, bridgePing = async () => ({ pong: true });
       ${source('src/state/store.js')}
       ${source('src/state/reducers.js')}
+      ${source('src/state/theme.js')}
       ${source('src/components/feedback.js')}
       const request = async (path, options = {}) => {
         const result = await globalThis.__pciDispatch(path, options);
@@ -124,6 +126,41 @@ try {
   }
   await page.getByRole('button', { name: 'Tenant settings', exact: true }).click();
   await page.getByRole('heading', { name: 'Tenant branding', exact: true }).waitFor();
+  // FR-PCI-60: a tenant theme is applied as soon as the branding is activated.
+  await page.setViewportSize({ width: 1440, height: 1000 });
+  await page.getByLabel('Accent color', { exact: true }).fill('#173c67');
+  await page.getByLabel('Page color', { exact: true }).fill('#ffffff');
+  await field(page, 'Font').selectOption('serif');
+  await field(page, 'Corners').selectOption('square');
+  await field(page, 'Content width').selectOption('full');
+  await page.getByRole('button', { name: 'Activate branding', exact: true }).click();
+  await page.waitForFunction(() => getComputedStyle(document.querySelector('.app-shell')).borderRadius === '0px');
+  await page.mouse.move(0, 0);
+  // Buttons animate their background for .2s; wait until the transition has settled.
+  await page.waitForFunction(() => getComputedStyle(document.querySelector('.settings-panel button:not(.secondary)')).backgroundColor ===
+    'rgb(23, 60, 103)', null, { timeout: 5000 });
+  const themed = await page.evaluate(() => {
+    const shell = document.querySelector('.app-shell'),
+    button = document.querySelector('.settings-panel button:not(.secondary)');
+    return {
+      primary: getComputedStyle(document.documentElement).getPropertyValue('--color-primary').trim(),
+      canvas: getComputedStyle(document.body).backgroundColor,
+      font: getComputedStyle(shell).fontFamily,
+      radius: getComputedStyle(shell).borderRadius,
+      shellWidth: shell.getBoundingClientRect().width,
+      viewport: innerWidth,
+      button: getComputedStyle(button).backgroundColor
+    };
+  });
+  assert.equal(themed.primary, '#173C67');
+  assert.equal(themed.button, 'rgb(23, 60, 103)');
+  assert.match(themed.font, /Georgia/);
+  assert.equal(themed.radius, '0px');
+  assert.ok(themed.shellWidth > 1200, 'full page width: the shell is wider than the standard 1200 px at a 1440 px viewport');
+  await page.getByRole('button', { name: 'Reset to FACIS defaults', exact: true }).click();
+  await page.getByRole('button', { name: 'Activate branding', exact: true }).click();
+  await page.waitForFunction(() => getComputedStyle(document.querySelector('.app-shell')).borderRadius === '20px');
+  assert.equal(await page.evaluate(() => getComputedStyle(document.documentElement).getPropertyValue('--color-primary').trim()), '#005FFF');
   assert.equal(await page.getByRole('heading', { name: 'Signing keys', exact: true }).count(), 0);
   await page.getByRole('button', { name: 'Signing keys', exact: true }).click();
   await page.getByRole('heading', { name: 'Signing keys', exact: true }).waitFor();
@@ -159,6 +196,8 @@ try {
       'four-views',
       'two-viewport-layouts',
       'separate-settings-tasks',
+      'tenant-theme-applied-on-activation',
+      'reset-to-facis-defaults',
       'create-configuration',
       'typed-validation',
       'persistent-error',

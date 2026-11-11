@@ -75,15 +75,7 @@ export function createPciRefreshActions(state, dependencies) {
           authServers.value = metadataForm.value.authorizationServers.join(', ');
         }
         branding.value = (await call('/branding')).item;
-        if (branding.value) brandingForm.value = {
-          ...brandingForm.value,
-          ...clone(branding.value.draft),
-          accent: '#005FFF',
-          background: '#E1E7EF',
-          foreground: '#1F2937',
-          font: 'system',
-          corners: 'rounded'
-        };
+        if (branding.value) brandingForm.value = { ...brandingForm.value, ...clone(branding.value.draft) };
         settings.value = (await call('/issuer-settings')).item;
         if (settings.value) settingsForm.value = clone(settings.value.draft);
         publication.value = await call('/publication');
