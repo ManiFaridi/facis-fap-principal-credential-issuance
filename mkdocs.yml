@@ -19,6 +19,7 @@ nav:
       - Identity: operations/identity.md
       - Manual input to credential claims: operations/journey-input.md
       - Operations: operations/runbook.md
+      - Troubleshooting and FAQ: operations/troubleshooting.md
       - Backup and rollback: operations/backup-rollback.md
       - Compatibility baseline: compatibility/compatibility-matrix.md
   - Architecture:
