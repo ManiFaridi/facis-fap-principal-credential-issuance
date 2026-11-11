@@ -17,7 +17,8 @@ import {
   seed,
   readLock,
   baseCommand,
-  flowFileName
+  flowFileName,
+  handOver
 } from '../../../deployment/image/seed-data.mjs';
 // A fake image root: the files the Dockerfile stages under /opt/fap-pci.
 function imageRoot(dir, { release = '0.5.0-test', commit = 'abc' } = {}) {
@@ -129,6 +130,8 @@ test('the lock file yields the base command and the flow file name follows setti
   const lock = readLock('deployment/image/base-image.lock');
   assert.equal(lock.BASE_REFERENCE, 'ecofacis/xfsc-orce:2.0.15');
   assert.equal(lock.UIBUILDER_VERSION, '7.5.0');
+  assert.match(lock.BASE_DIGEST, /^sha256:[a-f0-9]{64}$/);
+  assert.deepEqual(baseCommand(lock), { entrypoint: ['/usr/src/node-red/entrypoint.sh'], cmd: ['/bin/bash'] });
   assert.throws(() => baseCommand({}), /BASE_ENTRYPOINT is not recorded/);
   assert.deepEqual(baseCommand({ BASE_ENTRYPOINT: '["./entrypoint.sh"]', BASE_CMD: '["npm","start"]' }),
     { entrypoint: ['./entrypoint.sh'], cmd: ['npm', 'start'] });
@@ -136,4 +139,23 @@ test('the lock file yields the base command and the flow file name follows setti
   assert.equal(flowFileName(dir, []), 'flows.json');
   fs.writeFileSync(path.join(dir, 'settings.js'), 'module.exports = { flowFile: "orce-flows.json" };');
   assert.equal(flowFileName(dir), 'orce-flows.json');
+});
+test('files written as root are handed to the owner of /data, and nothing happens for other users', () => {
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'pci-seed-')),
+  data = path.join(dir, 'data');
+  fs.mkdirSync(path.join(data, 'uibuilder', 'ui', 'src'), { recursive: true });
+  fs.writeFileSync(path.join(data, 'flows.json'), '[]');
+  const calls = [];
+  const count = handOver(data, [path.join(data, 'flows.json'), path.join(data, 'uibuilder'), path.join(data, 'absent')], {
+    getuid: () => 0,
+    owner: () => ({ uid: 1000, gid: 1000 }),
+    chown: (target, uid, gid) => calls.push([path.relative(data, target), uid, gid])
+  });
+  assert.equal(count, 4);
+  assert.deepEqual(calls.map(c => c[0]).sort(), ['flows.json', 'uibuilder', 'uibuilder/ui', 'uibuilder/ui/src']);
+  assert.ok(calls.every(c => c[1] === 1000 && c[2] === 1000));
+  assert.equal(handOver(data, [path.join(data, 'flows.json')], { getuid: () => 0, owner: () => ({ uid: 0, gid: 0 }), chown: () => assert
+    .fail('root-owned /data') }), 0);
+  assert.equal(handOver(data, [path.join(data, 'flows.json')], { getuid: () => 1000, chown: () => assert.fail('no chown for non-root') }),
+    0);
 });

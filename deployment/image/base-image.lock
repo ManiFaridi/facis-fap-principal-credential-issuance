@@ -7,9 +7,9 @@
 #
 # key=value, one per line. Lines starting with # are comments.
 BASE_REFERENCE=ecofacis/xfsc-orce:2.0.15
-BASE_DIGEST=
+BASE_DIGEST=sha256:cd1ca5f52fb3f907daebc5e1de0dc2032b14d1541b246cedde79b03a47a30973
 # JSON arrays, exactly as `docker image inspect` reports Config.Entrypoint and Config.Cmd.
-BASE_ENTRYPOINT=
-BASE_CMD=
+BASE_ENTRYPOINT=["/usr/src/node-red/entrypoint.sh"]
+BASE_CMD=["/bin/bash"]
 # The uibuilder version G0 installs into /data (automation/stage1/ground-zero.sh).
 UIBUILDER_VERSION=7.5.0

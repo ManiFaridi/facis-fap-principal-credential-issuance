@@ -155,8 +155,27 @@ export function seed({ imageRoot, dataDir, uibuilderVersion, log = console.log, 
 
   // 5. Release marker.
   fs.writeFileSync(markerFile, JSON.stringify({ release, commit, uibuilderVersion, seededAt: new Date().toISOString() }, null, 2) + '\n');
+  // 6. Ownership: the ORCE base image starts as root and its entrypoint runs Node-RED as
+  // the owner of /data; files written here as root are handed to that owner.
+  const touched = [dataPackageFile, flowFile, uiDir, installDir, ...Object.keys(imagePackage.dependencies).map(n => path.join(dataDir, 'node_modules', n))];
+  handOver(dataDir, touched);
   log(JSON.stringify({ event: 'pci.image.seed', action: marker ? 'upgrade': 'install', release, commit, flowFile: path.basename(flowFile), nodes: incoming.length, uiFiles: uiFiles.length }));
   return { action: marker ? 'upgrade': 'install', release, flowFile };
+}
+export function handOver(dataDir, paths, { getuid = process.getuid, chown = fs.chownSync, owner = dir => fs.statSync(dir) } = {}) {
+  if (typeof getuid !== 'function' || getuid() !== 0) return 0;
+  const { uid, gid } = owner(dataDir);
+  if (uid === 0) return 0;
+  let count = 0;
+  const visit = target => {
+    if (!fs.existsSync(target)) return;
+    chown(target, uid, gid);
+    count += 1;
+    const stat = fs.lstatSync(target);
+    if (stat.isDirectory()) for (const entry of fs.readdirSync(target)) visit(path.join(target, entry));
+  };
+  for (const target of paths) visit(target);
+  return count;
 }
 function runNpm(npmArgs, cwd) {
   execFileSync('npm', npmArgs, { cwd, stdio: 'inherit' });
