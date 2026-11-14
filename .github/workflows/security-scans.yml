@@ -110,6 +110,8 @@ jobs:
           echo "${GITLEAKS_SHA256}  gitleaks.tgz" | sha256sum -c -
           tar -xzf gitleaks.tgz gitleaks
           ./gitleaks version
+      - name: Verify secret-scanner regression fixtures
+        run: python3 security/check-gitleaks.py --gitleaks ./gitleaks
       - name: Scan the commits of this change
         if: github.event_name == 'pull_request'
         run: |
@@ -147,6 +149,8 @@ jobs:
           echo "${KUBECONFORM_SHA256}  kubeconform.tgz" | sha256sum -c -
           tar -xzf kubeconform.tgz kubeconform
           ./kubeconform -v
+      - name: Verify manifest-schema regression fixtures
+        run: python3 security/check-kubeconform.py --kubeconform ./kubeconform
       - name: Render the charts and validate the manifests
         run: |
           mkdir -p rendered
@@ -155,7 +159,4 @@ jobs:
             --set serverName=telemetry.pci.svc.cluster.local,pciHost=pci.example.com > rendered/observability.yaml
           helm template --kube-version 1.34.0 participant deployment/helm/participant \
             --set image=example.invalid/participant:test,tenantId=alpha,issuer=https://identity.example,audience=participant-data,pciClientDns=pci.example,tlsSecret=tls,dataSecret=data,pciNamespace=pci > rendered/participant.yaml
-          ./kubeconform -strict -summary -kubernetes-version 1.34.0 \
-            -schema-location default \
-            -schema-location 'https://raw.githubusercontent.com/datreeio/CRDs-catalog/main/{{.Group}}/{{.ResourceKind}}_{{.ResourceAPIVersion}}.json' \
-            -ignore-missing-schemas rendered/
+          PCI_KUBECONFORM=./kubeconform bash security/validate-manifests.sh rendered/
