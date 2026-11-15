@@ -9,8 +9,8 @@
 // Prepared with AI-assisted tools and reviewed by the author.
 // Assisted-by: AI
 // Real browser HTTP integration against synthetic services, not cloud acceptance.
-import assert from 'node:assert/strict';
-import { createBrowserFixtureServer } from '../support/browser-fixture.mjs';
+import assert from "node:assert/strict";
+import { createBrowserFixtureServer } from "../support/browser-fixture.mjs";
 const { chromium } = await import (process.env.PCI_BROWSER_MODULE || 'playwright');
 const server = await createBrowserFixtureServer();
 let browser;

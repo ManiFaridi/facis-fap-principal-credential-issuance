@@ -14,10 +14,11 @@ FROM node:22-bookworm-slim AS build
 ARG SOURCE_COMMIT=unknown
 WORKDIR /src
 COPY package.json package-lock.json ./
-RUN npm ci --omit=dev --ignore-scripts --no-audit --no-fund
+RUN npm ci --include=dev --ignore-scripts --no-audit --no-fund
 COPY . .
 RUN node build.js \
- && test -s dist/fap-pci-flow.json && test -s dist/ui/index.js && test -s dist/ui/index.html
+ && test -s dist/fap-pci-flow.json && test -s dist/ui/index.js && test -s dist/ui/index.html \
+ && npm prune --omit=dev --ignore-scripts --no-audit --no-fund
 # Production dependencies of the Function nodes, resolved from the lock file.
 # node-red-contrib-uibuilder is installed into /data by the seeding step at the
 # version recorded in base-image.lock, so the ORCE runtime resolves it there.
