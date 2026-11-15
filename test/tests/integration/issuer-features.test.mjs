@@ -8,10 +8,10 @@
 //
 // Prepared with AI-assisted tools and reviewed by the author.
 // Assisted-by: AI
-import test from 'node:test';
-import assert from 'node:assert/strict';
-import fs from 'node:fs';
-import { issuerControllerFixture, deferred } from '../../support/issuer-controller.mjs';
+import test from "node:test";
+import assert from "node:assert/strict";
+import fs from "node:fs";
+import { issuerControllerFixture, deferred } from "../../support/issuer-controller.mjs";
 const requestId = 'd616ebf2-2874-426c-83f1-2f9aa0be45ee';
 test('issuer features import independently without Vue or browser globals', () => {
   const { ui } = issuerControllerFixture();
