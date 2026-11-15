@@ -5,11 +5,11 @@
 // https://www.apache.org/licenses/LICENSE-2.0.
 //
 // SPDX-License-Identifier: Apache-2.0
-import test from 'node:test';
-import assert from 'node:assert/strict';
-import fs from 'node:fs';
-import vm from 'node:vm';
-import { spawnSync } from 'node:child_process';
+import test from "node:test";
+import assert from "node:assert/strict";
+import fs from "node:fs";
+import vm from "node:vm";
+import { spawnSync } from "node:child_process";
 function python(source) {
   const result = spawnSync('python3', ['-B', '-'], { input: source, encoding: 'utf8' });
   assert.equal(result.status, 0, result.stderr);
