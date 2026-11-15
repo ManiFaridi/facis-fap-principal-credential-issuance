@@ -8,9 +8,9 @@
 //
 // Prepared with AI-assisted tools and reviewed by the author.
 // Assisted-by: AI
-import test from 'node:test';
-import assert from 'node:assert/strict';
-import fs from 'node:fs';
+import test from "node:test";
+import assert from "node:assert/strict";
+import fs from "node:fs";
 const read = p => fs.readFileSync(p, 'utf8');
 test('SR2 tabs, typed contracts, version and migration stay embedded in canonical release', () => {
   const flow = JSON.parse(read('dist/fap-pci-flow.json')),
