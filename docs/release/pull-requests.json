@@ -9,7 +9,7 @@
       "plannedAuthor": "Mani Faridi",
       "plannedReviewer": "Kian Najian",
       "inRemediationPlan": true,
-      "status": "prepared locally; not pushed; no review has taken place",
+      "status": "open on GitHub",
       "commits": [
         {
           "subject": "R1-1: licence gate, pinned runners and pull-request template"
@@ -39,9 +39,35 @@
       ],
       "aiAssistance": "Assisted-by: AI (commit trailer); the files listed in tools/licence-header-ai-files.txt carry the disclosure in their header",
       "implementsRequirements": true,
-      "issues": [],
-      "reviewRecord": null,
-      "mergedAt": null
+      "issues": [
+        2,
+        3
+      ],
+      "reviewRecord": {
+        "reviewer": "KianLeanea",
+        "firstReviewSubmittedAt": "2026-11-12T17:26:04Z",
+        "approvedAt": "2026-11-12T17:26:04Z",
+        "reviewsByOthers": 1,
+        "reviewStartedStated": "Pending",
+        "reviewCompletedStated": "Pending",
+        "approvedCommit": "20eec97ee88fedb3203655161224293bf3a41eb1",
+        "url": "https://github.com/eclipse-xfsc/facis-fap-principal-credential-issuance/pull/40#pullrequestreview-5879010794",
+        "approvedCommitMatchesRecordedHead": true
+      },
+      "mergedAt": null,
+      "pullRequest": {
+        "number": 40,
+        "url": "https://github.com/eclipse-xfsc/facis-fap-principal-credential-issuance/pull/40",
+        "author": "ManiFaridi"
+      },
+      "sizeOnGitHub": {
+        "added": 57,
+        "removed": 19,
+        "files": 13
+      },
+      "mergedBy": null,
+      "headCommitAtCollection": "20eec97ee88fedb3203655161224293bf3a41eb1",
+      "githubBaseCommitAtCollection": "2fa3a8af9e4a329f01d629b3510a03d95b3fb397"
     },
     {
       "id": "R1-2",
@@ -50,7 +76,7 @@
       "plannedAuthor": "Mani Faridi",
       "plannedReviewer": "Kian Najian",
       "inRemediationPlan": true,
-      "status": "prepared locally; not pushed; no review has taken place",
+      "status": "open on GitHub",
       "commits": [
         {
           "subject": "R1-2: dependency, vulnerability, secret and manifest scans"
@@ -82,9 +108,34 @@
       ],
       "aiAssistance": "Assisted-by: AI (commit trailer); the files listed in tools/licence-header-ai-files.txt carry the disclosure in their header",
       "implementsRequirements": true,
-      "issues": [],
-      "reviewRecord": null,
-      "mergedAt": null
+      "issues": [
+        4
+      ],
+      "reviewRecord": {
+        "reviewer": "KianLeanea",
+        "firstReviewSubmittedAt": "2026-11-12T19:41:02Z",
+        "approvedAt": "2026-11-14T21:03:13Z",
+        "reviewsByOthers": 4,
+        "reviewStartedStated": "Pending",
+        "reviewCompletedStated": "Pending",
+        "approvedCommit": "033e16beb8ceb67bc0a1aa3270a520f1f9b4856f",
+        "url": "https://github.com/eclipse-xfsc/facis-fap-principal-credential-issuance/pull/41#pullrequestreview-5907146980",
+        "approvedCommitMatchesRecordedHead": false
+      },
+      "mergedAt": null,
+      "pullRequest": {
+        "number": 41,
+        "url": "https://github.com/eclipse-xfsc/facis-fap-principal-credential-issuance/pull/41",
+        "author": "ManiFaridi"
+      },
+      "sizeOnGitHub": {
+        "added": 4173,
+        "removed": 59,
+        "files": 30
+      },
+      "mergedBy": null,
+      "headCommitAtCollection": "d1b69a4e63168ffe3a7200edfa6212628a07f3e9",
+      "githubBaseCommitAtCollection": "2fa3a8af9e4a329f01d629b3510a03d95b3fb397"
     },
     {
       "id": "R1-3",
@@ -93,7 +144,7 @@
       "plannedAuthor": "Mani Faridi",
       "plannedReviewer": "Kian Najian",
       "inRemediationPlan": true,
-      "status": "prepared locally; not pushed; no review has taken place",
+      "status": "open on GitHub",
       "commits": [
         {
           "subject": "R1-3: dependency updates are reported as an issue, not pushed"
@@ -114,9 +165,34 @@
       ],
       "aiAssistance": "Assisted-by: AI (commit trailer); the files listed in tools/licence-header-ai-files.txt carry the disclosure in their header",
       "implementsRequirements": true,
-      "issues": [],
-      "reviewRecord": null,
-      "mergedAt": null
+      "issues": [
+        5
+      ],
+      "reviewRecord": {
+        "reviewer": "KianLeanea",
+        "firstReviewSubmittedAt": "2026-11-14T09:35:01Z",
+        "approvedAt": "2026-11-14T21:09:35Z",
+        "reviewsByOthers": 4,
+        "reviewStartedStated": "Pending",
+        "reviewCompletedStated": "Pending",
+        "approvedCommit": "6b26ea4573168b7c7b7b0c20cbfb7a14baa3afc4",
+        "url": "https://github.com/eclipse-xfsc/facis-fap-principal-credential-issuance/pull/42#pullrequestreview-5907172022",
+        "approvedCommitMatchesRecordedHead": false
+      },
+      "mergedAt": null,
+      "pullRequest": {
+        "number": 42,
+        "url": "https://github.com/eclipse-xfsc/facis-fap-principal-credential-issuance/pull/42",
+        "author": "ManiFaridi"
+      },
+      "sizeOnGitHub": {
+        "added": 4457,
+        "removed": 162,
+        "files": 32
+      },
+      "mergedBy": null,
+      "headCommitAtCollection": "c28245d4900aa02499c9fa007e1f586cd9253e9c",
+      "githubBaseCommitAtCollection": "2fa3a8af9e4a329f01d629b3510a03d95b3fb397"
     },
     {
       "id": "R2-1",
@@ -125,7 +201,7 @@
       "plannedAuthor": "Mani Faridi",
       "plannedReviewer": "Kian Najian",
       "inRemediationPlan": true,
-      "status": "prepared locally; not pushed; no review has taken place",
+      "status": "open on GitHub",
       "commits": [
         {
           "subject": "R2-1: take acorn from the npm registry and strip module syntax by syntax"
@@ -148,9 +224,34 @@
       ],
       "aiAssistance": "Assisted-by: AI (commit trailer); the files listed in tools/licence-header-ai-files.txt carry the disclosure in their header",
       "implementsRequirements": true,
-      "issues": [],
-      "reviewRecord": null,
-      "mergedAt": null
+      "issues": [
+        6
+      ],
+      "reviewRecord": {
+        "reviewer": "KianLeanea",
+        "firstReviewSubmittedAt": "2026-11-14T10:14:22Z",
+        "approvedAt": "2026-11-14T21:23:33Z",
+        "reviewsByOthers": 4,
+        "reviewStartedStated": "Pending",
+        "reviewCompletedStated": "Pending",
+        "approvedCommit": "baa2c9aabfa9a576a3c9012b9a46fd3e29713c50",
+        "url": "https://github.com/eclipse-xfsc/facis-fap-principal-credential-issuance/pull/43#pullrequestreview-5907220513",
+        "approvedCommitMatchesRecordedHead": false
+      },
+      "mergedAt": null,
+      "pullRequest": {
+        "number": 43,
+        "url": "https://github.com/eclipse-xfsc/facis-fap-principal-credential-issuance/pull/43",
+        "author": "ManiFaridi"
+      },
+      "sizeOnGitHub": {
+        "added": 4852,
+        "removed": 191,
+        "files": 41
+      },
+      "mergedBy": null,
+      "headCommitAtCollection": "9cfe1d8a9ad8c116980a0c4d9c59918b928a3e38",
+      "githubBaseCommitAtCollection": "2fa3a8af9e4a329f01d629b3510a03d95b3fb397"
     },
     {
       "id": "R2-2",
@@ -159,7 +260,7 @@
       "plannedAuthor": "Mani Faridi",
       "plannedReviewer": "Kian Najian",
       "inRemediationPlan": true,
-      "status": "prepared locally; not pushed; no review has taken place",
+      "status": "open on GitHub",
       "commits": [
         {
           "subject": "R2-2: source formatter, applied once to the authored sources"
@@ -258,9 +359,34 @@
       ],
       "aiAssistance": "Assisted-by: AI (commit trailer); the files listed in tools/licence-header-ai-files.txt carry the disclosure in their header",
       "implementsRequirements": false,
-      "issues": [],
-      "reviewRecord": null,
-      "mergedAt": null
+      "issues": [
+        7
+      ],
+      "reviewRecord": {
+        "reviewer": "KianLeanea",
+        "firstReviewSubmittedAt": "2026-11-14T12:14:58Z",
+        "approvedAt": "2026-11-14T12:14:58Z",
+        "reviewsByOthers": 1,
+        "reviewStartedStated": "Pending",
+        "reviewCompletedStated": "Pending",
+        "approvedCommit": "1ebc288d74ecb70d9dd592cd0b62818a0f3dd1e5",
+        "url": "https://github.com/eclipse-xfsc/facis-fap-principal-credential-issuance/pull/44#pullrequestreview-5904291653",
+        "approvedCommitMatchesRecordedHead": false
+      },
+      "mergedAt": null,
+      "pullRequest": {
+        "number": 44,
+        "url": "https://github.com/eclipse-xfsc/facis-fap-principal-credential-issuance/pull/44",
+        "author": "ManiFaridi"
+      },
+      "sizeOnGitHub": {
+        "added": 21172,
+        "removed": 5568,
+        "files": 173
+      },
+      "mergedBy": null,
+      "headCommitAtCollection": "3bc4ecc5b7cbe855bcdb852f82d3791eb49d6a68",
+      "githubBaseCommitAtCollection": "2fa3a8af9e4a329f01d629b3510a03d95b3fb397"
     },
     {
       "id": "R2-3",
@@ -269,7 +395,7 @@
       "plannedAuthor": "Mani Faridi",
       "plannedReviewer": "Kian Najian",
       "inRemediationPlan": true,
-      "status": "prepared locally; not pushed; no review has taken place",
+      "status": "open on GitHub",
       "commits": [
         {
           "subject": "R2-3: backend restructuring and input hardening"
@@ -299,9 +425,34 @@
       ],
       "aiAssistance": "Assisted-by: AI (commit trailer); the files listed in tools/licence-header-ai-files.txt carry the disclosure in their header",
       "implementsRequirements": true,
-      "issues": [],
-      "reviewRecord": null,
-      "mergedAt": null
+      "issues": [
+        8
+      ],
+      "reviewRecord": {
+        "reviewer": "KianLeanea",
+        "firstReviewSubmittedAt": "2026-11-14T14:25:21Z",
+        "approvedAt": "2026-11-14T14:25:21Z",
+        "reviewsByOthers": 1,
+        "reviewStartedStated": "Pending",
+        "reviewCompletedStated": "Pending",
+        "approvedCommit": "99fa2d012b2d8b3ae61785d983b13cce4fd50079",
+        "url": "https://github.com/eclipse-xfsc/facis-fap-principal-credential-issuance/pull/45#pullrequestreview-5904901168",
+        "approvedCommitMatchesRecordedHead": false
+      },
+      "mergedAt": null,
+      "pullRequest": {
+        "number": 45,
+        "url": "https://github.com/eclipse-xfsc/facis-fap-principal-credential-issuance/pull/45",
+        "author": "ManiFaridi"
+      },
+      "sizeOnGitHub": {
+        "added": 21341,
+        "removed": 5599,
+        "files": 178
+      },
+      "mergedBy": null,
+      "headCommitAtCollection": "b868c52d188910e23e4c92f9bed70ae1d2695b80",
+      "githubBaseCommitAtCollection": "2fa3a8af9e4a329f01d629b3510a03d95b3fb397"
     },
     {
       "id": "R2-4",
@@ -310,7 +461,7 @@
       "plannedAuthor": "Mani Faridi",
       "plannedReviewer": "Kian Najian",
       "inRemediationPlan": true,
-      "status": "prepared locally; not pushed; no review has taken place",
+      "status": "open on GitHub",
       "commits": [
         {
           "subject": "R2-4: bundle-graph checks, maintainability gate and committed rules"
@@ -336,9 +487,34 @@
       ],
       "aiAssistance": "Assisted-by: AI (commit trailer); the files listed in tools/licence-header-ai-files.txt carry the disclosure in their header",
       "implementsRequirements": true,
-      "issues": [],
-      "reviewRecord": null,
-      "mergedAt": null
+      "issues": [
+        9
+      ],
+      "reviewRecord": {
+        "reviewer": "KianLeanea",
+        "firstReviewSubmittedAt": "2026-11-14T14:41:24Z",
+        "approvedAt": "2026-11-14T21:28:08Z",
+        "reviewsByOthers": 3,
+        "reviewStartedStated": "Pending",
+        "reviewCompletedStated": "Pending",
+        "approvedCommit": "2bd8957c7c8b76704b56eadd0c7150b5acb2aa0f",
+        "url": "https://github.com/eclipse-xfsc/facis-fap-principal-credential-issuance/pull/46#pullrequestreview-5907235744",
+        "approvedCommitMatchesRecordedHead": false
+      },
+      "mergedAt": null,
+      "pullRequest": {
+        "number": 46,
+        "url": "https://github.com/eclipse-xfsc/facis-fap-principal-credential-issuance/pull/46",
+        "author": "ManiFaridi"
+      },
+      "sizeOnGitHub": {
+        "added": 22168,
+        "removed": 5781,
+        "files": 183
+      },
+      "mergedBy": null,
+      "headCommitAtCollection": "a9ecfb2cc49383b6f242d334ee1af6aaa7885c1b",
+      "githubBaseCommitAtCollection": "2fa3a8af9e4a329f01d629b3510a03d95b3fb397"
     },
     {
       "id": "R2-5",
@@ -347,7 +523,7 @@
       "plannedAuthor": "Mani Faridi",
       "plannedReviewer": "Atoosa Eslami",
       "inRemediationPlan": true,
-      "status": "prepared locally; not pushed; no review has taken place",
+      "status": "open on GitHub",
       "commits": [
         {
           "subject": "R2-5: issuer user interface split into state, action and view modules"
@@ -404,9 +580,34 @@
       ],
       "aiAssistance": "Assisted-by: AI (commit trailer); the files listed in tools/licence-header-ai-files.txt carry the disclosure in their header",
       "implementsRequirements": true,
-      "issues": [],
-      "reviewRecord": null,
-      "mergedAt": null
+      "issues": [
+        10
+      ],
+      "reviewRecord": {
+        "reviewer": "leaneagmbh",
+        "firstReviewSubmittedAt": "2026-11-12T14:10:44Z",
+        "approvedAt": "2026-11-12T14:10:44Z",
+        "reviewsByOthers": 1,
+        "reviewStartedStated": "Pending",
+        "reviewCompletedStated": "Pending",
+        "approvedCommit": "96a4cbf1a800dda813c58b07a63e8d339722d0e4",
+        "url": "https://github.com/eclipse-xfsc/facis-fap-principal-credential-issuance/pull/47#pullrequestreview-5875858878",
+        "approvedCommitMatchesRecordedHead": false
+      },
+      "mergedAt": null,
+      "pullRequest": {
+        "number": 47,
+        "url": "https://github.com/eclipse-xfsc/facis-fap-principal-credential-issuance/pull/47",
+        "author": "ManiFaridi"
+      },
+      "sizeOnGitHub": {
+        "added": 25526,
+        "removed": 5950,
+        "files": 217
+      },
+      "mergedBy": null,
+      "headCommitAtCollection": "3645ecea59ffe72a46b802a4b2da4dd641884732",
+      "githubBaseCommitAtCollection": "2fa3a8af9e4a329f01d629b3510a03d95b3fb397"
     },
     {
       "id": "R2-6",
@@ -415,7 +616,7 @@
       "plannedAuthor": "Mani Faridi",
       "plannedReviewer": "Kian Najian",
       "inRemediationPlan": true,
-      "status": "prepared locally; not pushed; no review has taken place",
+      "status": "open on GitHub",
       "commits": [
         {
           "subject": "R2-6a (test): progress flag must stay set until the last overlapping operation settles"
@@ -464,9 +665,38 @@
       ],
       "aiAssistance": "Assisted-by: AI (commit trailer); the files listed in tools/licence-header-ai-files.txt carry the disclosure in their header",
       "implementsRequirements": true,
-      "issues": [],
-      "reviewRecord": null,
-      "mergedAt": null
+      "issues": [
+        11,
+        12,
+        13,
+        14,
+        15
+      ],
+      "reviewRecord": {
+        "reviewer": "KianLeanea",
+        "firstReviewSubmittedAt": "2026-11-14T15:45:40Z",
+        "approvedAt": "2026-11-15T10:13:27Z",
+        "reviewsByOthers": 4,
+        "reviewStartedStated": "Pending",
+        "reviewCompletedStated": "Pending",
+        "approvedCommit": "081cbb2a57ddd287525693b2f195d4ac01c409ed",
+        "url": "https://github.com/eclipse-xfsc/facis-fap-principal-credential-issuance/pull/48#pullrequestreview-5910201058",
+        "approvedCommitMatchesRecordedHead": false
+      },
+      "mergedAt": null,
+      "pullRequest": {
+        "number": 48,
+        "url": "https://github.com/eclipse-xfsc/facis-fap-principal-credential-issuance/pull/48",
+        "author": "ManiFaridi"
+      },
+      "sizeOnGitHub": {
+        "added": 25997,
+        "removed": 5958,
+        "files": 219
+      },
+      "mergedBy": null,
+      "headCommitAtCollection": "8cbd6d63198f69f8499175d5c122429bd6337cb2",
+      "githubBaseCommitAtCollection": "2fa3a8af9e4a329f01d629b3510a03d95b3fb397"
     },
     {
       "id": "R2-7",
@@ -475,7 +705,7 @@
       "plannedAuthor": "Mani Faridi",
       "plannedReviewer": "Atoosa Eslami",
       "inRemediationPlan": true,
-      "status": "prepared locally; not pushed; no review has taken place",
+      "status": "open on GitHub",
       "commits": [
         {
           "subject": "R2-7: deployed UX test runner, collector and run summary for FR-PCI-61"
@@ -502,9 +732,34 @@
       ],
       "aiAssistance": "Assisted-by: AI (commit trailer); the files listed in tools/licence-header-ai-files.txt carry the disclosure in their header",
       "implementsRequirements": true,
-      "issues": [],
-      "reviewRecord": null,
-      "mergedAt": null
+      "issues": [
+        16
+      ],
+      "reviewRecord": {
+        "reviewer": "leaneagmbh",
+        "firstReviewSubmittedAt": "2026-11-13T11:26:39Z",
+        "approvedAt": "2026-11-13T11:26:39Z",
+        "reviewsByOthers": 1,
+        "reviewStartedStated": "Pending",
+        "reviewCompletedStated": "Pending",
+        "approvedCommit": "c25dc2a6a82b723b1361f76d2970a73044b11fff",
+        "url": "https://github.com/eclipse-xfsc/facis-fap-principal-credential-issuance/pull/49#pullrequestreview-5890130463",
+        "approvedCommitMatchesRecordedHead": false
+      },
+      "mergedAt": null,
+      "pullRequest": {
+        "number": 49,
+        "url": "https://github.com/eclipse-xfsc/facis-fap-principal-credential-issuance/pull/49",
+        "author": "ManiFaridi"
+      },
+      "sizeOnGitHub": {
+        "added": 26731,
+        "removed": 5978,
+        "files": 230
+      },
+      "mergedBy": null,
+      "headCommitAtCollection": "4504d37e85f8dcd15aa27acaa278189913e2d61d",
+      "githubBaseCommitAtCollection": "2fa3a8af9e4a329f01d629b3510a03d95b3fb397"
     },
     {
       "id": "R2-8",
@@ -513,7 +768,7 @@
       "plannedAuthor": "Mani Faridi",
       "plannedReviewer": "Atoosa Eslami",
       "inRemediationPlan": true,
-      "status": "prepared locally; not pushed; no review has taken place",
+      "status": "open on GitHub",
       "commits": [
         {
           "subject": "R2-8: requirements catalogue, acceptance gates, NOTICE and contribution process"
@@ -547,9 +802,25 @@
       ],
       "aiAssistance": "Assisted-by: AI (commit trailer); the files listed in tools/licence-header-ai-files.txt carry the disclosure in their header",
       "implementsRequirements": true,
-      "issues": [],
+      "issues": [
+        17,
+        18
+      ],
       "reviewRecord": null,
-      "mergedAt": null
+      "mergedAt": null,
+      "pullRequest": {
+        "number": 50,
+        "url": "https://github.com/eclipse-xfsc/facis-fap-principal-credential-issuance/pull/50",
+        "author": "ManiFaridi"
+      },
+      "sizeOnGitHub": {
+        "added": 30662,
+        "removed": 6901,
+        "files": 245
+      },
+      "mergedBy": null,
+      "headCommitAtCollection": "fde8f13de0a422cc1ae42d277d8e5ba52a6ada62",
+      "githubBaseCommitAtCollection": "2fa3a8af9e4a329f01d629b3510a03d95b3fb397"
     },
     {
       "id": "R2-9",
@@ -558,7 +829,7 @@
       "plannedAuthor": "Mani Faridi",
       "plannedReviewer": "Kian Najian",
       "inRemediationPlan": true,
-      "status": "prepared locally; not pushed; no review has taken place",
+      "status": "open on GitHub",
       "commits": [
         {
           "subject": "R2-9: copyright and licence headers with SPDX identifiers; example hostnames"
@@ -811,9 +1082,34 @@
       ],
       "aiAssistance": "Assisted-by: AI (commit trailer); the files listed in tools/licence-header-ai-files.txt carry the disclosure in their header",
       "implementsRequirements": false,
-      "issues": [],
-      "reviewRecord": null,
-      "mergedAt": null
+      "issues": [
+        19
+      ],
+      "reviewRecord": {
+        "reviewer": "KianLeanea",
+        "firstReviewSubmittedAt": "2026-11-14T16:29:00Z",
+        "approvedAt": "2026-11-14T18:05:53Z",
+        "reviewsByOthers": 3,
+        "reviewStartedStated": "Pending",
+        "reviewCompletedStated": "Pending",
+        "approvedCommit": "9b718f06f897643c0ef040ca9889f4ca57a78d39",
+        "url": "https://github.com/eclipse-xfsc/facis-fap-principal-credential-issuance/pull/51#pullrequestreview-5906235652",
+        "approvedCommitMatchesRecordedHead": false
+      },
+      "mergedAt": null,
+      "pullRequest": {
+        "number": 51,
+        "url": "https://github.com/eclipse-xfsc/facis-fap-principal-credential-issuance/pull/51",
+        "author": "ManiFaridi"
+      },
+      "sizeOnGitHub": {
+        "added": 33325,
+        "removed": 6906,
+        "files": 299
+      },
+      "mergedBy": null,
+      "headCommitAtCollection": "b36f462afdacaa2fbf9b591bb01b18453570b71e",
+      "githubBaseCommitAtCollection": "2fa3a8af9e4a329f01d629b3510a03d95b3fb397"
     },
     {
       "id": "R2-10",
@@ -822,7 +1118,7 @@
       "plannedAuthor": "Mani Faridi",
       "plannedReviewer": "Atoosa Eslami",
       "inRemediationPlan": false,
-      "status": "prepared locally; not pushed; no review has taken place",
+      "status": "open on GitHub",
       "commits": [
         {
           "subject": "R2-10: tenant theme: colors, font, corners and page width (FR-PCI-60)"
@@ -856,9 +1152,34 @@
       ],
       "aiAssistance": "Assisted-by: AI (commit trailer); the files listed in tools/licence-header-ai-files.txt carry the disclosure in their header",
       "implementsRequirements": true,
-      "issues": [],
-      "reviewRecord": null,
-      "mergedAt": null
+      "issues": [
+        34
+      ],
+      "reviewRecord": {
+        "reviewer": "leaneagmbh",
+        "firstReviewSubmittedAt": "2026-11-13T12:45:15Z",
+        "approvedAt": "2026-11-13T12:45:15Z",
+        "reviewsByOthers": 1,
+        "reviewStartedStated": "Pending",
+        "reviewCompletedStated": "Pending",
+        "approvedCommit": "8f046dafc66263da83cc44dd7b7e8d8103f848eb",
+        "url": "https://github.com/eclipse-xfsc/facis-fap-principal-credential-issuance/pull/61#pullrequestreview-5891232198",
+        "approvedCommitMatchesRecordedHead": false
+      },
+      "mergedAt": null,
+      "pullRequest": {
+        "number": 61,
+        "url": "https://github.com/eclipse-xfsc/facis-fap-principal-credential-issuance/pull/61",
+        "author": "ManiFaridi"
+      },
+      "sizeOnGitHub": {
+        "added": 36573,
+        "removed": 7067,
+        "files": 329
+      },
+      "mergedBy": null,
+      "headCommitAtCollection": "968e58a9640891c6cc9ae9710b59375edd819688",
+      "githubBaseCommitAtCollection": "2fa3a8af9e4a329f01d629b3510a03d95b3fb397"
     },
     {
       "id": "R3-1",
@@ -867,7 +1188,7 @@
       "plannedAuthor": "Kian Najian",
       "plannedReviewer": "Atoosa Eslami",
       "inRemediationPlan": true,
-      "status": "prepared locally; not pushed; no review has taken place",
+      "status": "open on GitHub",
       "commits": [
         {
           "subject": "R3-1: characterisation tests for the authentication actions"
@@ -884,9 +1205,34 @@
       ],
       "aiAssistance": "Assisted-by: AI (commit trailer); the files listed in tools/licence-header-ai-files.txt carry the disclosure in their header",
       "implementsRequirements": true,
-      "issues": [],
-      "reviewRecord": null,
-      "mergedAt": null
+      "issues": [
+        20
+      ],
+      "reviewRecord": {
+        "reviewer": "leaneagmbh",
+        "firstReviewSubmittedAt": "2026-11-15T10:49:21Z",
+        "approvedAt": "2026-11-15T10:49:21Z",
+        "reviewsByOthers": 1,
+        "reviewStartedStated": "Pending",
+        "reviewCompletedStated": "Pending",
+        "approvedCommit": "810087169e4ab137b24fb838b06b530dcb43c509",
+        "url": "https://github.com/eclipse-xfsc/facis-fap-principal-credential-issuance/pull/52#pullrequestreview-5910314187",
+        "approvedCommitMatchesRecordedHead": true
+      },
+      "mergedAt": null,
+      "pullRequest": {
+        "number": 52,
+        "url": "https://github.com/eclipse-xfsc/facis-fap-principal-credential-issuance/pull/52",
+        "author": "KianLeanea"
+      },
+      "sizeOnGitHub": {
+        "added": 26745,
+        "removed": 4592,
+        "files": 299
+      },
+      "mergedBy": null,
+      "headCommitAtCollection": "810087169e4ab137b24fb838b06b530dcb43c509",
+      "githubBaseCommitAtCollection": "2fa3a8af9e4a329f01d629b3510a03d95b3fb397"
     },
     {
       "id": "R3-2",
@@ -895,7 +1241,7 @@
       "plannedAuthor": "Kian Najian",
       "plannedReviewer": "Atoosa Eslami",
       "inRemediationPlan": true,
-      "status": "prepared locally; not pushed; no review has taken place",
+      "status": "open on GitHub",
       "commits": [
         {
           "subject": "R3-2 (test): characterisation of the SR2 transport wrapper"
@@ -916,9 +1262,34 @@
       ],
       "aiAssistance": "Assisted-by: AI (commit trailer); the files listed in tools/licence-header-ai-files.txt carry the disclosure in their header",
       "implementsRequirements": true,
-      "issues": [],
-      "reviewRecord": null,
-      "mergedAt": null
+      "issues": [
+        21
+      ],
+      "reviewRecord": {
+        "reviewer": "leaneagmbh",
+        "firstReviewSubmittedAt": "2026-11-13T12:09:16Z",
+        "approvedAt": "2026-11-13T12:09:16Z",
+        "reviewsByOthers": 1,
+        "reviewStartedStated": "Pending",
+        "reviewCompletedStated": "Pending",
+        "approvedCommit": "5e70375be884c048cd5b584e2982e6905b820ab6",
+        "url": "https://github.com/eclipse-xfsc/facis-fap-principal-credential-issuance/pull/53#pullrequestreview-5890713294",
+        "approvedCommitMatchesRecordedHead": false
+      },
+      "mergedAt": null,
+      "pullRequest": {
+        "number": 53,
+        "url": "https://github.com/eclipse-xfsc/facis-fap-principal-credential-issuance/pull/53",
+        "author": "KianLeanea"
+      },
+      "sizeOnGitHub": {
+        "added": 26958,
+        "removed": 4599,
+        "files": 300
+      },
+      "mergedBy": null,
+      "headCommitAtCollection": "9e177f17093e75b9e009293904dc7508e3bbe926",
+      "githubBaseCommitAtCollection": "2fa3a8af9e4a329f01d629b3510a03d95b3fb397"
     },
     {
       "id": "R3-3",
@@ -927,7 +1298,7 @@
       "plannedAuthor": "Kian Najian",
       "plannedReviewer": "Atoosa Eslami",
       "inRemediationPlan": true,
-      "status": "prepared locally; not pushed; no review has taken place",
+      "status": "open on GitHub",
       "commits": [
         {
           "subject": "R3-3 (refactor): group the native adapter methods by concern"
@@ -943,9 +1314,34 @@
       ],
       "aiAssistance": "Assisted-by: AI (commit trailer); the files listed in tools/licence-header-ai-files.txt carry the disclosure in their header",
       "implementsRequirements": true,
-      "issues": [],
-      "reviewRecord": null,
-      "mergedAt": null
+      "issues": [
+        22
+      ],
+      "reviewRecord": {
+        "reviewer": "leaneagmbh",
+        "firstReviewSubmittedAt": "2026-11-13T12:15:00Z",
+        "approvedAt": "2026-11-13T12:15:00Z",
+        "reviewsByOthers": 1,
+        "reviewStartedStated": "Pending",
+        "reviewCompletedStated": "Pending",
+        "approvedCommit": "bfd914848d963e132af1020d758beb527576603f",
+        "url": "https://github.com/eclipse-xfsc/facis-fap-principal-credential-issuance/pull/54#pullrequestreview-5890794214",
+        "approvedCommitMatchesRecordedHead": false
+      },
+      "mergedAt": null,
+      "pullRequest": {
+        "number": 54,
+        "url": "https://github.com/eclipse-xfsc/facis-fap-principal-credential-issuance/pull/54",
+        "author": "KianLeanea"
+      },
+      "sizeOnGitHub": {
+        "added": 27003,
+        "removed": 4604,
+        "files": 300
+      },
+      "mergedBy": null,
+      "headCommitAtCollection": "5cbb0b41515174c7f0460b15f8c3b0a94a01bb7f",
+      "githubBaseCommitAtCollection": "2fa3a8af9e4a329f01d629b3510a03d95b3fb397"
     },
     {
       "id": "R3-4",
@@ -954,7 +1350,7 @@
       "plannedAuthor": "Kian Najian",
       "plannedReviewer": "Atoosa Eslami",
       "inRemediationPlan": true,
-      "status": "prepared locally; not pushed; no review has taken place",
+      "status": "open on GitHub",
       "commits": [
         {
           "subject": "R3-4 (refactor): one function per authentication action"
@@ -970,9 +1366,34 @@
       ],
       "aiAssistance": "Assisted-by: AI (commit trailer); the files listed in tools/licence-header-ai-files.txt carry the disclosure in their header",
       "implementsRequirements": true,
-      "issues": [],
-      "reviewRecord": null,
-      "mergedAt": null
+      "issues": [
+        23
+      ],
+      "reviewRecord": {
+        "reviewer": "leaneagmbh",
+        "firstReviewSubmittedAt": "2026-11-13T12:22:44Z",
+        "approvedAt": "2026-11-13T12:22:44Z",
+        "reviewsByOthers": 1,
+        "reviewStartedStated": "Pending",
+        "reviewCompletedStated": "Pending",
+        "approvedCommit": "0da8dab5f82a558e3ce0e8ac81ff8e55da26dee6",
+        "url": "https://github.com/eclipse-xfsc/facis-fap-principal-credential-issuance/pull/55#pullrequestreview-5890901250",
+        "approvedCommitMatchesRecordedHead": false
+      },
+      "mergedAt": null,
+      "pullRequest": {
+        "number": 55,
+        "url": "https://github.com/eclipse-xfsc/facis-fap-principal-credential-issuance/pull/55",
+        "author": "KianLeanea"
+      },
+      "sizeOnGitHub": {
+        "added": 27117,
+        "removed": 4681,
+        "files": 300
+      },
+      "mergedBy": null,
+      "headCommitAtCollection": "d5edf78104b8e0c03ca968e92318c2bd34297a4d",
+      "githubBaseCommitAtCollection": "2fa3a8af9e4a329f01d629b3510a03d95b3fb397"
     },
     {
       "id": "R3-5",
@@ -981,7 +1402,7 @@
       "plannedAuthor": "Kian Najian",
       "plannedReviewer": "Atoosa Eslami",
       "inRemediationPlan": true,
-      "status": "prepared locally; not pushed; no review has taken place",
+      "status": "open on GitHub",
       "commits": [
         {
           "subject": "R3-5: function-size and complexity limits of the gate extended to backend/"
@@ -999,9 +1420,34 @@
       ],
       "aiAssistance": "Assisted-by: AI (commit trailer); the files listed in tools/licence-header-ai-files.txt carry the disclosure in their header",
       "implementsRequirements": true,
-      "issues": [],
-      "reviewRecord": null,
-      "mergedAt": null
+      "issues": [
+        24
+      ],
+      "reviewRecord": {
+        "reviewer": "leaneagmbh",
+        "firstReviewSubmittedAt": "2026-11-13T12:32:23Z",
+        "approvedAt": "2026-11-13T12:32:23Z",
+        "reviewsByOthers": 1,
+        "reviewStartedStated": "Pending",
+        "reviewCompletedStated": "Pending",
+        "approvedCommit": "819d75fdaca6d1f088dd394ec73cd7cc316832d2",
+        "url": "https://github.com/eclipse-xfsc/facis-fap-principal-credential-issuance/pull/56#pullrequestreview-5891041976",
+        "approvedCommitMatchesRecordedHead": false
+      },
+      "mergedAt": null,
+      "pullRequest": {
+        "number": 56,
+        "url": "https://github.com/eclipse-xfsc/facis-fap-principal-credential-issuance/pull/56",
+        "author": "KianLeanea"
+      },
+      "sizeOnGitHub": {
+        "added": 27331,
+        "removed": 4681,
+        "files": 300
+      },
+      "mergedBy": null,
+      "headCommitAtCollection": "91ba864c5004821a7f88583611d0199375dd3853",
+      "githubBaseCommitAtCollection": "2fa3a8af9e4a329f01d629b3510a03d95b3fb397"
     },
     {
       "id": "R3-6",
@@ -1010,7 +1456,7 @@
       "plannedAuthor": "Mani Faridi",
       "plannedReviewer": "Kian Najian",
       "inRemediationPlan": true,
-      "status": "prepared locally; not pushed; no review has taken place",
+      "status": "open on GitHub",
       "commits": [
         {
           "subject": "R3-6: formatter applied to test/; long test literals split; line rules cover test/"
@@ -1105,9 +1551,34 @@
       ],
       "aiAssistance": "Assisted-by: AI (commit trailer); the files listed in tools/licence-header-ai-files.txt carry the disclosure in their header",
       "implementsRequirements": false,
-      "issues": [],
-      "reviewRecord": null,
-      "mergedAt": null
+      "issues": [
+        25
+      ],
+      "reviewRecord": {
+        "reviewer": "KianLeanea",
+        "firstReviewSubmittedAt": "2026-11-15T10:22:14Z",
+        "approvedAt": "2026-11-15T10:22:14Z",
+        "reviewsByOthers": 1,
+        "reviewStartedStated": "Pending",
+        "reviewCompletedStated": "Pending",
+        "approvedCommit": "b42fab7fdf4c5ba3acb7169ec5665594e341895a",
+        "url": "https://github.com/eclipse-xfsc/facis-fap-principal-credential-issuance/pull/57#pullrequestreview-5910228022",
+        "approvedCommitMatchesRecordedHead": false
+      },
+      "mergedAt": null,
+      "pullRequest": {
+        "number": 57,
+        "url": "https://github.com/eclipse-xfsc/facis-fap-principal-credential-issuance/pull/57",
+        "author": "ManiFaridi"
+      },
+      "sizeOnGitHub": {
+        "added": 34556,
+        "removed": 7008,
+        "files": 302
+      },
+      "mergedBy": null,
+      "headCommitAtCollection": "04916c80aecdce19af616d3118cb17fd59a5d36b",
+      "githubBaseCommitAtCollection": "2fa3a8af9e4a329f01d629b3510a03d95b3fb397"
     },
     {
       "id": "R3-7",
@@ -1116,7 +1587,7 @@
       "plannedAuthor": "Atoosa Eslami",
       "plannedReviewer": "Kian Najian",
       "inRemediationPlan": true,
-      "status": "prepared locally; not pushed; no review has taken place",
+      "status": "open on GitHub",
       "commits": [
         {
           "subject": "R3-7: documentation: full navigation, M17 tenant identity, request flow chapter"
@@ -1135,9 +1606,34 @@
       ],
       "aiAssistance": "Assisted-by: AI (commit trailer); the files listed in tools/licence-header-ai-files.txt carry the disclosure in their header",
       "implementsRequirements": true,
-      "issues": [],
-      "reviewRecord": null,
-      "mergedAt": null
+      "issues": [
+        26
+      ],
+      "reviewRecord": {
+        "reviewer": "KianLeanea",
+        "firstReviewSubmittedAt": "2026-11-14T18:37:41Z",
+        "approvedAt": "2026-11-14T18:37:41Z",
+        "reviewsByOthers": 1,
+        "reviewStartedStated": "Pending",
+        "reviewCompletedStated": "Pending",
+        "approvedCommit": "3036d65bfabd69bd04c5812714c71ba981dbfb67",
+        "url": "https://github.com/eclipse-xfsc/facis-fap-principal-credential-issuance/pull/58#pullrequestreview-5906431362",
+        "approvedCommitMatchesRecordedHead": true
+      },
+      "mergedAt": null,
+      "pullRequest": {
+        "number": 58,
+        "url": "https://github.com/eclipse-xfsc/facis-fap-principal-credential-issuance/pull/58",
+        "author": "leaneagmbh"
+      },
+      "sizeOnGitHub": {
+        "added": 30367,
+        "removed": 6952,
+        "files": 291
+      },
+      "mergedBy": null,
+      "headCommitAtCollection": "3036d65bfabd69bd04c5812714c71ba981dbfb67",
+      "githubBaseCommitAtCollection": "2fa3a8af9e4a329f01d629b3510a03d95b3fb397"
     },
     {
       "id": "R3-8",
@@ -1146,7 +1642,7 @@
       "plannedAuthor": "Atoosa Eslami",
       "plannedReviewer": "Kian Najian",
       "inRemediationPlan": false,
-      "status": "prepared locally; not pushed; no review has taken place",
+      "status": "open on GitHub",
       "commits": [
         {
           "subject": "R3-8: documentation published from main and tags; troubleshooting and FAQ (FR-PCI-54, FR-PCI-96)"
@@ -1165,9 +1661,34 @@
       ],
       "aiAssistance": "Assisted-by: AI (commit trailer); the files listed in tools/licence-header-ai-files.txt carry the disclosure in their header",
       "implementsRequirements": true,
-      "issues": [],
-      "reviewRecord": null,
-      "mergedAt": null
+      "issues": [
+        35
+      ],
+      "reviewRecord": {
+        "reviewer": "KianLeanea",
+        "firstReviewSubmittedAt": "2026-11-14T20:38:08Z",
+        "approvedAt": "2026-11-14T20:38:08Z",
+        "reviewsByOthers": 1,
+        "reviewStartedStated": "Pending",
+        "reviewCompletedStated": "Pending",
+        "approvedCommit": "7b594a5d5cf48e84360f9c77924f3afe835a3e12",
+        "url": "https://github.com/eclipse-xfsc/facis-fap-principal-credential-issuance/pull/62#pullrequestreview-5907006724",
+        "approvedCommitMatchesRecordedHead": true
+      },
+      "mergedAt": null,
+      "pullRequest": {
+        "number": 62,
+        "url": "https://github.com/eclipse-xfsc/facis-fap-principal-credential-issuance/pull/62",
+        "author": "leaneagmbh"
+      },
+      "sizeOnGitHub": {
+        "added": 31969,
+        "removed": 6977,
+        "files": 314
+      },
+      "mergedBy": null,
+      "headCommitAtCollection": "7b594a5d5cf48e84360f9c77924f3afe835a3e12",
+      "githubBaseCommitAtCollection": "2fa3a8af9e4a329f01d629b3510a03d95b3fb397"
     },
     {
       "id": "R4-1",
@@ -1176,7 +1697,7 @@
       "plannedAuthor": "Mani Faridi",
       "plannedReviewer": "Kian Najian",
       "inRemediationPlan": true,
-      "status": "prepared locally; not pushed; no review has taken place",
+      "status": "open on GitHub",
       "commits": [
         {
           "subject": "R4-1: application image on the ORCE base image by digest; image workflow"
@@ -1209,9 +1730,36 @@
       ],
       "aiAssistance": "Assisted-by: AI (commit trailer); the files listed in tools/licence-header-ai-files.txt carry the disclosure in their header",
       "implementsRequirements": true,
-      "issues": [],
-      "reviewRecord": null,
-      "mergedAt": null
+      "issues": [
+        27,
+        28,
+        39
+      ],
+      "reviewRecord": {
+        "reviewer": "KianLeanea",
+        "firstReviewSubmittedAt": "2026-11-14T19:28:53Z",
+        "approvedAt": "2026-11-14T19:28:53Z",
+        "reviewsByOthers": 1,
+        "reviewStartedStated": "Pending",
+        "reviewCompletedStated": "Pending",
+        "approvedCommit": "94c1c3005f7ad90fb0f7fa6c7971d30518a29daa",
+        "url": "https://github.com/eclipse-xfsc/facis-fap-principal-credential-issuance/pull/59#pullrequestreview-5906713429",
+        "approvedCommitMatchesRecordedHead": false
+      },
+      "mergedAt": null,
+      "pullRequest": {
+        "number": 59,
+        "url": "https://github.com/eclipse-xfsc/facis-fap-principal-credential-issuance/pull/59",
+        "author": "ManiFaridi"
+      },
+      "sizeOnGitHub": {
+        "added": 35921,
+        "removed": 7053,
+        "files": 320
+      },
+      "mergedBy": null,
+      "headCommitAtCollection": "fcaf0dc7d2dc69172023156410999c3cedcd4d2a",
+      "githubBaseCommitAtCollection": "2fa3a8af9e4a329f01d629b3510a03d95b3fb397"
     },
     {
       "id": "R4-2",
@@ -1220,7 +1768,7 @@
       "plannedAuthor": "Mani Faridi",
       "plannedReviewer": "Kian Najian",
       "inRemediationPlan": true,
-      "status": "prepared locally; not pushed; no review has taken place",
+      "status": "open on GitHub",
       "commits": [
         {
           "subject": "R4-2: backup and rollback procedure; deployment guide for the application image"
@@ -1238,9 +1786,34 @@
       ],
       "aiAssistance": "Assisted-by: AI (commit trailer); the files listed in tools/licence-header-ai-files.txt carry the disclosure in their header",
       "implementsRequirements": true,
-      "issues": [],
-      "reviewRecord": null,
-      "mergedAt": null
+      "issues": [
+        29
+      ],
+      "reviewRecord": {
+        "reviewer": "KianLeanea",
+        "firstReviewSubmittedAt": "2026-11-14T20:01:31Z",
+        "approvedAt": "2026-11-14T20:01:31Z",
+        "reviewsByOthers": 1,
+        "reviewStartedStated": "Pending",
+        "reviewCompletedStated": "Pending",
+        "approvedCommit": "47ca5191625cbd37b9a346fdef936b44925d0fea",
+        "url": "https://github.com/eclipse-xfsc/facis-fap-principal-credential-issuance/pull/60#pullrequestreview-5906837249",
+        "approvedCommitMatchesRecordedHead": false
+      },
+      "mergedAt": null,
+      "pullRequest": {
+        "number": 60,
+        "url": "https://github.com/eclipse-xfsc/facis-fap-principal-credential-issuance/pull/60",
+        "author": "ManiFaridi"
+      },
+      "sizeOnGitHub": {
+        "added": 36114,
+        "removed": 7053,
+        "files": 323
+      },
+      "mergedBy": null,
+      "headCommitAtCollection": "1cfdec147182718b3de43f34f4fedd1cdf0df40f",
+      "githubBaseCommitAtCollection": "2fa3a8af9e4a329f01d629b3510a03d95b3fb397"
     },
     {
       "id": "R4-3",
@@ -1249,7 +1822,7 @@
       "plannedAuthor": "Mani Faridi",
       "plannedReviewer": "Kian Najian",
       "inRemediationPlan": false,
-      "status": "prepared locally; not pushed; no review has taken place",
+      "status": "open on GitHub",
       "commits": [
         {
           "subject": "R4-3: privacy capture collection and deployment record (FR-PCI-48, FR-PCI-75/86/89/93)"
@@ -1268,9 +1841,34 @@
       ],
       "aiAssistance": "Assisted-by: AI (commit trailer); the files listed in tools/licence-header-ai-files.txt carry the disclosure in their header",
       "implementsRequirements": true,
-      "issues": [],
-      "reviewRecord": null,
-      "mergedAt": null
+      "issues": [
+        36
+      ],
+      "reviewRecord": {
+        "reviewer": "KianLeanea",
+        "firstReviewSubmittedAt": "2026-11-14T21:29:32Z",
+        "approvedAt": "2026-11-14T21:29:32Z",
+        "reviewsByOthers": 1,
+        "reviewStartedStated": "Pending",
+        "reviewCompletedStated": "Pending",
+        "approvedCommit": "a8a2338f85ee9fd437f9a4d7e0faabd49ca7adba",
+        "url": "https://github.com/eclipse-xfsc/facis-fap-principal-credential-issuance/pull/63#pullrequestreview-5907240339",
+        "approvedCommitMatchesRecordedHead": false
+      },
+      "mergedAt": null,
+      "pullRequest": {
+        "number": 63,
+        "url": "https://github.com/eclipse-xfsc/facis-fap-principal-credential-issuance/pull/63",
+        "author": "ManiFaridi"
+      },
+      "sizeOnGitHub": {
+        "added": 36970,
+        "removed": 7077,
+        "files": 334
+      },
+      "mergedBy": null,
+      "headCommitAtCollection": "c1ab24d35f4ad5069be60adac61921b4c013bcf4",
+      "githubBaseCommitAtCollection": "2fa3a8af9e4a329f01d629b3510a03d95b3fb397"
     },
     {
       "id": "R4-4",
@@ -1279,7 +1877,7 @@
       "plannedAuthor": "Mani Faridi",
       "plannedReviewer": "Kian Najian",
       "inRemediationPlan": false,
-      "status": "prepared locally; not pushed; no review has taken place",
+      "status": "open on GitHub",
       "commits": [
         {
           "subject": "R4-4: deployment repository package generated from source; release version sites checked"
@@ -1305,9 +1903,35 @@
       ],
       "aiAssistance": "Assisted-by: AI (commit trailer); the files listed in tools/licence-header-ai-files.txt carry the disclosure in their header",
       "implementsRequirements": true,
-      "issues": [],
-      "reviewRecord": null,
-      "mergedAt": null
+      "issues": [
+        37,
+        38
+      ],
+      "reviewRecord": {
+        "reviewer": "KianLeanea",
+        "firstReviewSubmittedAt": "2026-11-14T22:37:25Z",
+        "approvedAt": "2026-11-14T22:37:25Z",
+        "reviewsByOthers": 1,
+        "reviewStartedStated": "Pending",
+        "reviewCompletedStated": "Pending",
+        "approvedCommit": "39be2310d504f265cca2448806b8fa406e6478da",
+        "url": "https://github.com/eclipse-xfsc/facis-fap-principal-credential-issuance/pull/64#pullrequestreview-5907523611",
+        "approvedCommitMatchesRecordedHead": false
+      },
+      "mergedAt": null,
+      "pullRequest": {
+        "number": 64,
+        "url": "https://github.com/eclipse-xfsc/facis-fap-principal-credential-issuance/pull/64",
+        "author": "ManiFaridi"
+      },
+      "sizeOnGitHub": {
+        "added": 37391,
+        "removed": 7098,
+        "files": 339
+      },
+      "mergedBy": null,
+      "headCommitAtCollection": "6d006102c004e856374bb65645db73df4e0cf8c5",
+      "githubBaseCommitAtCollection": "2fa3a8af9e4a329f01d629b3510a03d95b3fb397"
     },
     {
       "id": "R6-1",
@@ -1316,7 +1940,7 @@
       "plannedAuthor": "Mani Faridi",
       "plannedReviewer": "Kian Najian",
       "inRemediationPlan": true,
-      "status": "prepared locally; not pushed; no review has taken place",
+      "status": "open on GitHub",
       "commits": [
         {
           "subject": "Release candidate 0.5.0-rc.16: version, release notes, requirement-to-test matrix, inventory"
@@ -1380,9 +2004,44 @@
       ],
       "aiAssistance": "Assisted-by: AI (commit trailer); the files listed in tools/licence-header-ai-files.txt carry the disclosure in their header",
       "implementsRequirements": true,
-      "issues": [],
-      "reviewRecord": null,
-      "mergedAt": null
+      "issues": [
+        30
+      ],
+      "reviewRecord": {
+        "reviewer": "KianLeanea",
+        "firstReviewSubmittedAt": "2026-11-15T10:17:04Z",
+        "approvedAt": "2026-11-15T10:17:04Z",
+        "reviewsByOthers": 1,
+        "reviewStartedStated": "Pending",
+        "reviewCompletedStated": "Pending",
+        "approvedCommit": "5820e28adeecf731301a455df505a7a509a7689f",
+        "url": "https://github.com/eclipse-xfsc/facis-fap-principal-credential-issuance/pull/65#pullrequestreview-5910212204",
+        "approvedCommitMatchesRecordedHead": true
+      },
+      "mergedAt": null,
+      "pullRequest": {
+        "number": 65,
+        "url": "https://github.com/eclipse-xfsc/facis-fap-principal-credential-issuance/pull/65",
+        "author": "ManiFaridi"
+      },
+      "sizeOnGitHub": {
+        "added": 40056,
+        "removed": 7576,
+        "files": 347
+      },
+      "mergedBy": null,
+      "headCommitAtCollection": "5820e28adeecf731301a455df505a7a509a7689f",
+      "githubBaseCommitAtCollection": "2fa3a8af9e4a329f01d629b3510a03d95b3fb397"
     }
-  ]
+  ],
+  "githubSnapshot": {
+    "collectedAt": "2026-11-15T13:36:04.680121+00:00",
+    "deploymentPullRequest": {
+      "url": "https://github.com/eclipse-xfsc/deployment/pull/17",
+      "draft": true,
+      "state": "open",
+      "sourceCommitBeforeRefresh": "5820e28adeecf731301a455df505a7a509a7689f"
+    },
+    "note": "Point-in-time GitHub facts collected before this records commit. Approval submissions refer to their recorded commits. Original commits/files/sizeExcludingGenerated describe the prepared work packages; sizeOnGitHub contains the actual GitHub PR totals. Merge, publication, deployment and acceptance are never inferred from the plan."
+  }
 }

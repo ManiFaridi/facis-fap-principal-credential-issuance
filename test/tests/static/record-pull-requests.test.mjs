@@ -10,6 +10,11 @@
 // Assisted-by: AI
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import os from 'node:os';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+import { spawnSync } from 'node:child_process';
 import {
   closedIssues,
   recordAll,
@@ -87,4 +92,42 @@ test('items without a pull request number stay as planned; open pull requests ar
   assert.equal(merged.status, 'merged');
   assert.equal(merged.mergedBy, 'committer');
   assert.equal(merged.reviewRecord.reviewer, 'reviewer');
+});
+test('the CLI records paginated reviews without requiring a newer gh --slurp flag', () => {
+  const temporary = fs.mkdtempSync(path.join(os.tmpdir(), 'pci-record-cli-'));
+  try {
+    const bin = path.join(temporary, 'bin');
+    fs.mkdirSync(bin);
+    const fake = path.join(bin, 'gh');
+    const program = [
+      '#!/usr/bin/env python3',
+      'import json,sys',
+      'from urllib.parse import parse_qs,urlsplit',
+      'if "--slurp" in sys.argv: raise SystemExit(2)',
+      'resource=sys.argv[-1]',
+      'if "/reviews" in resource:',
+      ' page=int(parse_qs(urlsplit(resource).query).get("page",["1"])[0])',
+      ' review={"user":{"login":"reviewer"},"state":"COMMENTED","submitted_at":"2026-11-11T10:00:00Z"}',
+      ' result=[review]*100 if page==1 else [{**review,"state":"APPROVED","submitted_at":"2026-11-12T08:00:00Z"}]',
+      'else:',
+      ' result={"number":40,"html_url":"https://github.com/example/repository/pull/40","user":{"login":"author"},"body":"Closes #3","additions":12,"deletions":2,"changed_files":1,"state":"open","merged_at":None}',
+      'print(json.dumps(result))',
+      ''
+    ].join('\n');
+    fs.writeFileSync(fake, program, { mode: 0o700 });
+    const file = path.join(temporary, 'records.json');
+    const map = path.join(temporary, 'map.json');
+    fs.writeFileSync(file, JSON.stringify({ items: [{ id: 'R1-1' }] }));
+    fs.writeFileSync(map, JSON.stringify({ 'R1-1': 40 }));
+    const tool = fileURLToPath(new URL('../../../tools/record-pull-requests.mjs', import.meta.url));
+    const result = spawnSync(process.execPath, [tool, '--repo', 'example/repository', '--map', map, '--file', file],
+      { encoding: 'utf8', env: { ...process.env, PATH: bin + path.delimiter + process.env.PATH } });
+    assert.equal(result.status, 0, result.stdout + result.stderr);
+    const item = JSON.parse(fs.readFileSync(file, 'utf8')).items[0];
+    assert.equal(item.reviewRecord.reviewsByOthers, 101);
+    assert.equal(item.reviewRecord.approvedAt, '2026-11-12T08:00:00Z');
+    assert.equal(item.mergedAt, null);
+  } finally {
+    fs.rmSync(temporary, { recursive: true, force: true });
+  }
 });

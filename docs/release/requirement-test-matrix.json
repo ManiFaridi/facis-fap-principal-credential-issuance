@@ -157,8 +157,8 @@
     {
       "id": "FR-PCI-95",
       "status": "PARTIAL",
-      "reason": "Current images and charts are not published to the Harbor registry; the images are built by the Images workflow (R4).",
-      "measure": "Publication through the dev-ops workflows on the release candidate tag once the Harbor project and robot account are issued; digests recorded (R4, R6).",
+      "reason": "Docker Hub image publication and GitHub Release chart delivery are configured but not yet executed for the final tag. No Harbor publication or acceptance is claimed.",
+      "measure": "After the committer merges and tags the reviewed source, publish the tested images to Docker Hub, attach charts and SBOMs to the release, record immutable digests, and obtain QA confirmation of the registry delivery requirement.",
       "closes": "R6",
       "evidence": null
     },
@@ -2779,8 +2779,8 @@
         "R4-3"
       ],
       "status": "PARTIAL",
-      "reason": "Current images and charts are not published to the Harbor registry; the images are built by the Images workflow (R4).",
-      "measure": "Publication through the dev-ops workflows on the release candidate tag once the Harbor project and robot account are issued; digests recorded (R4, R6).",
+      "reason": "Docker Hub image publication and GitHub Release chart delivery are configured but not yet executed for the final tag. No Harbor publication or acceptance is claimed.",
+      "measure": "After the committer merges and tags the reviewed source, publish the tested images to Docker Hub, attach charts and SBOMs to the release, record immutable digests, and obtain QA confirmation of the registry delivery requirement.",
       "evidence": null
     },
     {

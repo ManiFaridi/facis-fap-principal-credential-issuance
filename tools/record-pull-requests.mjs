@@ -80,7 +80,14 @@ export function recordAll(document, map, fetchPull) {
   return { ...document, items };
 }
 function ghJson(path) {
-  return JSON.parse(execFileSync('gh', ['api', '--paginate', '--slurp', path], { encoding: 'utf8' })).flat();
+  const records = [];
+  for (let page = 1;; page++) {
+    const resource = path + (path.includes('?') ? '&': '?') + 'per_page=100&page=' + page;
+    const value = JSON.parse(execFileSync('gh', ['api', resource], { encoding: 'utf8' }));
+    if (!Array.isArray(value)) return [value];
+    records.push(...value);
+    if (value.length < 100) return records;
+  }
 }
 function argument(name, fallback) {
   const at = process.argv.indexOf(name);

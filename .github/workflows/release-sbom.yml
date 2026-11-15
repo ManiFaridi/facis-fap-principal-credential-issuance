@@ -1,6 +1,8 @@
 name: Release Node.js SBOM
 
 on:
+  push:
+    tags: ['v*']
   workflow_dispatch:
 
 permissions:
@@ -14,13 +16,13 @@ jobs:
   sbom:
     runs-on: ubuntu-24.04
     env:
-      RELEASE_TAG: v0.5.0-rc.16
+      RELEASE_TAG: ${{ github.ref_name }}
       GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       GH_REPO: ${{ github.repository }}
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: v0.5.0-rc.16
+          ref: ${{ github.ref }}
 
       - uses: actions/setup-node@v4
         with:
@@ -30,6 +32,11 @@ jobs:
       - name: Verify release and source
         run: |
           test "$RELEASE_TAG" = "v$(cat VERSION)"
+          test "$GITHUB_REF_TYPE" = tag
+          for attempt in $(seq 1 30); do
+            if gh release view "$RELEASE_TAG" >/dev/null 2>&1; then break; fi
+            sleep 10
+          done
           gh release view "$RELEASE_TAG"
           git rev-parse HEAD > sbom-node-source.txt
 

@@ -1,6 +1,8 @@
 name: Release Python BDD SBOM
 
 on:
+  push:
+    tags: ['v*']
   workflow_dispatch:
 
 permissions:
@@ -14,14 +16,14 @@ jobs:
   sbom:
     runs-on: ubuntu-24.04
     env:
-      RELEASE_TAG: v0.5.0-rc.16
+      RELEASE_TAG: ${{ github.ref_name }}
       GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       GH_REPO: ${{ github.repository }}
 
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: v0.5.0-rc.16
+          ref: ${{ github.ref }}
 
       - uses: actions/setup-python@v5
         with:
@@ -30,15 +32,23 @@ jobs:
       - name: Verify release and source
         run: |
           test "$RELEASE_TAG" = "v$(cat VERSION)"
+          test "$GITHUB_REF_TYPE" = tag
+          for attempt in $(seq 1 30); do
+            if gh release view "$RELEASE_TAG" >/dev/null 2>&1; then break; fi
+            sleep 10
+          done
           gh release view "$RELEASE_TAG"
           git rev-parse HEAD > sbom-python-source.txt
-          sha256sum test/bdd/requirements.txt test/bdd/constraints.txt >> sbom-python-source.txt
+          sha256sum test/bdd/requirements.txt test/bdd/constraints.txt security/prepare-bdd.py security/patches/bdd-executor-requests.patch >> sbom-python-source.txt
 
       - name: Install BDD dependencies
         run: |
+          python security/prepare-bdd.py --output "$RUNNER_TEMP/pci-bdd-requirements.txt"
           python -m venv "$RUNNER_TEMP/pci-bdd"
+          "$RUNNER_TEMP/pci-bdd/bin/python" -m pip install --upgrade pip==26.3 setuptools==84.1.0
+          cat "$RUNNER_TEMP/pci-bdd-requirements.provenance.json" >> sbom-python-source.txt
           "$RUNNER_TEMP/pci-bdd/bin/python" -m pip install \
-            -r test/bdd/requirements.txt -c test/bdd/constraints.txt
+            -r "$RUNNER_TEMP/pci-bdd-requirements.txt" -c test/bdd/constraints.txt
           "$RUNNER_TEMP/pci-bdd/bin/python" -m pip check
           "$RUNNER_TEMP/pci-bdd/bin/python" -m pip freeze --all \
             > sbom-python-resolved.txt
