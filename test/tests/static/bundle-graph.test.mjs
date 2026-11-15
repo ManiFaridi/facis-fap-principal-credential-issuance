@@ -79,7 +79,8 @@ test('maintainability gate rejects dense lines, packed statements and oversized 
 });
 test('function limits apply to backend/ with the service and issuance factories exempt from the length rule only', () => {
   const metric = (file, functions) => ({ file, lines: 100, maxLine: 80, maxStatementsPerLine: 1, functions });
-  const long = { name: 'handleThing', line: 3, lines: 150, complexity: 5 }, dense = { name: 'decide', line: 9, lines: 20, complexity: 30 };
+  const long = { name: 'handleThing', line: 3, lines: 150, complexity: 5 },
+  dense = { name: 'decide', line: 9, lines: 20, complexity: 30 };
   const backend = sourceViolations(metric('backend/sr2/example.js', [long, dense]), new Set()).join(' ');
   assert.match(backend, /example\.js:3: handler exceeds 100 lines/);
   assert.match(backend, /example\.js:9: function complexity exceeds 20/);
