@@ -75,7 +75,7 @@ jobs:
           set -euo pipefail
           curl -sSfL "https://github.com/aquasecurity/trivy/releases/download/v${TRIVY_VERSION}/trivy_${TRIVY_VERSION}_Linux-64bit.tar.gz" -o trivy.tgz
           curl -sSfL "https://github.com/aquasecurity/trivy/releases/download/v${TRIVY_VERSION}/trivy_${TRIVY_VERSION}_checksums.txt" -o trivy.sums
-          grep "trivy_${TRIVY_VERSION}_Linux-64bit.tar.gz" trivy.sums | sha256sum -c -
+          awk -v archive="trivy_${TRIVY_VERSION}_Linux-64bit.tar.gz" '$2 == archive { print $1 "  trivy.tgz" }' trivy.sums | sha256sum --strict -c -
           tar -xzf trivy.tgz trivy && sudo mv trivy /usr/local/bin/trivy
       - name: Scan the base image and the application image
         run: |
@@ -145,7 +145,7 @@ jobs:
           set -euo pipefail
           curl -sSfL "https://github.com/aquasecurity/trivy/releases/download/v${TRIVY_VERSION}/trivy_${TRIVY_VERSION}_Linux-64bit.tar.gz" -o trivy.tgz
           curl -sSfL "https://github.com/aquasecurity/trivy/releases/download/v${TRIVY_VERSION}/trivy_${TRIVY_VERSION}_checksums.txt" -o trivy.sums
-          grep "trivy_${TRIVY_VERSION}_Linux-64bit.tar.gz" trivy.sums | sha256sum -c -
+          awk -v archive="trivy_${TRIVY_VERSION}_Linux-64bit.tar.gz" '$2 == archive { print $1 "  trivy.tgz" }' trivy.sums | sha256sum --strict -c -
           tar -xzf trivy.tgz trivy && sudo mv trivy /usr/local/bin/trivy
       - name: Scan (fails on HIGH or CRITICAL; the distroless base carries no inherited findings to exclude)
         run: trivy image --exit-code 1 --severity HIGH,CRITICAL --scanners vuln --format json --output scan-participant.json fap-pci-participant:ci
