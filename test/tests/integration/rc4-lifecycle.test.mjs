@@ -5,11 +5,11 @@
 // https://www.apache.org/licenses/LICENSE-2.0.
 //
 // SPDX-License-Identifier: Apache-2.0
-import test from 'node:test';
-import assert from 'node:assert/strict';
-import fs from 'node:fs';
-import { execFileSync } from 'node:child_process';
-import { restoreRuntime } from '../../../automation/stage1/restore-runtime.mjs';
+import test from "node:test";
+import assert from "node:assert/strict";
+import fs from "node:fs";
+import { execFileSync } from "node:child_process";
+import { restoreRuntime } from "../../../automation/stage1/restore-runtime.mjs";
 const tid = '11111111-1111-4111-8111-111111111111';
 function cleanupFixture() {
   const tenant = { tenant_id: tid, owner_uid: 'owner' },
