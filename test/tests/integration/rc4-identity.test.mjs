@@ -5,9 +5,9 @@
 // https://www.apache.org/licenses/LICENSE-2.0.
 //
 // SPDX-License-Identifier: Apache-2.0
-import test from 'node:test';
-import assert from 'node:assert/strict';
-import fs from 'node:fs';
+import test from "node:test";
+import assert from "node:assert/strict";
+import fs from "node:fs";
 const source = fs.readFileSync('backend/functions/_identity.js', 'utf8'), tid = '11111111-1111-4111-8111-111111111111';
 function fixture(overrides = {}) {
   const calls = [],

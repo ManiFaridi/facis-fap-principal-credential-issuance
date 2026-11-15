@@ -5,9 +5,10 @@ name: Images
 # every pull request, every push to main and every release candidate tag.
 # Pull requests from forks have no repository secrets: their images are built,
 # scanned, given an SBOM and started, but not pushed. Pushes to main and tags
-# publish through the reusable workflows of eclipse-xfsc/dev-ops, which read
-# harbor.config and the HARBOR_* secrets.
+# publish the tested image archives to Docker Hub using DOCKERHUB_TOKEN.
+# Release charts and publication receipts are attached to the existing GitHub release.
 on:
+  workflow_dispatch:
   pull_request:
   push:
     branches: [main]
@@ -115,6 +116,12 @@ jobs:
             console.log(JSON.stringify({ release: marker.release, commit: marker.commit, pciTabs: tabs.length }));
           '
           docker logs pci > startup-check.log 2>&1
+      - name: Preserve the tested image for publication
+        if: github.repository == 'eclipse-xfsc/facis-fap-principal-credential-issuance' && (github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && github.ref_type == 'tag'))
+        run: |
+          set -euo pipefail
+          docker image save fap-pci:ci | gzip -1 > application-image.tar.gz
+          sha256sum application-image.tar.gz > application-image.tar.gz.sha256
       - name: Keep the records
         if: always()
         uses: actions/upload-artifact@v4
@@ -122,9 +129,23 @@ jobs:
           name: application-image-${{ github.sha }}
           path: |
             image-application.json
+            application-image.tar.gz
+            application-image.tar.gz.sha256
             scan-base.json
             scan-application.json
             sbom-application.cdx.json
+            startup-check.log
+
+      - name: Preserve release evidence separately from the image archive
+        if: github.repository == 'eclipse-xfsc/facis-fap-principal-credential-issuance' && github.ref_type == 'tag' && (github.event_name == 'push' || github.event_name == 'workflow_dispatch')
+        uses: actions/upload-artifact@v4
+        with:
+          name: application-release-evidence-${{ github.sha }}
+          path: |
+            image-application.json
+            sbom-application.cdx.json
+            scan-base.json
+            scan-application.json
             startup-check.log
 
   participant-image:
@@ -138,6 +159,8 @@ jobs:
           set -euo pipefail
           docker buildx build --load --platform linux/amd64 \
             --file reference/participant-data-repository/Dockerfile \
+            --build-arg "SOURCE_COMMIT=${GITHUB_SHA}" \
+            --build-arg "SOURCE_VERSION=$(cat VERSION)" \
             --tag fap-pci-participant:ci .
           docker image inspect fap-pci-participant:ci > image-participant.json
       - name: Install Trivy
@@ -158,6 +181,12 @@ jobs:
           output-file: sbom-participant.cdx.json
           upload-artifact: false
           upload-release-assets: false
+      - name: Preserve the tested image for publication
+        if: github.repository == 'eclipse-xfsc/facis-fap-principal-credential-issuance' && (github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && github.ref_type == 'tag'))
+        run: |
+          set -euo pipefail
+          docker image save fap-pci-participant:ci | gzip -1 > participant-image.tar.gz
+          sha256sum participant-image.tar.gz > participant-image.tar.gz.sha256
       - name: Keep the records
         if: always()
         uses: actions/upload-artifact@v4
@@ -165,44 +194,135 @@ jobs:
           name: participant-image-${{ github.sha }}
           path: |
             image-participant.json
+            participant-image.tar.gz
+            participant-image.tar.gz.sha256
             scan-participant.json
             sbom-participant.cdx.json
 
-  # Publication: main and release candidate tags only, through the reusable
-  # workflows of eclipse-xfsc/dev-ops (pinned to a commit; their inner reference
-  # to build-context.yml is @main, which the pin cannot fix). They push to the
-  # Harbor project of harbor.config under the robot account of HARBOR_CREDENTIALS.
+      - name: Preserve release evidence separately from the image archive
+        if: github.repository == 'eclipse-xfsc/facis-fap-principal-credential-issuance' && github.ref_type == 'tag' && (github.event_name == 'push' || github.event_name == 'workflow_dispatch')
+        uses: actions/upload-artifact@v4
+        with:
+          name: participant-release-evidence-${{ github.sha }}
+          path: |
+            image-participant.json
+            sbom-participant.cdx.json
+            scan-participant.json
+
   publish-application:
-    if: github.event_name == 'push'
+    name: Publish tested application to Docker Hub
+    if: github.repository == 'eclipse-xfsc/facis-fap-principal-credential-issuance' && (github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && github.ref_type == 'tag'))
     needs: [base-image, application-image]
-    uses: eclipse-xfsc/dev-ops/.github/workflows/dockerbuild.yml@0a41e33426aa16be73845a06aabbaf080b6fe5ff
-    with:
-      dockerfile: deployment/image/Dockerfile
-      buildContext: .
-      service: fap-pci
-      platforms: linux/amd64
-      build_args: ORCE_BASE=${{ needs.base-image.outputs.reference }},UIBUILDER_VERSION=${{ needs.base-image.outputs.uibuilder }},SOURCE_COMMIT=${{ github.sha }}
-    secrets: inherit
+    runs-on: ubuntu-24.04
+    env:
+      DOCKERHUB_NAMESPACE: ecofacis
+    steps:
+      - uses: actions/checkout@v4
+      - uses: docker/setup-buildx-action@v3
+      - uses: actions/download-artifact@v4
+        with:
+          name: application-image-${{ github.sha }}
+      - name: Authenticate Docker Hub publisher
+        env:
+          DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          test -n "$DOCKERHUB_TOKEN" || { echo '::error::The repository maintainer must configure DOCKERHUB_TOKEN for ecofacis.'; exit 1; }
+          printf '%s' "$DOCKERHUB_TOKEN" | docker login --username ecofacis --password-stdin
+      - name: Publish and verify the tested image
+        run: python3 scripts/publish-tested-image.py application --out publication-application.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: publication-application-${{ github.sha }}
+          path: publication-application.json
+          if-no-files-found: error
+      - name: End registry session
+        if: always()
+        run: docker logout
 
   publish-participant:
-    if: github.event_name == 'push'
+    name: Publish tested participant to Docker Hub
+    if: github.repository == 'eclipse-xfsc/facis-fap-principal-credential-issuance' && (github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && github.ref_type == 'tag'))
     needs: participant-image
-    uses: eclipse-xfsc/dev-ops/.github/workflows/dockerbuild.yml@0a41e33426aa16be73845a06aabbaf080b6fe5ff
-    with:
-      dockerfile: reference/participant-data-repository/Dockerfile
-      buildContext: .
-      service: fap-pci-participant
-      platforms: linux/amd64
-    secrets: inherit
+    runs-on: ubuntu-24.04
+    env:
+      DOCKERHUB_NAMESPACE: ecofacis
+    steps:
+      - uses: actions/checkout@v4
+      - uses: docker/setup-buildx-action@v3
+      - uses: actions/download-artifact@v4
+        with:
+          name: participant-image-${{ github.sha }}
+      - name: Authenticate Docker Hub publisher
+        env:
+          DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          test -n "$DOCKERHUB_TOKEN" || { echo '::error::The repository maintainer must configure DOCKERHUB_TOKEN for ecofacis.'; exit 1; }
+          printf '%s' "$DOCKERHUB_TOKEN" | docker login --username ecofacis --password-stdin
+      - name: Publish and verify the tested image
+        run: python3 scripts/publish-tested-image.py participant --out publication-participant.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: publication-participant-${{ github.sha }}
+          path: publication-participant.json
+          if-no-files-found: error
+      - name: End registry session
+        if: always()
+        run: docker logout
 
   publish-charts:
-    if: github.event_name == 'push' && github.ref_type == 'tag'
+    name: Attach release charts and image records
+    if: github.repository == 'eclipse-xfsc/facis-fap-principal-credential-issuance' && github.ref_type == 'tag' && (github.event_name == 'push' || github.event_name == 'workflow_dispatch')
     needs: [publish-application, publish-participant]
-    strategy:
-      fail-fast: false
-      matrix:
-        chart: [fap-pci, observability, participant]
-    uses: eclipse-xfsc/dev-ops/.github/workflows/helm.yml@0a41e33426aa16be73845a06aabbaf080b6fe5ff
-    with:
-      buildContext: deployment/helm/${{ matrix.chart }}
-    secrets: inherit
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: write
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      GH_REPO: ${{ github.repository }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: azure/setup-helm@v4
+        with:
+          version: v3.17.4
+      - uses: actions/download-artifact@v4
+        with:
+          name: publication-application-${{ github.sha }}
+          path: release-assets
+      - uses: actions/download-artifact@v4
+        with:
+          name: application-release-evidence-${{ github.sha }}
+          path: release-assets
+      - uses: actions/download-artifact@v4
+        with:
+          name: publication-participant-${{ github.sha }}
+          path: release-assets
+      - uses: actions/download-artifact@v4
+        with:
+          name: participant-release-evidence-${{ github.sha }}
+          path: release-assets
+      - name: Package all three release charts
+        run: |
+          set -euo pipefail
+          test "$GITHUB_REF_NAME" = "v$(cat VERSION)"
+          for chart in fap-pci observability participant; do
+            helm package "deployment/helm/$chart" --destination release-assets
+          done
+          git rev-parse HEAD > release-assets/charts-source-commit.txt
+          (cd release-assets && sha256sum ./*.tgz > charts-sha256.txt)
+      - uses: actions/upload-artifact@v4
+        with:
+          name: release-charts-and-images-${{ github.sha }}
+          path: release-assets/
+          if-no-files-found: error
+      - name: Attach to the committer-created release
+        run: |
+          set -euo pipefail
+          found=false
+          for attempt in $(seq 1 30); do
+            if gh release view "$GITHUB_REF_NAME" >/dev/null 2>&1; then found=true; break; fi
+            sleep 10
+          done
+          test "$found" = true || { echo '::error::The committer must create the release for this existing tag, then rerun this failed job.'; exit 1; }
+          gh release upload "$GITHUB_REF_NAME" release-assets/* --clobber

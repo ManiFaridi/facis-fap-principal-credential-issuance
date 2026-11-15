@@ -5,10 +5,10 @@
 // https://www.apache.org/licenses/LICENSE-2.0.
 //
 // SPDX-License-Identifier: Apache-2.0
-import test from 'node:test';
-import assert from 'node:assert/strict';
-import fs from 'node:fs';
-import { alpha } from '../../support/sr2-fixture.mjs';
+import test from "node:test";
+import assert from "node:assert/strict";
+import fs from "node:fs";
+import { alpha } from "../../support/sr2-fixture.mjs";
 async function deletion({ wrongOwner = false, replaced = false } = {}) {
   const tenant = {
     tenant_id: alpha,
