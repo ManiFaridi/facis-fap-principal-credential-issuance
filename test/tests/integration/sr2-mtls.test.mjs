@@ -5,13 +5,13 @@
 // https://www.apache.org/licenses/LICENSE-2.0.
 //
 // SPDX-License-Identifier: Apache-2.0
-import test from 'node:test';
-import assert from 'node:assert/strict';
-import crypto from 'node:crypto';
-import tls from 'node:tls';
-import { spawnSync } from 'node:child_process';
-import { sr2TlsMaterial } from '../../../backend/sr2/participant-security.js';
-import { connector, alpha } from '../../support/sr2-fixture.mjs';
+import test from "node:test";
+import assert from "node:assert/strict";
+import crypto from "node:crypto";
+import tls from "node:tls";
+import { spawnSync } from "node:child_process";
+import { sr2TlsMaterial } from "../../../backend/sr2/participant-security.js";
+import { connector, alpha } from "../../support/sr2-fixture.mjs";
 function material() {
   const pair = crypto.generateKeyPairSync('ec', { namedCurve: 'prime256v1' }),
   key = pair.privateKey.export({ format: 'pem', type: 'pkcs8' });

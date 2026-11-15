@@ -5,11 +5,11 @@
 // https://www.apache.org/licenses/LICENSE-2.0.
 //
 // SPDX-License-Identifier: Apache-2.0
-import test from 'node:test';
-import assert from 'node:assert/strict';
-import crypto from 'node:crypto';
-import { fixture, alpha } from '../../support/sr2-fixture.mjs';
-import { extendSr2Maintenance } from '../../../backend/sr2/maintenance.js';
+import test from "node:test";
+import assert from "node:assert/strict";
+import crypto from "node:crypto";
+import { fixture, alpha } from "../../support/sr2-fixture.mjs";
+import { extendSr2Maintenance } from "../../../backend/sr2/maintenance.js";
 test('verified IdP entitlements select credentials and removal denies a new request', async() => {
   const f = fixture();
   let { config } = await f.prepared();
