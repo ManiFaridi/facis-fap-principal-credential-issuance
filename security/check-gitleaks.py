@@ -98,6 +98,23 @@ def main():
          {"POSTGRES_PASSWORD": "ephemeral-ci-only"}, None),
     ])
 
+    # R6-1 additional inventory checksum regressions.
+    inventory_checksum_names = [
+        'backend/sr2/native-keys.js',
+        'src/issuer/actions/access.js',
+        'test/fixtures/issuer-public-api.json',
+    ]
+    for index, name in enumerate(inventory_checksum_names):
+        checksum = hashlib.sha256((ROOT / name).read_bytes()).hexdigest()
+        cases.extend([
+            (f"release-checksum-{index}", INVENTORY, {"files": {name: checksum}}, None),
+            (f"release-checksum-wrong-file-{index}", "control.json",
+             {"files": {name: checksum}}, "generic-api-key"),
+            (f"release-checksum-real-token-{index}", INVENTORY,
+             {"files": {name: token}}, "github-pat"),
+        ])
+    # End R6-1 additional inventory checksum regressions.
+
     with tempfile.TemporaryDirectory(prefix="pci-gitleaks-regression-") as temporary:
         parent = Path(temporary)
         for name, filename, payload, expected_rule in cases:

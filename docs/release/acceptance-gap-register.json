@@ -1,5 +1,5 @@
 {
-  "version": "0.5.0-rc.12",
+  "version": "0.5.0-rc.16",
   "purpose": "All 101 SRS requirements retained with the two historical status declarations of October 2026 and the concern recorded for each; this is an evidence gap register, not an acceptance declaration. Rows with a concern are reassessed against the current source and the result is recorded in requirements.json.",
   "historicalMatrices": {
     "FAP_PCI_SRS_FRs_Matrix_LEANEA_GmbH_validated_20261017.xlsx": {

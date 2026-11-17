@@ -2019,6 +2019,15 @@ regexTarget = "line"
 paths = ['''(^|/)docs/release/artifacts\.json$''']
 regexes = ['''^\s*"(?:backend/functions/auth\.js|contracts/examples/employee\-credential\.json|deployment/prerequisites/ocm\-owner\-keycloak\-policy\.yaml|docs/api/openapi\.json|docs/architecture/decisions/ADR\-005\-keycloak\-realm\.md|reference/participant\-data\-repository/contexts/credentials\-v1\.json|scripts/participant\-secret\.sh|src/services/api\.js|src/services/auth\.js|test/tests/static/api\-contract\.test\.mjs|tools/build\-api\-examples\.mjs|tools/build\-sr2\-api\.mjs)"\s*:\s*"[0-9a-fA-F]{64}"\s*,?\s*$''']
 
+# R6-1 verified inventory checksum entries.
+[[rules.allowlists]]
+description = "Verified additional SHA-256 inventory entries (R6-1)"
+condition = "AND"
+regexTarget = "line"
+paths = ['''(^|/)docs/release/artifacts\.json$''']
+regexes = ['''^\s*"(?:backend/sr2/native\-keys\.js|src/issuer/actions/access\.js|test/fixtures/issuer\-public\-api\.json)"\s*:\s*"[0-9a-fA-F]{64}"\s*,?\s*$''']
+# End R6-1 verified inventory checksum entries.
+
 [[rules]]
 id = "github-app-token"
 description = "Identified a GitHub App Token, which may compromise GitHub application integrations and source code security."

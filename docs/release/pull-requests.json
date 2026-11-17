@@ -1,0 +1,2047 @@
+{
+  "$comment": "Pull requests of the MS2 remediation, generated from the local commit stack. Author and reviewer are the planned assignments; review record, issues and merge date are filled from GitHub once the pull requests exist (tools/record-pull-requests.mjs). Sizes exclude dist/ and package-lock.json. inRemediationPlan=false marks pull requests added after the plan of 30 October. Pull requests marked implementsRequirements=false change every file (formatting, headers) and are not mapped to requirements in the matrix. Commit hashes are not recorded because the commits are re-created under the author's identity before they are pushed.",
+  "baseline": "2fa3a8af9e4a329f01d629b3510a03d95b3fb397",
+  "items": [
+    {
+      "id": "R1-1",
+      "title": "Licence gate, pinned runners and pull-request template",
+      "workPackage": "R1",
+      "plannedAuthor": "Mani Faridi",
+      "plannedReviewer": "Kian Najian",
+      "inRemediationPlan": true,
+      "status": "open on GitHub",
+      "commits": [
+        {
+          "subject": "R1-1: licence gate, pinned runners and pull-request template"
+        },
+        {
+          "subject": "R1-1: pin the patched Markdown release"
+        }
+      ],
+      "sizeExcludingGenerated": {
+        "added": 65,
+        "removed": 27
+      },
+      "files": [
+        ".github/PULL_REQUEST_TEMPLATE.md",
+        ".github/workflows/ci.yml",
+        ".github/workflows/docs.yml",
+        ".github/workflows/eclipse-dash.yml",
+        ".github/workflows/release-container-sbom.yml",
+        ".github/workflows/release-go-sbom.yml",
+        ".github/workflows/release-python-sbom.yml",
+        ".github/workflows/release-sbom.yml",
+        ".github/workflows/release.yml",
+        ".github/workflows/signoff.yml",
+        ".github/workflows/update-ui-dependencies.yml",
+        "docs/testing/live-acceptance.md",
+        "test/bdd/constraints.txt"
+      ],
+      "aiAssistance": "Assisted-by: AI (commit trailer); the files listed in tools/licence-header-ai-files.txt carry the disclosure in their header",
+      "implementsRequirements": true,
+      "issues": [
+        2,
+        3
+      ],
+      "reviewRecord": {
+        "reviewer": "KianLeanea",
+        "firstReviewSubmittedAt": "2026-11-12T17:26:04Z",
+        "approvedAt": "2026-11-12T17:26:04Z",
+        "reviewsByOthers": 1,
+        "reviewStartedStated": "Pending",
+        "reviewCompletedStated": "Pending",
+        "approvedCommit": "20eec97ee88fedb3203655161224293bf3a41eb1",
+        "url": "https://github.com/eclipse-xfsc/facis-fap-principal-credential-issuance/pull/40#pullrequestreview-5879010794",
+        "approvedCommitMatchesRecordedHead": true
+      },
+      "mergedAt": null,
+      "pullRequest": {
+        "number": 40,
+        "url": "https://github.com/eclipse-xfsc/facis-fap-principal-credential-issuance/pull/40",
+        "author": "ManiFaridi"
+      },
+      "sizeOnGitHub": {
+        "added": 57,
+        "removed": 19,
+        "files": 13
+      },
+      "mergedBy": null,
+      "headCommitAtCollection": "20eec97ee88fedb3203655161224293bf3a41eb1",
+      "githubBaseCommitAtCollection": "2fa3a8af9e4a329f01d629b3510a03d95b3fb397"
+    },
+    {
+      "id": "R1-2",
+      "title": "Dependency, vulnerability, secret and manifest scans",
+      "workPackage": "R1",
+      "plannedAuthor": "Mani Faridi",
+      "plannedReviewer": "Kian Najian",
+      "inRemediationPlan": true,
+      "status": "open on GitHub",
+      "commits": [
+        {
+          "subject": "R1-2: dependency, vulnerability, secret and manifest scans"
+        },
+        {
+          "subject": "R1-2: audit packages from the installed Python environment"
+        },
+        {
+          "subject": "R1-2: update participant Go toolchain and dependencies"
+        },
+        {
+          "subject": "R1-2: include the patched Markdown constraint from R1-1"
+        },
+        {
+          "subject": "R1-2: update Pillow and the audit environment pip"
+        }
+      ],
+      "sizeExcludingGenerated": {
+        "added": 330,
+        "removed": 19
+      },
+      "files": [
+        ".github/gitleaks.toml",
+        ".github/workflows/security-scans.yml",
+        "reference/participant-data-repository/go.mod",
+        "reference/participant-data-repository/go.sum",
+        "security/python-audit-exceptions.txt",
+        "test/bdd/requirements.txt"
+      ],
+      "aiAssistance": "Assisted-by: AI (commit trailer); the files listed in tools/licence-header-ai-files.txt carry the disclosure in their header",
+      "implementsRequirements": true,
+      "issues": [
+        4
+      ],
+      "reviewRecord": {
+        "reviewer": "KianLeanea",
+        "firstReviewSubmittedAt": "2026-11-12T19:41:02Z",
+        "approvedAt": "2026-11-14T21:03:13Z",
+        "reviewsByOthers": 4,
+        "reviewStartedStated": "Pending",
+        "reviewCompletedStated": "Pending",
+        "approvedCommit": "033e16beb8ceb67bc0a1aa3270a520f1f9b4856f",
+        "url": "https://github.com/eclipse-xfsc/facis-fap-principal-credential-issuance/pull/41#pullrequestreview-5907146980",
+        "approvedCommitMatchesRecordedHead": false
+      },
+      "mergedAt": null,
+      "pullRequest": {
+        "number": 41,
+        "url": "https://github.com/eclipse-xfsc/facis-fap-principal-credential-issuance/pull/41",
+        "author": "ManiFaridi"
+      },
+      "sizeOnGitHub": {
+        "added": 4173,
+        "removed": 59,
+        "files": 30
+      },
+      "mergedBy": null,
+      "headCommitAtCollection": "d1b69a4e63168ffe3a7200edfa6212628a07f3e9",
+      "githubBaseCommitAtCollection": "2fa3a8af9e4a329f01d629b3510a03d95b3fb397"
+    },
+    {
+      "id": "R1-3",
+      "title": "Dependency updates reported as an issue, not pushed",
+      "workPackage": "R1",
+      "plannedAuthor": "Mani Faridi",
+      "plannedReviewer": "Kian Najian",
+      "inRemediationPlan": true,
+      "status": "open on GitHub",
+      "commits": [
+        {
+          "subject": "R1-3: dependency updates are reported as an issue, not pushed"
+        },
+        {
+          "subject": "R1-3: include Python audit and Go dependency corrections from R1-2"
+        },
+        {
+          "subject": "R1-3: include the latest Python dependency corrections from R1-2"
+        }
+      ],
+      "sizeExcludingGenerated": {
+        "added": 188,
+        "removed": 122
+      },
+      "files": [
+        ".github/workflows/update-ui-dependencies.yml"
+      ],
+      "aiAssistance": "Assisted-by: AI (commit trailer); the files listed in tools/licence-header-ai-files.txt carry the disclosure in their header",
+      "implementsRequirements": true,
+      "issues": [
+        5
+      ],
+      "reviewRecord": {
+        "reviewer": "KianLeanea",
+        "firstReviewSubmittedAt": "2026-11-14T09:35:01Z",
+        "approvedAt": "2026-11-14T21:09:35Z",
+        "reviewsByOthers": 4,
+        "reviewStartedStated": "Pending",
+        "reviewCompletedStated": "Pending",
+        "approvedCommit": "6b26ea4573168b7c7b7b0c20cbfb7a14baa3afc4",
+        "url": "https://github.com/eclipse-xfsc/facis-fap-principal-credential-issuance/pull/42#pullrequestreview-5907172022",
+        "approvedCommitMatchesRecordedHead": false
+      },
+      "mergedAt": null,
+      "pullRequest": {
+        "number": 42,
+        "url": "https://github.com/eclipse-xfsc/facis-fap-principal-credential-issuance/pull/42",
+        "author": "ManiFaridi"
+      },
+      "sizeOnGitHub": {
+        "added": 4457,
+        "removed": 162,
+        "files": 32
+      },
+      "mergedBy": null,
+      "headCommitAtCollection": "c28245d4900aa02499c9fa007e1f586cd9253e9c",
+      "githubBaseCommitAtCollection": "2fa3a8af9e4a329f01d629b3510a03d95b3fb397"
+    },
+    {
+      "id": "R2-1",
+      "title": "acorn from the npm registry; module syntax stripped by syntax",
+      "workPackage": "R2",
+      "plannedAuthor": "Mani Faridi",
+      "plannedReviewer": "Kian Najian",
+      "inRemediationPlan": true,
+      "status": "open on GitHub",
+      "commits": [
+        {
+          "subject": "R2-1: take acorn from the npm registry and strip module syntax by syntax"
+        }
+      ],
+      "sizeExcludingGenerated": {
+        "added": 79,
+        "removed": 8
+      },
+      "files": [
+        "THIRD_PARTY_NOTICES.md",
+        "dist/fap-pci-flow.json",
+        "dist/ui/index.js",
+        "package-lock.json",
+        "package.json",
+        "test/tests/static/module-source.test.mjs",
+        "tools/build-flows.mjs",
+        "tools/build-ui.mjs",
+        "tools/lib/module-source.mjs"
+      ],
+      "aiAssistance": "Assisted-by: AI (commit trailer); the files listed in tools/licence-header-ai-files.txt carry the disclosure in their header",
+      "implementsRequirements": true,
+      "issues": [
+        6
+      ],
+      "reviewRecord": {
+        "reviewer": "KianLeanea",
+        "firstReviewSubmittedAt": "2026-11-14T10:14:22Z",
+        "approvedAt": "2026-11-14T21:23:33Z",
+        "reviewsByOthers": 4,
+        "reviewStartedStated": "Pending",
+        "reviewCompletedStated": "Pending",
+        "approvedCommit": "baa2c9aabfa9a576a3c9012b9a46fd3e29713c50",
+        "url": "https://github.com/eclipse-xfsc/facis-fap-principal-credential-issuance/pull/43#pullrequestreview-5907220513",
+        "approvedCommitMatchesRecordedHead": false
+      },
+      "mergedAt": null,
+      "pullRequest": {
+        "number": 43,
+        "url": "https://github.com/eclipse-xfsc/facis-fap-principal-credential-issuance/pull/43",
+        "author": "ManiFaridi"
+      },
+      "sizeOnGitHub": {
+        "added": 4852,
+        "removed": 191,
+        "files": 41
+      },
+      "mergedBy": null,
+      "headCommitAtCollection": "9cfe1d8a9ad8c116980a0c4d9c59918b928a3e38",
+      "githubBaseCommitAtCollection": "2fa3a8af9e4a329f01d629b3510a03d95b3fb397"
+    },
+    {
+      "id": "R2-2",
+      "title": "Source formatter, applied once to the authored sources",
+      "workPackage": "R2",
+      "plannedAuthor": "Mani Faridi",
+      "plannedReviewer": "Kian Najian",
+      "inRemediationPlan": true,
+      "status": "open on GitHub",
+      "commits": [
+        {
+          "subject": "R2-2: source formatter, applied once to the authored sources"
+        }
+      ],
+      "sizeExcludingGenerated": {
+        "added": 8398,
+        "removed": 2735
+      },
+      "files": [
+        ".editorconfig",
+        ".gitattributes",
+        ".github/workflows/ci.yml",
+        "backend/functions/_bridge.js",
+        "backend/functions/_common.js",
+        "backend/functions/_identity.js",
+        "backend/functions/_k8s.js",
+        "backend/functions/_participant-cleanup.js",
+        "backend/functions/auth.js",
+        "backend/functions/email.js",
+        "backend/functions/flow-management.js",
+        "backend/functions/history-status.js",
+        "backend/functions/infrastructure.js",
+        "backend/functions/issuer-admin.js",
+        "backend/functions/issuer-metadata.js",
+        "backend/functions/issuer-runtime.js",
+        "backend/functions/participant.js",
+        "backend/functions/provider.js",
+        "backend/functions/reconcile.js",
+        "backend/functions/registration.js",
+        "backend/functions/status.js",
+        "backend/functions/tenant.js",
+        "backend/sr2/adapters.js",
+        "backend/sr2/assets.js",
+        "backend/sr2/domain.js",
+        "backend/sr2/history.js",
+        "backend/sr2/http.js",
+        "backend/sr2/issuance.js",
+        "backend/sr2/journey-input.js",
+        "backend/sr2/linked-data.js",
+        "backend/sr2/maintenance.js",
+        "backend/sr2/native.js",
+        "backend/sr2/participant-security.js",
+        "backend/sr2/presentation.js",
+        "backend/sr2/profiles.js",
+        "backend/sr2/revocation.js",
+        "backend/sr2/runtime.js",
+        "backend/sr2/sdjwt.js",
+        "backend/sr2/semantics.js",
+        "backend/sr2/service.js",
+        "backend/sr2/store.js",
+        "backend/sr2/transport.js",
+        "backend/sr2/wire.js",
+        "build.js",
+        "dist/fap-pci-flow.json",
+        "dist/ui/index.js",
+        "package.json",
+        "shared/public-url.js",
+        "src/components/feedback.js",
+        "src/config/runtime.js",
+        "src/main.js",
+        "src/qr-tables.js",
+        "src/qr.js",
+        "src/services/api.js",
+        "src/services/auth.js",
+        "src/services/transport.js",
+        "src/sr2.js",
+        "src/state/reducers.js",
+        "src/state/store.js",
+        "src/utils/pkce.js",
+        "test/support/ui-bridge.mjs",
+        "test/tests/bdd/tenant-foundation.test.mjs",
+        "test/tests/integration/rc9-sandbox.test.mjs",
+        "test/tests/integration/sr2-http.test.mjs",
+        "test/tests/integration/sr2-ui.test.mjs",
+        "test/tests/integration/ui-transport.test.mjs",
+        "test/tests/static/module-source.test.mjs",
+        "test/tests/static/public-url-audit.test.mjs",
+        "test/tests/static/security-host-authority.test.mjs",
+        "test/tests/static/sr2-contract.test.mjs",
+        "tools/build-api-examples.mjs",
+        "tools/build-flows.mjs",
+        "tools/build-lifecycle-flow.mjs",
+        "tools/build-requirement-audit.mjs",
+        "tools/build-requirements.mjs",
+        "tools/build-sr2-api.mjs",
+        "tools/build-test-source.mjs",
+        "tools/build-ui.mjs",
+        "tools/check-documentation.mjs",
+        "tools/extract-schema.mjs",
+        "tools/format-source.mjs",
+        "tools/refresh-release-inventory.mjs",
+        "tools/release-artifacts.mjs",
+        "tools/signoff-gate.mjs",
+        "tools/validate-offline.mjs"
+      ],
+      "aiAssistance": "Assisted-by: AI (commit trailer); the files listed in tools/licence-header-ai-files.txt carry the disclosure in their header",
+      "implementsRequirements": false,
+      "issues": [
+        7
+      ],
+      "reviewRecord": {
+        "reviewer": "KianLeanea",
+        "firstReviewSubmittedAt": "2026-11-14T12:14:58Z",
+        "approvedAt": "2026-11-14T12:14:58Z",
+        "reviewsByOthers": 1,
+        "reviewStartedStated": "Pending",
+        "reviewCompletedStated": "Pending",
+        "approvedCommit": "1ebc288d74ecb70d9dd592cd0b62818a0f3dd1e5",
+        "url": "https://github.com/eclipse-xfsc/facis-fap-principal-credential-issuance/pull/44#pullrequestreview-5904291653",
+        "approvedCommitMatchesRecordedHead": false
+      },
+      "mergedAt": null,
+      "pullRequest": {
+        "number": 44,
+        "url": "https://github.com/eclipse-xfsc/facis-fap-principal-credential-issuance/pull/44",
+        "author": "ManiFaridi"
+      },
+      "sizeOnGitHub": {
+        "added": 21172,
+        "removed": 5568,
+        "files": 173
+      },
+      "mergedBy": null,
+      "headCommitAtCollection": "3bc4ecc5b7cbe855bcdb852f82d3791eb49d6a68",
+      "githubBaseCommitAtCollection": "2fa3a8af9e4a329f01d629b3510a03d95b3fb397"
+    },
+    {
+      "id": "R2-3",
+      "title": "Backend restructuring and input hardening",
+      "workPackage": "R2",
+      "plannedAuthor": "Mani Faridi",
+      "plannedReviewer": "Kian Najian",
+      "inRemediationPlan": true,
+      "status": "open on GitHub",
+      "commits": [
+        {
+          "subject": "R2-3: backend restructuring and input hardening"
+        }
+      ],
+      "sizeExcludingGenerated": {
+        "added": 434,
+        "removed": 321
+      },
+      "files": [
+        "backend/sr2/adapter-contracts.js",
+        "backend/sr2/adapters.js",
+        "backend/sr2/http.js",
+        "backend/sr2/issuance.js",
+        "backend/sr2/native-keys.js",
+        "backend/sr2/native-metadata.js",
+        "backend/sr2/native.js",
+        "backend/sr2/presentation.js",
+        "backend/sr2/revocation.js",
+        "backend/sr2/runtime.js",
+        "backend/sr2/sdjwt.js",
+        "backend/sr2/service-policy.js",
+        "backend/sr2/service.js",
+        "dist/fap-pci-flow.json",
+        "test/tests/integration/review-hardening.test.mjs",
+        "tools/build-flows.mjs"
+      ],
+      "aiAssistance": "Assisted-by: AI (commit trailer); the files listed in tools/licence-header-ai-files.txt carry the disclosure in their header",
+      "implementsRequirements": true,
+      "issues": [
+        8
+      ],
+      "reviewRecord": {
+        "reviewer": "KianLeanea",
+        "firstReviewSubmittedAt": "2026-11-14T14:25:21Z",
+        "approvedAt": "2026-11-14T14:25:21Z",
+        "reviewsByOthers": 1,
+        "reviewStartedStated": "Pending",
+        "reviewCompletedStated": "Pending",
+        "approvedCommit": "99fa2d012b2d8b3ae61785d983b13cce4fd50079",
+        "url": "https://github.com/eclipse-xfsc/facis-fap-principal-credential-issuance/pull/45#pullrequestreview-5904901168",
+        "approvedCommitMatchesRecordedHead": false
+      },
+      "mergedAt": null,
+      "pullRequest": {
+        "number": 45,
+        "url": "https://github.com/eclipse-xfsc/facis-fap-principal-credential-issuance/pull/45",
+        "author": "ManiFaridi"
+      },
+      "sizeOnGitHub": {
+        "added": 21341,
+        "removed": 5599,
+        "files": 178
+      },
+      "mergedBy": null,
+      "headCommitAtCollection": "b868c52d188910e23e4c92f9bed70ae1d2695b80",
+      "githubBaseCommitAtCollection": "2fa3a8af9e4a329f01d629b3510a03d95b3fb397"
+    },
+    {
+      "id": "R2-4",
+      "title": "Bundle-graph checks, maintainability gate and committed rules",
+      "workPackage": "R2",
+      "plannedAuthor": "Mani Faridi",
+      "plannedReviewer": "Kian Najian",
+      "inRemediationPlan": true,
+      "status": "open on GitHub",
+      "commits": [
+        {
+          "subject": "R2-4: bundle-graph checks, maintainability gate and committed rules"
+        }
+      ],
+      "sizeExcludingGenerated": {
+        "added": 510,
+        "removed": 53
+      },
+      "files": [
+        ".github/workflows/ci.yml",
+        "backend/functions/registration.js",
+        "dist/fap-pci-flow.json",
+        "package.json",
+        "test/tests/static/bundle-graph.test.mjs",
+        "test/tests/static/module-source.test.mjs",
+        "tools/build-flows.mjs",
+        "tools/build-ui.mjs",
+        "tools/check-maintainability.mjs",
+        "tools/lib/bundle-graph.mjs",
+        "tools/lib/bundle-inputs.mjs",
+        "tools/maintainability-rules.json"
+      ],
+      "aiAssistance": "Assisted-by: AI (commit trailer); the files listed in tools/licence-header-ai-files.txt carry the disclosure in their header",
+      "implementsRequirements": true,
+      "issues": [
+        9
+      ],
+      "reviewRecord": {
+        "reviewer": "KianLeanea",
+        "firstReviewSubmittedAt": "2026-11-14T14:41:24Z",
+        "approvedAt": "2026-11-14T21:28:08Z",
+        "reviewsByOthers": 3,
+        "reviewStartedStated": "Pending",
+        "reviewCompletedStated": "Pending",
+        "approvedCommit": "2bd8957c7c8b76704b56eadd0c7150b5acb2aa0f",
+        "url": "https://github.com/eclipse-xfsc/facis-fap-principal-credential-issuance/pull/46#pullrequestreview-5907235744",
+        "approvedCommitMatchesRecordedHead": false
+      },
+      "mergedAt": null,
+      "pullRequest": {
+        "number": 46,
+        "url": "https://github.com/eclipse-xfsc/facis-fap-principal-credential-issuance/pull/46",
+        "author": "ManiFaridi"
+      },
+      "sizeOnGitHub": {
+        "added": 22168,
+        "removed": 5781,
+        "files": 183
+      },
+      "mergedBy": null,
+      "headCommitAtCollection": "a9ecfb2cc49383b6f242d334ee1af6aaa7885c1b",
+      "githubBaseCommitAtCollection": "2fa3a8af9e4a329f01d629b3510a03d95b3fb397"
+    },
+    {
+      "id": "R2-5",
+      "title": "Issuer user interface split into state, action and view modules (no behaviour change)",
+      "workPackage": "R2",
+      "plannedAuthor": "Mani Faridi",
+      "plannedReviewer": "Atoosa Eslami",
+      "inRemediationPlan": true,
+      "status": "open on GitHub",
+      "commits": [
+        {
+          "subject": "R2-5: issuer user interface split into state, action and view modules"
+        }
+      ],
+      "sizeExcludingGenerated": {
+        "added": 2865,
+        "removed": 947
+      },
+      "files": [
+        ".github/workflows/ci.yml",
+        "dist/ui/index.js",
+        "src/components/feedback.js",
+        "src/issuer/actions/access.js",
+        "src/issuer/actions/assets.js",
+        "src/issuer/actions/configurations.js",
+        "src/issuer/actions/connectors.js",
+        "src/issuer/actions/flows.js",
+        "src/issuer/actions/history.js",
+        "src/issuer/actions/identity.js",
+        "src/issuer/actions/journey.js",
+        "src/issuer/actions/presentation.js",
+        "src/issuer/actions/refresh.js",
+        "src/issuer/actions/tenant.js",
+        "src/issuer/client.js",
+        "src/issuer/console-template.js",
+        "src/issuer/controller.js",
+        "src/issuer/form-defaults.js",
+        "src/issuer/operation-runner.js",
+        "src/issuer/views/configurations-panel.js",
+        "src/issuer/views/connectors-panel.js",
+        "src/issuer/views/delegation-panel.js",
+        "src/issuer/views/delegation-slot.js",
+        "src/issuer/views/history-panel.js",
+        "src/issuer/views/journeys-panel.js",
+        "src/issuer/views/presentation-panel.js",
+        "src/issuer/views/request-panel.js",
+        "src/issuer/views/tenant-panel.js",
+        "src/issuer/workspace-selectors.js",
+        "src/issuer/workspace-state.js",
+        "src/main.js",
+        "src/sr2.js",
+        "test/browser/dom-smoke.mjs",
+        "test/browser/runtime.mjs",
+        "test/fixtures/issuer-public-api.json",
+        "test/support/browser-fixture.mjs",
+        "test/support/issuer-controller.mjs",
+        "test/support/ui-source.mjs",
+        "test/tests/integration/issuer-features.test.mjs",
+        "test/tests/integration/issuer-modules.test.mjs",
+        "test/tests/integration/sr2-ui.test.mjs",
+        "tools/lib/bundle-inputs.mjs",
+        "tools/maintainability-rules.json"
+      ],
+      "aiAssistance": "Assisted-by: AI (commit trailer); the files listed in tools/licence-header-ai-files.txt carry the disclosure in their header",
+      "implementsRequirements": true,
+      "issues": [
+        10
+      ],
+      "reviewRecord": {
+        "reviewer": "leaneagmbh",
+        "firstReviewSubmittedAt": "2026-11-12T14:10:44Z",
+        "approvedAt": "2026-11-12T14:10:44Z",
+        "reviewsByOthers": 1,
+        "reviewStartedStated": "Pending",
+        "reviewCompletedStated": "Pending",
+        "approvedCommit": "96a4cbf1a800dda813c58b07a63e8d339722d0e4",
+        "url": "https://github.com/eclipse-xfsc/facis-fap-principal-credential-issuance/pull/47#pullrequestreview-5875858878",
+        "approvedCommitMatchesRecordedHead": false
+      },
+      "mergedAt": null,
+      "pullRequest": {
+        "number": 47,
+        "url": "https://github.com/eclipse-xfsc/facis-fap-principal-credential-issuance/pull/47",
+        "author": "ManiFaridi"
+      },
+      "sizeOnGitHub": {
+        "added": 25526,
+        "removed": 5950,
+        "files": 217
+      },
+      "mergedBy": null,
+      "headCommitAtCollection": "3645ecea59ffe72a46b802a4b2da4dd641884732",
+      "githubBaseCommitAtCollection": "2fa3a8af9e4a329f01d629b3510a03d95b3fb397"
+    },
+    {
+      "id": "R2-6",
+      "title": "Five behaviour fixes of the issuer interface and the root component, each with its failing test first",
+      "workPackage": "R2",
+      "plannedAuthor": "Mani Faridi",
+      "plannedReviewer": "Kian Najian",
+      "inRemediationPlan": true,
+      "status": "open on GitHub",
+      "commits": [
+        {
+          "subject": "R2-6a (test): progress flag must stay set until the last overlapping operation settles"
+        },
+        {
+          "subject": "R2-6a (fix): count pending operations before clearing the progress flag"
+        },
+        {
+          "subject": "R2-6b (test): editing a connector must not alias the stored draft"
+        },
+        {
+          "subject": "R2-6b (fix): build the connector form from the cloned draft only"
+        },
+        {
+          "subject": "R2-6c (test): a wallet return must open the presentation tab"
+        },
+        {
+          "subject": "R2-6c (fix): keep the presentation tab when restoring a saved workspace"
+        },
+        {
+          "subject": "R2-6d (test): a refresh without issuer privileges must clear privileged state"
+        },
+        {
+          "subject": "R2-6d (fix): reset privileged workspace state on refresh without the capability"
+        },
+        {
+          "subject": "R2-6e (test): the root component must remove its hashchange listener on unmount"
+        },
+        {
+          "subject": "R2-6e (fix): register the hash route handler as a named function and remove it on unmount"
+        }
+      ],
+      "sizeExcludingGenerated": {
+        "added": 112,
+        "removed": 10
+      },
+      "files": [
+        "dist/ui/index.js",
+        "src/issuer/actions/connectors.js",
+        "src/issuer/actions/journey.js",
+        "src/issuer/actions/refresh.js",
+        "src/issuer/operation-runner.js",
+        "src/main.js",
+        "test/tests/integration/issuer-features.test.mjs",
+        "test/tests/integration/workspace-lifecycle.test.mjs"
+      ],
+      "aiAssistance": "Assisted-by: AI (commit trailer); the files listed in tools/licence-header-ai-files.txt carry the disclosure in their header",
+      "implementsRequirements": true,
+      "issues": [
+        11,
+        12,
+        13,
+        14,
+        15
+      ],
+      "reviewRecord": {
+        "reviewer": "KianLeanea",
+        "firstReviewSubmittedAt": "2026-11-14T15:45:40Z",
+        "approvedAt": "2026-11-15T10:13:27Z",
+        "reviewsByOthers": 4,
+        "reviewStartedStated": "Pending",
+        "reviewCompletedStated": "Pending",
+        "approvedCommit": "081cbb2a57ddd287525693b2f195d4ac01c409ed",
+        "url": "https://github.com/eclipse-xfsc/facis-fap-principal-credential-issuance/pull/48#pullrequestreview-5910201058",
+        "approvedCommitMatchesRecordedHead": false
+      },
+      "mergedAt": null,
+      "pullRequest": {
+        "number": 48,
+        "url": "https://github.com/eclipse-xfsc/facis-fap-principal-credential-issuance/pull/48",
+        "author": "ManiFaridi"
+      },
+      "sizeOnGitHub": {
+        "added": 25997,
+        "removed": 5958,
+        "files": 219
+      },
+      "mergedBy": null,
+      "headCommitAtCollection": "8cbd6d63198f69f8499175d5c122429bd6337cb2",
+      "githubBaseCommitAtCollection": "2fa3a8af9e4a329f01d629b3510a03d95b3fb397"
+    },
+    {
+      "id": "R2-7",
+      "title": "Deployed UX test runner, collector and run summary for FR-PCI-61",
+      "workPackage": "R2",
+      "plannedAuthor": "Mani Faridi",
+      "plannedReviewer": "Atoosa Eslami",
+      "inRemediationPlan": true,
+      "status": "open on GitHub",
+      "commits": [
+        {
+          "subject": "R2-7: deployed UX test runner, collector and run summary for FR-PCI-61"
+        }
+      ],
+      "sizeExcludingGenerated": {
+        "added": 735,
+        "removed": 21
+      },
+      "files": [
+        "docs/testing/ux-bdd-runbook.md",
+        "mkdocs.yml",
+        "package.json",
+        "scripts/collect-ux-environment.py",
+        "scripts/run-ux-bdd.py",
+        "test/bdd/features/administration.feature",
+        "test/bdd/features/offer.feature",
+        "test/bdd/features/runtime.feature",
+        "test/bdd/features/steps/administration.py",
+        "test/bdd/ux-environment.example.json",
+        "test/ux-runner/test_summary.py",
+        "tools/preview-fixture.mjs",
+        "tools/validate-offline.mjs"
+      ],
+      "aiAssistance": "Assisted-by: AI (commit trailer); the files listed in tools/licence-header-ai-files.txt carry the disclosure in their header",
+      "implementsRequirements": true,
+      "issues": [
+        16
+      ],
+      "reviewRecord": {
+        "reviewer": "leaneagmbh",
+        "firstReviewSubmittedAt": "2026-11-13T11:26:39Z",
+        "approvedAt": "2026-11-13T11:26:39Z",
+        "reviewsByOthers": 1,
+        "reviewStartedStated": "Pending",
+        "reviewCompletedStated": "Pending",
+        "approvedCommit": "c25dc2a6a82b723b1361f76d2970a73044b11fff",
+        "url": "https://github.com/eclipse-xfsc/facis-fap-principal-credential-issuance/pull/49#pullrequestreview-5890130463",
+        "approvedCommitMatchesRecordedHead": false
+      },
+      "mergedAt": null,
+      "pullRequest": {
+        "number": 49,
+        "url": "https://github.com/eclipse-xfsc/facis-fap-principal-credential-issuance/pull/49",
+        "author": "ManiFaridi"
+      },
+      "sizeOnGitHub": {
+        "added": 26731,
+        "removed": 5978,
+        "files": 230
+      },
+      "mergedBy": null,
+      "headCommitAtCollection": "4504d37e85f8dcd15aa27acaa278189913e2d61d",
+      "githubBaseCommitAtCollection": "2fa3a8af9e4a329f01d629b3510a03d95b3fb397"
+    },
+    {
+      "id": "R2-8",
+      "title": "Requirements catalogue, acceptance gates, NOTICE and contribution process",
+      "workPackage": "R2",
+      "plannedAuthor": "Mani Faridi",
+      "plannedReviewer": "Atoosa Eslami",
+      "inRemediationPlan": true,
+      "status": "open on GitHub",
+      "commits": [
+        {
+          "subject": "R2-8: requirements catalogue, acceptance gates, NOTICE and contribution process"
+        }
+      ],
+      "sizeExcludingGenerated": {
+        "added": 3963,
+        "removed": 959
+      },
+      "files": [
+        "CONTRIBUTING.md",
+        "NOTICE.md",
+        "README.md",
+        "docs/development/maintainer-guide.md",
+        "docs/development/official-workflow.md",
+        "docs/release/acceptance-gap-register.json",
+        "docs/release/acceptance-gates.md",
+        "docs/release/completion.md",
+        "docs/release/requirement-audit.json",
+        "docs/release/requirement-audit.md",
+        "docs/requirements/requirements.json",
+        "docs/requirements/technical-clauses.json",
+        "docs/requirements/technical-clauses.md",
+        "docs/requirements/traceability.md",
+        "docs/source-baseline.md",
+        "mkdocs.yml",
+        "tools/build-requirement-audit.mjs",
+        "tools/build-requirements.mjs",
+        "tools/check-documentation.mjs",
+        "tools/maintainability-rules.json"
+      ],
+      "aiAssistance": "Assisted-by: AI (commit trailer); the files listed in tools/licence-header-ai-files.txt carry the disclosure in their header",
+      "implementsRequirements": true,
+      "issues": [
+        17,
+        18
+      ],
+      "reviewRecord": null,
+      "mergedAt": null,
+      "pullRequest": {
+        "number": 50,
+        "url": "https://github.com/eclipse-xfsc/facis-fap-principal-credential-issuance/pull/50",
+        "author": "ManiFaridi"
+      },
+      "sizeOnGitHub": {
+        "added": 30662,
+        "removed": 6901,
+        "files": 245
+      },
+      "mergedBy": null,
+      "headCommitAtCollection": "fde8f13de0a422cc1ae42d277d8e5ba52a6ada62",
+      "githubBaseCommitAtCollection": "2fa3a8af9e4a329f01d629b3510a03d95b3fb397"
+    },
+    {
+      "id": "R2-9",
+      "title": "Copyright and licence headers with SPDX identifiers; example hostnames",
+      "workPackage": "R2",
+      "plannedAuthor": "Mani Faridi",
+      "plannedReviewer": "Kian Najian",
+      "inRemediationPlan": true,
+      "status": "open on GitHub",
+      "commits": [
+        {
+          "subject": "R2-9: copyright and licence headers with SPDX identifiers; example hostnames"
+        }
+      ],
+      "sizeExcludingGenerated": {
+        "added": 2279,
+        "removed": 5
+      },
+      "files": [
+        ".github/workflows/ci.yml",
+        "CONTRIBUTING.md",
+        "automation/stage1/apply-resources.py",
+        "automation/stage1/artifacts.mjs",
+        "automation/stage1/check-tenant-removal.mjs",
+        "automation/stage1/ground-zero.sh",
+        "automation/stage1/helper-cleanup.py",
+        "automation/stage1/install.sh",
+        "automation/stage1/merge-flows.mjs",
+        "automation/stage1/pci-tenant-values.py",
+        "automation/stage1/restore-runtime.mjs",
+        "backend/functions/_bridge.js",
+        "backend/functions/_common.js",
+        "backend/functions/_identity.js",
+        "backend/functions/_k8s.js",
+        "backend/functions/_participant-cleanup.js",
+        "backend/functions/auth.js",
+        "backend/functions/email.js",
+        "backend/functions/flow-management.js",
+        "backend/functions/history-status.js",
+        "backend/functions/infrastructure.js",
+        "backend/functions/issuer-admin.js",
+        "backend/functions/issuer-metadata.js",
+        "backend/functions/issuer-runtime.js",
+        "backend/functions/participant.js",
+        "backend/functions/provider.js",
+        "backend/functions/reconcile.js",
+        "backend/functions/registration.js",
+        "backend/functions/status.js",
+        "backend/functions/tenant.js",
+        "backend/sr2/adapter-contracts.js",
+        "backend/sr2/adapters.js",
+        "backend/sr2/assets.js",
+        "backend/sr2/domain.js",
+        "backend/sr2/history.js",
+        "backend/sr2/http.js",
+        "backend/sr2/issuance.js",
+        "backend/sr2/journey-input.js",
+        "backend/sr2/linked-data.js",
+        "backend/sr2/maintenance.js",
+        "backend/sr2/native-keys.js",
+        "backend/sr2/native-metadata.js",
+        "backend/sr2/native.js",
+        "backend/sr2/participant-security.js",
+        "backend/sr2/presentation.js",
+        "backend/sr2/profiles.js",
+        "backend/sr2/revocation.js",
+        "backend/sr2/runtime.js",
+        "backend/sr2/sdjwt.js",
+        "backend/sr2/semantics.js",
+        "backend/sr2/service-policy.js",
+        "backend/sr2/service.js",
+        "backend/sr2/store.js",
+        "backend/sr2/transport.js",
+        "backend/sr2/wire.js",
+        "build.js",
+        "dist/fap-pci-flow.json",
+        "dist/ground-zero.sh",
+        "dist/ui/index.js",
+        "docs/operations/journey-input.md",
+        "package.json",
+        "reference/participant-data-repository/credential/formats.go",
+        "reference/participant-data-repository/credential/formats_test.go",
+        "reference/participant-data-repository/design/design.go",
+        "reference/participant-data-repository/http_source.go",
+        "reference/participant-data-repository/http_source_test.go",
+        "reference/participant-data-repository/ldp_signer.go",
+        "reference/participant-data-repository/ldp_signer_test.go",
+        "reference/participant-data-repository/repository.go",
+        "reference/participant-data-repository/repository_test.go",
+        "scripts/capture-browser-session.py",
+        "scripts/collect-evidence.py",
+        "scripts/collect-ux-environment.py",
+        "scripts/configure-entra.py",
+        "scripts/configure-test-source.py",
+        "scripts/deploy-observability.py",
+        "scripts/deploy-participant.py",
+        "scripts/deploy-test-source.py",
+        "scripts/deploy.sh",
+        "scripts/import-legacy-baseline.py",
+        "scripts/install-with-retries.py",
+        "scripts/lifecycle.py",
+        "scripts/participant-secret.sh",
+        "scripts/preflight.sh",
+        "scripts/privacy-audit.py",
+        "scripts/reconcile-participant-ownership.py",
+        "scripts/run-ux-bdd.py",
+        "scripts/runtime_ownership.py",
+        "scripts/test-alpha-wallet.sh",
+        "scripts/uninstall.sh",
+        "scripts/upgrade-artifacts.sh",
+        "shared/public-url.js",
+        "src/components/feedback.js",
+        "src/config/runtime.js",
+        "src/issuer/actions/access.js",
+        "src/issuer/actions/assets.js",
+        "src/issuer/actions/configurations.js",
+        "src/issuer/actions/connectors.js",
+        "src/issuer/actions/flows.js",
+        "src/issuer/actions/history.js",
+        "src/issuer/actions/identity.js",
+        "src/issuer/actions/journey.js",
+        "src/issuer/actions/presentation.js",
+        "src/issuer/actions/refresh.js",
+        "src/issuer/actions/tenant.js",
+        "src/issuer/client.js",
+        "src/issuer/console-template.js",
+        "src/issuer/controller.js",
+        "src/issuer/form-defaults.js",
+        "src/issuer/operation-runner.js",
+        "src/issuer/views/configurations-panel.js",
+        "src/issuer/views/connectors-panel.js",
+        "src/issuer/views/delegation-panel.js",
+        "src/issuer/views/delegation-slot.js",
+        "src/issuer/views/history-panel.js",
+        "src/issuer/views/journeys-panel.js",
+        "src/issuer/views/presentation-panel.js",
+        "src/issuer/views/request-panel.js",
+        "src/issuer/views/tenant-panel.js",
+        "src/issuer/workspace-selectors.js",
+        "src/issuer/workspace-state.js",
+        "src/main.js",
+        "src/services/api.js",
+        "src/services/auth.js",
+        "src/services/transport.js",
+        "src/sr2.js",
+        "src/state/reducers.js",
+        "src/state/store.js",
+        "src/utils/pkce.js",
+        "test/bdd/features/environment.py",
+        "test/bdd/features/steps/administration.py",
+        "test/bdd/features/steps/completion.py",
+        "test/bdd/features/steps/fresh_identity.py",
+        "test/bdd/features/steps/pci.py",
+        "test/bdd/features/steps/pcm.py",
+        "test/browser/dom-smoke.mjs",
+        "test/browser/runtime.mjs",
+        "test/live/postgres.test.mjs",
+        "test/live/semantic-validation.py",
+        "test/live/wallet.mjs",
+        "test/support/browser-fixture.mjs",
+        "test/support/issuer-controller.mjs",
+        "test/support/sr2-fixture.mjs",
+        "test/support/sr2-http.mjs",
+        "test/support/sr2-store.mjs",
+        "test/support/ui-bridge.mjs",
+        "test/support/ui-source.mjs",
+        "test/tests/bdd/base-path-deployment.test.mjs",
+        "test/tests/bdd/native-completion.test.mjs",
+        "test/tests/bdd/sr2-issuer.test.mjs",
+        "test/tests/bdd/sr2-review-regressions.test.mjs",
+        "test/tests/bdd/tenant-foundation.test.mjs",
+        "test/tests/integration/artifact-lifecycle.test.mjs",
+        "test/tests/integration/datasource-lifecycle.test.mjs",
+        "test/tests/integration/flow-merge.test.mjs",
+        "test/tests/integration/history.test.mjs",
+        "test/tests/integration/issuer-features.test.mjs",
+        "test/tests/integration/issuer-modules.test.mjs",
+        "test/tests/integration/journey-input.test.mjs",
+        "test/tests/integration/keycloak-network-policy.test.mjs",
+        "test/tests/integration/native-adapter.test.mjs",
+        "test/tests/integration/native-profiles.test.mjs",
+        "test/tests/integration/native-transport.test.mjs",
+        "test/tests/integration/participant-grpc.test.mjs",
+        "test/tests/integration/participant-source-setup.test.mjs",
+        "test/tests/integration/participant-source.test.mjs",
+        "test/tests/integration/presentation.test.mjs",
+        "test/tests/integration/qr.test.mjs",
+        "test/tests/integration/rc12-native-jwk.test.mjs",
+        "test/tests/integration/rc4-formats.test.mjs",
+        "test/tests/integration/rc4-identity.test.mjs",
+        "test/tests/integration/rc4-lifecycle.test.mjs",
+        "test/tests/integration/rc4-revocation.test.mjs",
+        "test/tests/integration/rc5-closure.test.mjs",
+        "test/tests/integration/rc6-apply.test.mjs",
+        "test/tests/integration/rc6-native-contract.test.mjs",
+        "test/tests/integration/rc6-upstream.test.mjs",
+        "test/tests/integration/rc7-readiness.test.mjs",
+        "test/tests/integration/rc7-retries.test.mjs",
+        "test/tests/integration/rc8-bash-upgrade.test.mjs",
+        "test/tests/integration/rc8-metadata.test.mjs",
+        "test/tests/integration/rc9-sandbox.test.mjs",
+        "test/tests/integration/release-automation.test.mjs",
+        "test/tests/integration/review-hardening.test.mjs",
+        "test/tests/integration/runtime-memory.test.mjs",
+        "test/tests/integration/runtime-uninstall.test.mjs",
+        "test/tests/integration/semantics.test.mjs",
+        "test/tests/integration/signoff-gate.test.mjs",
+        "test/tests/integration/sr2-deletion.test.mjs",
+        "test/tests/integration/sr2-http.test.mjs",
+        "test/tests/integration/sr2-mtls.test.mjs",
+        "test/tests/integration/sr2-security.test.mjs",
+        "test/tests/integration/sr2-ui.test.mjs",
+        "test/tests/integration/ui-bridge.test.mjs",
+        "test/tests/integration/ui-transport.test.mjs",
+        "test/tests/integration/workspace-lifecycle.test.mjs",
+        "test/tests/static/api-contract.test.mjs",
+        "test/tests/static/base-path.test.mjs",
+        "test/tests/static/bundle-graph.test.mjs",
+        "test/tests/static/configuration-base-path.test.mjs",
+        "test/tests/static/frontend-base-path.test.mjs",
+        "test/tests/static/gateway-base-path.test.mjs",
+        "test/tests/static/hardening.test.mjs",
+        "test/tests/static/licence-headers.test.mjs",
+        "test/tests/static/module-source.test.mjs",
+        "test/tests/static/public-url-audit.test.mjs",
+        "test/tests/static/rbac.test.mjs",
+        "test/tests/static/repository.test.mjs",
+        "test/tests/static/security-host-authority.test.mjs",
+        "test/tests/static/sr2-contract.test.mjs",
+        "test/ux-runner/test_summary.py",
+        "tools/add-licence-headers.mjs",
+        "tools/build-api-examples.mjs",
+        "tools/build-flows.mjs",
+        "tools/build-lifecycle-flow.mjs",
+        "tools/build-requirement-audit.mjs",
+        "tools/build-requirements.mjs",
+        "tools/build-sr2-api.mjs",
+        "tools/build-test-source.mjs",
+        "tools/build-ui.mjs",
+        "tools/check-bdd-catalogue.py",
+        "tools/check-documentation.mjs",
+        "tools/check-g0-manifests.py",
+        "tools/check-maintainability.mjs",
+        "tools/check-upstream-patches.py",
+        "tools/extract-schema.mjs",
+        "tools/format-source.mjs",
+        "tools/lib/bundle-graph.mjs",
+        "tools/lib/bundle-inputs.mjs",
+        "tools/lib/module-source.mjs",
+        "tools/licence-header-ai-files.txt",
+        "tools/prepare-all-hop-tls.py",
+        "tools/prepare-upstream-builds.py",
+        "tools/preview-fixture.mjs",
+        "tools/refresh-release-inventory.mjs",
+        "tools/release-artifacts.mjs",
+        "tools/signoff-gate.mjs",
+        "tools/upstream_patch.py",
+        "tools/validate-offline.mjs"
+      ],
+      "aiAssistance": "Assisted-by: AI (commit trailer); the files listed in tools/licence-header-ai-files.txt carry the disclosure in their header",
+      "implementsRequirements": false,
+      "issues": [
+        19
+      ],
+      "reviewRecord": {
+        "reviewer": "KianLeanea",
+        "firstReviewSubmittedAt": "2026-11-14T16:29:00Z",
+        "approvedAt": "2026-11-14T18:05:53Z",
+        "reviewsByOthers": 3,
+        "reviewStartedStated": "Pending",
+        "reviewCompletedStated": "Pending",
+        "approvedCommit": "9b718f06f897643c0ef040ca9889f4ca57a78d39",
+        "url": "https://github.com/eclipse-xfsc/facis-fap-principal-credential-issuance/pull/51#pullrequestreview-5906235652",
+        "approvedCommitMatchesRecordedHead": false
+      },
+      "mergedAt": null,
+      "pullRequest": {
+        "number": 51,
+        "url": "https://github.com/eclipse-xfsc/facis-fap-principal-credential-issuance/pull/51",
+        "author": "ManiFaridi"
+      },
+      "sizeOnGitHub": {
+        "added": 33325,
+        "removed": 6906,
+        "files": 299
+      },
+      "mergedBy": null,
+      "headCommitAtCollection": "b36f462afdacaa2fbf9b591bb01b18453570b71e",
+      "githubBaseCommitAtCollection": "2fa3a8af9e4a329f01d629b3510a03d95b3fb397"
+    },
+    {
+      "id": "R2-10",
+      "title": "Tenant theme: colors, font, corners and page width (FR-PCI-60)",
+      "workPackage": "R2",
+      "plannedAuthor": "Mani Faridi",
+      "plannedReviewer": "Atoosa Eslami",
+      "inRemediationPlan": false,
+      "status": "open on GitHub",
+      "commits": [
+        {
+          "subject": "R2-10: tenant theme: colors, font, corners and page width (FR-PCI-60)"
+        }
+      ],
+      "sizeExcludingGenerated": {
+        "added": 352,
+        "removed": 41
+      },
+      "files": [
+        "backend/sr2/domain.js",
+        "dist/fap-pci-flow.json",
+        "dist/ui/index.css",
+        "dist/ui/index.js",
+        "docs/api/openapi.json",
+        "docs/ux/ux-concept.md",
+        "src/issuer/actions/refresh.js",
+        "src/issuer/actions/tenant.js",
+        "src/issuer/views/tenant-panel.js",
+        "src/main.js",
+        "src/state/theme.js",
+        "src/styles.css",
+        "test/browser/dom-smoke.mjs",
+        "test/support/browser-fixture.mjs",
+        "test/tests/integration/sr2-ui.test.mjs",
+        "test/tests/integration/tenant-theme.test.mjs",
+        "test/tests/integration/ui-transport.test.mjs",
+        "tools/build-sr2-api.mjs",
+        "tools/lib/bundle-inputs.mjs",
+        "tools/licence-header-ai-files.txt"
+      ],
+      "aiAssistance": "Assisted-by: AI (commit trailer); the files listed in tools/licence-header-ai-files.txt carry the disclosure in their header",
+      "implementsRequirements": true,
+      "issues": [
+        34
+      ],
+      "reviewRecord": {
+        "reviewer": "leaneagmbh",
+        "firstReviewSubmittedAt": "2026-11-13T12:45:15Z",
+        "approvedAt": "2026-11-13T12:45:15Z",
+        "reviewsByOthers": 1,
+        "reviewStartedStated": "Pending",
+        "reviewCompletedStated": "Pending",
+        "approvedCommit": "8f046dafc66263da83cc44dd7b7e8d8103f848eb",
+        "url": "https://github.com/eclipse-xfsc/facis-fap-principal-credential-issuance/pull/61#pullrequestreview-5891232198",
+        "approvedCommitMatchesRecordedHead": false
+      },
+      "mergedAt": null,
+      "pullRequest": {
+        "number": 61,
+        "url": "https://github.com/eclipse-xfsc/facis-fap-principal-credential-issuance/pull/61",
+        "author": "ManiFaridi"
+      },
+      "sizeOnGitHub": {
+        "added": 36573,
+        "removed": 7067,
+        "files": 329
+      },
+      "mergedBy": null,
+      "headCommitAtCollection": "968e58a9640891c6cc9ae9710b59375edd819688",
+      "githubBaseCommitAtCollection": "2fa3a8af9e4a329f01d629b3510a03d95b3fb397"
+    },
+    {
+      "id": "R3-1",
+      "title": "Characterisation tests for the authentication actions",
+      "workPackage": "R3",
+      "plannedAuthor": "Kian Najian",
+      "plannedReviewer": "Atoosa Eslami",
+      "inRemediationPlan": true,
+      "status": "open on GitHub",
+      "commits": [
+        {
+          "subject": "R3-1: characterisation tests for the authentication actions"
+        }
+      ],
+      "sizeExcludingGenerated": {
+        "added": 402,
+        "removed": 0
+      },
+      "files": [
+        "test/support/function-node.mjs",
+        "test/tests/integration/auth-characterisation.test.mjs",
+        "tools/licence-header-ai-files.txt"
+      ],
+      "aiAssistance": "Assisted-by: AI (commit trailer); the files listed in tools/licence-header-ai-files.txt carry the disclosure in their header",
+      "implementsRequirements": true,
+      "issues": [
+        20
+      ],
+      "reviewRecord": {
+        "reviewer": "leaneagmbh",
+        "firstReviewSubmittedAt": "2026-11-15T10:49:21Z",
+        "approvedAt": "2026-11-15T10:49:21Z",
+        "reviewsByOthers": 1,
+        "reviewStartedStated": "Pending",
+        "reviewCompletedStated": "Pending",
+        "approvedCommit": "810087169e4ab137b24fb838b06b530dcb43c509",
+        "url": "https://github.com/eclipse-xfsc/facis-fap-principal-credential-issuance/pull/52#pullrequestreview-5910314187",
+        "approvedCommitMatchesRecordedHead": true
+      },
+      "mergedAt": null,
+      "pullRequest": {
+        "number": 52,
+        "url": "https://github.com/eclipse-xfsc/facis-fap-principal-credential-issuance/pull/52",
+        "author": "KianLeanea"
+      },
+      "sizeOnGitHub": {
+        "added": 26745,
+        "removed": 4592,
+        "files": 299
+      },
+      "mergedBy": null,
+      "headCommitAtCollection": "810087169e4ab137b24fb838b06b530dcb43c509",
+      "githubBaseCommitAtCollection": "2fa3a8af9e4a329f01d629b3510a03d95b3fb397"
+    },
+    {
+      "id": "R3-2",
+      "title": "SR2 transport wrapper: characterisation tests and split into one function per step",
+      "workPackage": "R3",
+      "plannedAuthor": "Kian Najian",
+      "plannedReviewer": "Atoosa Eslami",
+      "inRemediationPlan": true,
+      "status": "open on GitHub",
+      "commits": [
+        {
+          "subject": "R3-2 (test): characterisation of the SR2 transport wrapper"
+        },
+        {
+          "subject": "R3-2 (refactor): split the SR2 transport wrapper into one function per step"
+        }
+      ],
+      "sizeExcludingGenerated": {
+        "added": 375,
+        "removed": 169
+      },
+      "files": [
+        "backend/sr2/http.js",
+        "dist/fap-pci-flow.json",
+        "test/tests/integration/sr2-http-guards.test.mjs",
+        "tools/licence-header-ai-files.txt"
+      ],
+      "aiAssistance": "Assisted-by: AI (commit trailer); the files listed in tools/licence-header-ai-files.txt carry the disclosure in their header",
+      "implementsRequirements": true,
+      "issues": [
+        21
+      ],
+      "reviewRecord": {
+        "reviewer": "leaneagmbh",
+        "firstReviewSubmittedAt": "2026-11-13T12:09:16Z",
+        "approvedAt": "2026-11-13T12:09:16Z",
+        "reviewsByOthers": 1,
+        "reviewStartedStated": "Pending",
+        "reviewCompletedStated": "Pending",
+        "approvedCommit": "5e70375be884c048cd5b584e2982e6905b820ab6",
+        "url": "https://github.com/eclipse-xfsc/facis-fap-principal-credential-issuance/pull/53#pullrequestreview-5890713294",
+        "approvedCommitMatchesRecordedHead": false
+      },
+      "mergedAt": null,
+      "pullRequest": {
+        "number": 53,
+        "url": "https://github.com/eclipse-xfsc/facis-fap-principal-credential-issuance/pull/53",
+        "author": "KianLeanea"
+      },
+      "sizeOnGitHub": {
+        "added": 26958,
+        "removed": 4599,
+        "files": 300
+      },
+      "mergedBy": null,
+      "headCommitAtCollection": "9e177f17093e75b9e009293904dc7508e3bbe926",
+      "githubBaseCommitAtCollection": "2fa3a8af9e4a329f01d629b3510a03d95b3fb397"
+    },
+    {
+      "id": "R3-3",
+      "title": "Native adapter methods grouped by concern",
+      "workPackage": "R3",
+      "plannedAuthor": "Kian Najian",
+      "plannedReviewer": "Atoosa Eslami",
+      "inRemediationPlan": true,
+      "status": "open on GitHub",
+      "commits": [
+        {
+          "subject": "R3-3 (refactor): group the native adapter methods by concern"
+        }
+      ],
+      "sizeExcludingGenerated": {
+        "added": 175,
+        "removed": 135
+      },
+      "files": [
+        "backend/sr2/native.js",
+        "dist/fap-pci-flow.json"
+      ],
+      "aiAssistance": "Assisted-by: AI (commit trailer); the files listed in tools/licence-header-ai-files.txt carry the disclosure in their header",
+      "implementsRequirements": true,
+      "issues": [
+        22
+      ],
+      "reviewRecord": {
+        "reviewer": "leaneagmbh",
+        "firstReviewSubmittedAt": "2026-11-13T12:15:00Z",
+        "approvedAt": "2026-11-13T12:15:00Z",
+        "reviewsByOthers": 1,
+        "reviewStartedStated": "Pending",
+        "reviewCompletedStated": "Pending",
+        "approvedCommit": "bfd914848d963e132af1020d758beb527576603f",
+        "url": "https://github.com/eclipse-xfsc/facis-fap-principal-credential-issuance/pull/54#pullrequestreview-5890794214",
+        "approvedCommitMatchesRecordedHead": false
+      },
+      "mergedAt": null,
+      "pullRequest": {
+        "number": 54,
+        "url": "https://github.com/eclipse-xfsc/facis-fap-principal-credential-issuance/pull/54",
+        "author": "KianLeanea"
+      },
+      "sizeOnGitHub": {
+        "added": 27003,
+        "removed": 4604,
+        "files": 300
+      },
+      "mergedBy": null,
+      "headCommitAtCollection": "5cbb0b41515174c7f0460b15f8c3b0a94a01bb7f",
+      "githubBaseCommitAtCollection": "2fa3a8af9e4a329f01d629b3510a03d95b3fb397"
+    },
+    {
+      "id": "R3-4",
+      "title": "One function per authentication action",
+      "workPackage": "R3",
+      "plannedAuthor": "Kian Najian",
+      "plannedReviewer": "Atoosa Eslami",
+      "inRemediationPlan": true,
+      "status": "open on GitHub",
+      "commits": [
+        {
+          "subject": "R3-4 (refactor): one function per authentication action"
+        }
+      ],
+      "sizeExcludingGenerated": {
+        "added": 187,
+        "removed": 150
+      },
+      "files": [
+        "backend/functions/auth.js",
+        "dist/fap-pci-flow.json"
+      ],
+      "aiAssistance": "Assisted-by: AI (commit trailer); the files listed in tools/licence-header-ai-files.txt carry the disclosure in their header",
+      "implementsRequirements": true,
+      "issues": [
+        23
+      ],
+      "reviewRecord": {
+        "reviewer": "leaneagmbh",
+        "firstReviewSubmittedAt": "2026-11-13T12:22:44Z",
+        "approvedAt": "2026-11-13T12:22:44Z",
+        "reviewsByOthers": 1,
+        "reviewStartedStated": "Pending",
+        "reviewCompletedStated": "Pending",
+        "approvedCommit": "0da8dab5f82a558e3ce0e8ac81ff8e55da26dee6",
+        "url": "https://github.com/eclipse-xfsc/facis-fap-principal-credential-issuance/pull/55#pullrequestreview-5890901250",
+        "approvedCommitMatchesRecordedHead": false
+      },
+      "mergedAt": null,
+      "pullRequest": {
+        "number": 55,
+        "url": "https://github.com/eclipse-xfsc/facis-fap-principal-credential-issuance/pull/55",
+        "author": "KianLeanea"
+      },
+      "sizeOnGitHub": {
+        "added": 27117,
+        "removed": 4681,
+        "files": 300
+      },
+      "mergedBy": null,
+      "headCommitAtCollection": "d5edf78104b8e0c03ca968e92318c2bd34297a4d",
+      "githubBaseCommitAtCollection": "2fa3a8af9e4a329f01d629b3510a03d95b3fb397"
+    },
+    {
+      "id": "R3-5",
+      "title": "Function-size and complexity limits of the gate extended to backend/",
+      "workPackage": "R3",
+      "plannedAuthor": "Kian Najian",
+      "plannedReviewer": "Atoosa Eslami",
+      "inRemediationPlan": true,
+      "status": "open on GitHub",
+      "commits": [
+        {
+          "subject": "R3-5: function-size and complexity limits of the gate extended to backend/"
+        }
+      ],
+      "sizeExcludingGenerated": {
+        "added": 234,
+        "removed": 20
+      },
+      "files": [
+        "docs/development/maintainer-guide.md",
+        "test/tests/static/bundle-graph.test.mjs",
+        "tools/check-maintainability.mjs",
+        "tools/maintainability-rules.json"
+      ],
+      "aiAssistance": "Assisted-by: AI (commit trailer); the files listed in tools/licence-header-ai-files.txt carry the disclosure in their header",
+      "implementsRequirements": true,
+      "issues": [
+        24
+      ],
+      "reviewRecord": {
+        "reviewer": "leaneagmbh",
+        "firstReviewSubmittedAt": "2026-11-13T12:32:23Z",
+        "approvedAt": "2026-11-13T12:32:23Z",
+        "reviewsByOthers": 1,
+        "reviewStartedStated": "Pending",
+        "reviewCompletedStated": "Pending",
+        "approvedCommit": "819d75fdaca6d1f088dd394ec73cd7cc316832d2",
+        "url": "https://github.com/eclipse-xfsc/facis-fap-principal-credential-issuance/pull/56#pullrequestreview-5891041976",
+        "approvedCommitMatchesRecordedHead": false
+      },
+      "mergedAt": null,
+      "pullRequest": {
+        "number": 56,
+        "url": "https://github.com/eclipse-xfsc/facis-fap-principal-credential-issuance/pull/56",
+        "author": "KianLeanea"
+      },
+      "sizeOnGitHub": {
+        "added": 27331,
+        "removed": 4681,
+        "files": 300
+      },
+      "mergedBy": null,
+      "headCommitAtCollection": "91ba864c5004821a7f88583611d0199375dd3853",
+      "githubBaseCommitAtCollection": "2fa3a8af9e4a329f01d629b3510a03d95b3fb397"
+    },
+    {
+      "id": "R3-6",
+      "title": "Formatter applied to test/; long test literals split; line rules cover test/",
+      "workPackage": "R3",
+      "plannedAuthor": "Mani Faridi",
+      "plannedReviewer": "Kian Najian",
+      "inRemediationPlan": true,
+      "status": "open on GitHub",
+      "commits": [
+        {
+          "subject": "R3-6: formatter applied to test/; long test literals split; line rules cover test/"
+        }
+      ],
+      "sizeExcludingGenerated": {
+        "added": 7479,
+        "removed": 2672
+      },
+      "files": [
+        "docs/development/maintainer-guide.md",
+        "package.json",
+        "test/browser/dom-smoke.mjs",
+        "test/browser/runtime.mjs",
+        "test/live/postgres.test.mjs",
+        "test/live/wallet.mjs",
+        "test/support/browser-fixture.mjs",
+        "test/support/function-node.mjs",
+        "test/support/issuer-controller.mjs",
+        "test/support/sr2-fixture.mjs",
+        "test/support/sr2-http.mjs",
+        "test/support/sr2-store.mjs",
+        "test/support/ui-bridge.mjs",
+        "test/support/ui-source.mjs",
+        "test/tests/bdd/base-path-deployment.test.mjs",
+        "test/tests/bdd/native-completion.test.mjs",
+        "test/tests/bdd/sr2-issuer.test.mjs",
+        "test/tests/bdd/sr2-review-regressions.test.mjs",
+        "test/tests/bdd/tenant-foundation.test.mjs",
+        "test/tests/integration/artifact-lifecycle.test.mjs",
+        "test/tests/integration/auth-characterisation.test.mjs",
+        "test/tests/integration/datasource-lifecycle.test.mjs",
+        "test/tests/integration/flow-merge.test.mjs",
+        "test/tests/integration/history.test.mjs",
+        "test/tests/integration/issuer-features.test.mjs",
+        "test/tests/integration/issuer-modules.test.mjs",
+        "test/tests/integration/journey-input.test.mjs",
+        "test/tests/integration/keycloak-network-policy.test.mjs",
+        "test/tests/integration/native-adapter.test.mjs",
+        "test/tests/integration/native-profiles.test.mjs",
+        "test/tests/integration/native-transport.test.mjs",
+        "test/tests/integration/participant-grpc.test.mjs",
+        "test/tests/integration/participant-source-setup.test.mjs",
+        "test/tests/integration/participant-source.test.mjs",
+        "test/tests/integration/presentation.test.mjs",
+        "test/tests/integration/qr.test.mjs",
+        "test/tests/integration/rc12-native-jwk.test.mjs",
+        "test/tests/integration/rc4-formats.test.mjs",
+        "test/tests/integration/rc4-identity.test.mjs",
+        "test/tests/integration/rc4-lifecycle.test.mjs",
+        "test/tests/integration/rc4-revocation.test.mjs",
+        "test/tests/integration/rc5-closure.test.mjs",
+        "test/tests/integration/rc6-apply.test.mjs",
+        "test/tests/integration/rc6-native-contract.test.mjs",
+        "test/tests/integration/rc6-upstream.test.mjs",
+        "test/tests/integration/rc7-readiness.test.mjs",
+        "test/tests/integration/rc7-retries.test.mjs",
+        "test/tests/integration/rc8-bash-upgrade.test.mjs",
+        "test/tests/integration/rc8-metadata.test.mjs",
+        "test/tests/integration/rc9-sandbox.test.mjs",
+        "test/tests/integration/release-automation.test.mjs",
+        "test/tests/integration/review-hardening.test.mjs",
+        "test/tests/integration/runtime-memory.test.mjs",
+        "test/tests/integration/runtime-uninstall.test.mjs",
+        "test/tests/integration/semantics.test.mjs",
+        "test/tests/integration/signoff-gate.test.mjs",
+        "test/tests/integration/sr2-deletion.test.mjs",
+        "test/tests/integration/sr2-http-guards.test.mjs",
+        "test/tests/integration/sr2-http.test.mjs",
+        "test/tests/integration/sr2-mtls.test.mjs",
+        "test/tests/integration/sr2-security.test.mjs",
+        "test/tests/integration/sr2-ui.test.mjs",
+        "test/tests/integration/ui-bridge.test.mjs",
+        "test/tests/integration/ui-transport.test.mjs",
+        "test/tests/integration/workspace-lifecycle.test.mjs",
+        "test/tests/static/api-contract.test.mjs",
+        "test/tests/static/base-path.test.mjs",
+        "test/tests/static/bundle-graph.test.mjs",
+        "test/tests/static/configuration-base-path.test.mjs",
+        "test/tests/static/frontend-base-path.test.mjs",
+        "test/tests/static/gateway-base-path.test.mjs",
+        "test/tests/static/hardening.test.mjs",
+        "test/tests/static/licence-headers.test.mjs",
+        "test/tests/static/module-source.test.mjs",
+        "test/tests/static/public-url-audit.test.mjs",
+        "test/tests/static/rbac.test.mjs",
+        "test/tests/static/repository.test.mjs",
+        "test/tests/static/security-host-authority.test.mjs",
+        "test/tests/static/sr2-contract.test.mjs",
+        "tools/check-maintainability.mjs",
+        "tools/maintainability-rules.json"
+      ],
+      "aiAssistance": "Assisted-by: AI (commit trailer); the files listed in tools/licence-header-ai-files.txt carry the disclosure in their header",
+      "implementsRequirements": false,
+      "issues": [
+        25
+      ],
+      "reviewRecord": {
+        "reviewer": "KianLeanea",
+        "firstReviewSubmittedAt": "2026-11-15T10:22:14Z",
+        "approvedAt": "2026-11-15T10:22:14Z",
+        "reviewsByOthers": 1,
+        "reviewStartedStated": "Pending",
+        "reviewCompletedStated": "Pending",
+        "approvedCommit": "b42fab7fdf4c5ba3acb7169ec5665594e341895a",
+        "url": "https://github.com/eclipse-xfsc/facis-fap-principal-credential-issuance/pull/57#pullrequestreview-5910228022",
+        "approvedCommitMatchesRecordedHead": false
+      },
+      "mergedAt": null,
+      "pullRequest": {
+        "number": 57,
+        "url": "https://github.com/eclipse-xfsc/facis-fap-principal-credential-issuance/pull/57",
+        "author": "ManiFaridi"
+      },
+      "sizeOnGitHub": {
+        "added": 34556,
+        "removed": 7008,
+        "files": 302
+      },
+      "mergedBy": null,
+      "headCommitAtCollection": "04916c80aecdce19af616d3118cb17fd59a5d36b",
+      "githubBaseCommitAtCollection": "2fa3a8af9e4a329f01d629b3510a03d95b3fb397"
+    },
+    {
+      "id": "R3-7",
+      "title": "Documentation: full navigation, M17 tenant identity, request flow chapter",
+      "workPackage": "R3",
+      "plannedAuthor": "Atoosa Eslami",
+      "plannedReviewer": "Kian Najian",
+      "inRemediationPlan": true,
+      "status": "open on GitHub",
+      "commits": [
+        {
+          "subject": "R3-7: documentation: full navigation, M17 tenant identity, request flow chapter"
+        }
+      ],
+      "sizeExcludingGenerated": {
+        "added": 155,
+        "removed": 49
+      },
+      "files": [
+        "docs/architecture/orce-nodes.md",
+        "docs/ci-cd.md",
+        "docs/development/maintainer-guide.md",
+        "docs/operations/identity.md",
+        "mkdocs.yml"
+      ],
+      "aiAssistance": "Assisted-by: AI (commit trailer); the files listed in tools/licence-header-ai-files.txt carry the disclosure in their header",
+      "implementsRequirements": true,
+      "issues": [
+        26
+      ],
+      "reviewRecord": {
+        "reviewer": "KianLeanea",
+        "firstReviewSubmittedAt": "2026-11-14T18:37:41Z",
+        "approvedAt": "2026-11-14T18:37:41Z",
+        "reviewsByOthers": 1,
+        "reviewStartedStated": "Pending",
+        "reviewCompletedStated": "Pending",
+        "approvedCommit": "3036d65bfabd69bd04c5812714c71ba981dbfb67",
+        "url": "https://github.com/eclipse-xfsc/facis-fap-principal-credential-issuance/pull/58#pullrequestreview-5906431362",
+        "approvedCommitMatchesRecordedHead": true
+      },
+      "mergedAt": null,
+      "pullRequest": {
+        "number": 58,
+        "url": "https://github.com/eclipse-xfsc/facis-fap-principal-credential-issuance/pull/58",
+        "author": "leaneagmbh"
+      },
+      "sizeOnGitHub": {
+        "added": 30367,
+        "removed": 6952,
+        "files": 291
+      },
+      "mergedBy": null,
+      "headCommitAtCollection": "3036d65bfabd69bd04c5812714c71ba981dbfb67",
+      "githubBaseCommitAtCollection": "2fa3a8af9e4a329f01d629b3510a03d95b3fb397"
+    },
+    {
+      "id": "R3-8",
+      "title": "Documentation published from main and tags; troubleshooting and FAQ (FR-PCI-54, FR-PCI-96)",
+      "workPackage": "R3",
+      "plannedAuthor": "Atoosa Eslami",
+      "plannedReviewer": "Kian Najian",
+      "inRemediationPlan": false,
+      "status": "open on GitHub",
+      "commits": [
+        {
+          "subject": "R3-8: documentation published from main and tags; troubleshooting and FAQ (FR-PCI-54, FR-PCI-96)"
+        }
+      ],
+      "sizeExcludingGenerated": {
+        "added": 117,
+        "removed": 10
+      },
+      "files": [
+        ".github/workflows/docs.yml",
+        "docs/ci-cd.md",
+        "docs/operations/troubleshooting.md",
+        "docs/testing/test-strategy.md",
+        "mkdocs.yml"
+      ],
+      "aiAssistance": "Assisted-by: AI (commit trailer); the files listed in tools/licence-header-ai-files.txt carry the disclosure in their header",
+      "implementsRequirements": true,
+      "issues": [
+        35
+      ],
+      "reviewRecord": {
+        "reviewer": "KianLeanea",
+        "firstReviewSubmittedAt": "2026-11-14T20:38:08Z",
+        "approvedAt": "2026-11-14T20:38:08Z",
+        "reviewsByOthers": 1,
+        "reviewStartedStated": "Pending",
+        "reviewCompletedStated": "Pending",
+        "approvedCommit": "7b594a5d5cf48e84360f9c77924f3afe835a3e12",
+        "url": "https://github.com/eclipse-xfsc/facis-fap-principal-credential-issuance/pull/62#pullrequestreview-5907006724",
+        "approvedCommitMatchesRecordedHead": true
+      },
+      "mergedAt": null,
+      "pullRequest": {
+        "number": 62,
+        "url": "https://github.com/eclipse-xfsc/facis-fap-principal-credential-issuance/pull/62",
+        "author": "leaneagmbh"
+      },
+      "sizeOnGitHub": {
+        "added": 31969,
+        "removed": 6977,
+        "files": 314
+      },
+      "mergedBy": null,
+      "headCommitAtCollection": "7b594a5d5cf48e84360f9c77924f3afe835a3e12",
+      "githubBaseCommitAtCollection": "2fa3a8af9e4a329f01d629b3510a03d95b3fb397"
+    },
+    {
+      "id": "R4-1",
+      "title": "Application image on the ORCE base image by digest; image workflow",
+      "workPackage": "R4",
+      "plannedAuthor": "Mani Faridi",
+      "plannedReviewer": "Kian Najian",
+      "inRemediationPlan": true,
+      "status": "open on GitHub",
+      "commits": [
+        {
+          "subject": "R4-1: application image on the ORCE base image by digest; image workflow"
+        },
+        {
+          "subject": "R4-1: record the base image digest, entrypoint and command; hand seeded files to the owner of /data"
+        }
+      ],
+      "sizeExcludingGenerated": {
+        "added": 837,
+        "removed": 5
+      },
+      "files": [
+        ".dockerignore",
+        ".github/gitleaks.toml",
+        ".github/workflows/image.yml",
+        "deployment/image/Dockerfile",
+        "deployment/image/base-image.lock",
+        "deployment/image/entrypoint.sh",
+        "deployment/image/seed-data.mjs",
+        "deployment/image/startup-check.env",
+        "docs/release/acceptance-gates.md",
+        "harbor.config",
+        "security/image-scan-exceptions.json",
+        "test/tests/integration/image-seed.test.mjs",
+        "test/tests/static/image-scan.test.mjs",
+        "tools/add-licence-headers.mjs",
+        "tools/check-image-scan.mjs",
+        "tools/licence-header-ai-files.txt"
+      ],
+      "aiAssistance": "Assisted-by: AI (commit trailer); the files listed in tools/licence-header-ai-files.txt carry the disclosure in their header",
+      "implementsRequirements": true,
+      "issues": [
+        27,
+        28,
+        39
+      ],
+      "reviewRecord": {
+        "reviewer": "KianLeanea",
+        "firstReviewSubmittedAt": "2026-11-14T19:28:53Z",
+        "approvedAt": "2026-11-14T19:28:53Z",
+        "reviewsByOthers": 1,
+        "reviewStartedStated": "Pending",
+        "reviewCompletedStated": "Pending",
+        "approvedCommit": "94c1c3005f7ad90fb0f7fa6c7971d30518a29daa",
+        "url": "https://github.com/eclipse-xfsc/facis-fap-principal-credential-issuance/pull/59#pullrequestreview-5906713429",
+        "approvedCommitMatchesRecordedHead": false
+      },
+      "mergedAt": null,
+      "pullRequest": {
+        "number": 59,
+        "url": "https://github.com/eclipse-xfsc/facis-fap-principal-credential-issuance/pull/59",
+        "author": "ManiFaridi"
+      },
+      "sizeOnGitHub": {
+        "added": 35921,
+        "removed": 7053,
+        "files": 320
+      },
+      "mergedBy": null,
+      "headCommitAtCollection": "fcaf0dc7d2dc69172023156410999c3cedcd4d2a",
+      "githubBaseCommitAtCollection": "2fa3a8af9e4a329f01d629b3510a03d95b3fb397"
+    },
+    {
+      "id": "R4-2",
+      "title": "Backup and rollback procedure; deployment guide for the application image",
+      "workPackage": "R4",
+      "plannedAuthor": "Mani Faridi",
+      "plannedReviewer": "Kian Najian",
+      "inRemediationPlan": true,
+      "status": "open on GitHub",
+      "commits": [
+        {
+          "subject": "R4-2: backup and rollback procedure; deployment guide for the application image"
+        }
+      ],
+      "sizeExcludingGenerated": {
+        "added": 193,
+        "removed": 0
+      },
+      "files": [
+        "docs/operations/backup-rollback.md",
+        "docs/operations/container-image.md",
+        "docs/operations/deployment.md",
+        "mkdocs.yml"
+      ],
+      "aiAssistance": "Assisted-by: AI (commit trailer); the files listed in tools/licence-header-ai-files.txt carry the disclosure in their header",
+      "implementsRequirements": true,
+      "issues": [
+        29
+      ],
+      "reviewRecord": {
+        "reviewer": "KianLeanea",
+        "firstReviewSubmittedAt": "2026-11-14T20:01:31Z",
+        "approvedAt": "2026-11-14T20:01:31Z",
+        "reviewsByOthers": 1,
+        "reviewStartedStated": "Pending",
+        "reviewCompletedStated": "Pending",
+        "approvedCommit": "47ca5191625cbd37b9a346fdef936b44925d0fea",
+        "url": "https://github.com/eclipse-xfsc/facis-fap-principal-credential-issuance/pull/60#pullrequestreview-5906837249",
+        "approvedCommitMatchesRecordedHead": false
+      },
+      "mergedAt": null,
+      "pullRequest": {
+        "number": 60,
+        "url": "https://github.com/eclipse-xfsc/facis-fap-principal-credential-issuance/pull/60",
+        "author": "ManiFaridi"
+      },
+      "sizeOnGitHub": {
+        "added": 36114,
+        "removed": 7053,
+        "files": 323
+      },
+      "mergedBy": null,
+      "headCommitAtCollection": "1cfdec147182718b3de43f34f4fedd1cdf0df40f",
+      "githubBaseCommitAtCollection": "2fa3a8af9e4a329f01d629b3510a03d95b3fb397"
+    },
+    {
+      "id": "R4-3",
+      "title": "Privacy capture collection and deployment record (FR-PCI-48, FR-PCI-75/86/89/93)",
+      "workPackage": "R4",
+      "plannedAuthor": "Mani Faridi",
+      "plannedReviewer": "Kian Najian",
+      "inRemediationPlan": false,
+      "status": "open on GitHub",
+      "commits": [
+        {
+          "subject": "R4-3: privacy capture collection and deployment record (FR-PCI-48, FR-PCI-75/86/89/93)"
+        }
+      ],
+      "sizeExcludingGenerated": {
+        "added": 280,
+        "removed": 0
+      },
+      "files": [
+        "docs/testing/completion.md",
+        "docs/testing/live-acceptance.md",
+        "scripts/collect-privacy-captures.py",
+        "scripts/record-deployment.py",
+        "tools/licence-header-ai-files.txt"
+      ],
+      "aiAssistance": "Assisted-by: AI (commit trailer); the files listed in tools/licence-header-ai-files.txt carry the disclosure in their header",
+      "implementsRequirements": true,
+      "issues": [
+        36
+      ],
+      "reviewRecord": {
+        "reviewer": "KianLeanea",
+        "firstReviewSubmittedAt": "2026-11-14T21:29:32Z",
+        "approvedAt": "2026-11-14T21:29:32Z",
+        "reviewsByOthers": 1,
+        "reviewStartedStated": "Pending",
+        "reviewCompletedStated": "Pending",
+        "approvedCommit": "a8a2338f85ee9fd437f9a4d7e0faabd49ca7adba",
+        "url": "https://github.com/eclipse-xfsc/facis-fap-principal-credential-issuance/pull/63#pullrequestreview-5907240339",
+        "approvedCommitMatchesRecordedHead": false
+      },
+      "mergedAt": null,
+      "pullRequest": {
+        "number": 63,
+        "url": "https://github.com/eclipse-xfsc/facis-fap-principal-credential-issuance/pull/63",
+        "author": "ManiFaridi"
+      },
+      "sizeOnGitHub": {
+        "added": 36970,
+        "removed": 7077,
+        "files": 334
+      },
+      "mergedBy": null,
+      "headCommitAtCollection": "c1ab24d35f4ad5069be60adac61921b4c013bcf4",
+      "githubBaseCommitAtCollection": "2fa3a8af9e4a329f01d629b3510a03d95b3fb397"
+    },
+    {
+      "id": "R4-4",
+      "title": "Deployment repository package generated from source; release version sites checked",
+      "workPackage": "R4",
+      "plannedAuthor": "Mani Faridi",
+      "plannedReviewer": "Kian Najian",
+      "inRemediationPlan": false,
+      "status": "open on GitHub",
+      "commits": [
+        {
+          "subject": "R4-4: deployment repository package generated from source; release version sites checked"
+        }
+      ],
+      "sizeExcludingGenerated": {
+        "added": 415,
+        "removed": 15
+      },
+      "files": [
+        "automation/stage1/ground-zero.sh",
+        "automation/stage1/install.sh",
+        "dist/ground-zero.sh",
+        "docs/development/maintainer-guide.md",
+        "docs/testing/participant-test.md",
+        "scripts/install-with-retries.py",
+        "scripts/upgrade-artifacts.sh",
+        "test/tests/static/deployment-package.test.mjs",
+        "test/tests/static/release-versions.test.mjs",
+        "tools/deployment-package/README.md.template",
+        "tools/export-deployment-package.mjs",
+        "tools/licence-header-ai-files.txt"
+      ],
+      "aiAssistance": "Assisted-by: AI (commit trailer); the files listed in tools/licence-header-ai-files.txt carry the disclosure in their header",
+      "implementsRequirements": true,
+      "issues": [
+        37,
+        38
+      ],
+      "reviewRecord": {
+        "reviewer": "KianLeanea",
+        "firstReviewSubmittedAt": "2026-11-14T22:37:25Z",
+        "approvedAt": "2026-11-14T22:37:25Z",
+        "reviewsByOthers": 1,
+        "reviewStartedStated": "Pending",
+        "reviewCompletedStated": "Pending",
+        "approvedCommit": "39be2310d504f265cca2448806b8fa406e6478da",
+        "url": "https://github.com/eclipse-xfsc/facis-fap-principal-credential-issuance/pull/64#pullrequestreview-5907523611",
+        "approvedCommitMatchesRecordedHead": false
+      },
+      "mergedAt": null,
+      "pullRequest": {
+        "number": 64,
+        "url": "https://github.com/eclipse-xfsc/facis-fap-principal-credential-issuance/pull/64",
+        "author": "ManiFaridi"
+      },
+      "sizeOnGitHub": {
+        "added": 37391,
+        "removed": 7098,
+        "files": 339
+      },
+      "mergedBy": null,
+      "headCommitAtCollection": "6d006102c004e856374bb65645db73df4e0cf8c5",
+      "githubBaseCommitAtCollection": "2fa3a8af9e4a329f01d629b3510a03d95b3fb397"
+    },
+    {
+      "id": "R6-1",
+      "title": "Release candidate 0.5.0-rc.16: version, release notes, requirement-to-test matrix, inventory",
+      "workPackage": "R6",
+      "plannedAuthor": "Mani Faridi",
+      "plannedReviewer": "Kian Najian",
+      "inRemediationPlan": true,
+      "status": "open on GitHub",
+      "commits": [
+        {
+          "subject": "Release candidate 0.5.0-rc.16: version, release notes, requirement-to-test matrix, inventory"
+        }
+      ],
+      "sizeExcludingGenerated": {
+        "added": 7392,
+        "removed": 584
+      },
+      "files": [
+        ".github/workflows/release-container-sbom.yml",
+        ".github/workflows/release-go-sbom.yml",
+        ".github/workflows/release-python-sbom.yml",
+        ".github/workflows/release-sbom.yml",
+        "README.md",
+        "VERSION",
+        "automation/stage1/ground-zero.sh",
+        "build.js",
+        "contracts/integration-lock.json",
+        "contracts/ocm-12.3.9-assessment.json",
+        "deployment/helm/fap-pci/Chart.yaml",
+        "deployment/helm/observability/Chart.yaml",
+        "deployment/helm/participant/Chart.yaml",
+        "dist/fap-pci-flow.json",
+        "dist/ground-zero.sh",
+        "dist/ui/index.js",
+        "docs/README.md",
+        "docs/api/examples.json",
+        "docs/api/openapi.json",
+        "docs/compatibility/compatibility-matrix.md",
+        "docs/development/maintainer-guide.md",
+        "docs/operations/container-image.md",
+        "docs/operations/neutral-configuration.md",
+        "docs/release/0.5.0-rc.16.md",
+        "docs/release/acceptance-gap-register.json",
+        "docs/release/acceptance.example.json",
+        "docs/release/artifacts.json",
+        "docs/release/changes.json",
+        "docs/release/pull-requests.json",
+        "docs/release/qa-commitments.md",
+        "docs/release/requirement-audit.json",
+        "docs/release/requirement-audit.md",
+        "docs/release/requirement-deviations.json",
+        "docs/release/requirement-test-matrix.json",
+        "docs/release/requirement-test-matrix.md",
+        "docs/release/signoff-status.json",
+        "docs/release/source-sha256.txt",
+        "docs/requirements/requirements.json",
+        "docs/requirements/technical-clauses.json",
+        "docs/requirements/traceability.md",
+        "docs/source-baseline.md",
+        "mkdocs.yml",
+        "package-lock.json",
+        "package.json",
+        "reference/participant-data-repository/README.md",
+        "scripts/install-with-retries.py",
+        "test/tests/static/record-pull-requests.test.mjs",
+        "tools/build-requirement-test-matrix.mjs",
+        "tools/licence-header-ai-files.txt",
+        "tools/record-pull-requests.mjs"
+      ],
+      "aiAssistance": "Assisted-by: AI (commit trailer); the files listed in tools/licence-header-ai-files.txt carry the disclosure in their header",
+      "implementsRequirements": true,
+      "issues": [
+        30
+      ],
+      "reviewRecord": {
+        "reviewer": "KianLeanea",
+        "firstReviewSubmittedAt": "2026-11-15T10:17:04Z",
+        "approvedAt": "2026-11-15T10:17:04Z",
+        "reviewsByOthers": 1,
+        "reviewStartedStated": "Pending",
+        "reviewCompletedStated": "Pending",
+        "approvedCommit": "5820e28adeecf731301a455df505a7a509a7689f",
+        "url": "https://github.com/eclipse-xfsc/facis-fap-principal-credential-issuance/pull/65#pullrequestreview-5910212204",
+        "approvedCommitMatchesRecordedHead": true
+      },
+      "mergedAt": null,
+      "pullRequest": {
+        "number": 65,
+        "url": "https://github.com/eclipse-xfsc/facis-fap-principal-credential-issuance/pull/65",
+        "author": "ManiFaridi"
+      },
+      "sizeOnGitHub": {
+        "added": 40056,
+        "removed": 7576,
+        "files": 347
+      },
+      "mergedBy": null,
+      "headCommitAtCollection": "5820e28adeecf731301a455df505a7a509a7689f",
+      "githubBaseCommitAtCollection": "2fa3a8af9e4a329f01d629b3510a03d95b3fb397"
+    }
+  ],
+  "githubSnapshot": {
+    "collectedAt": "2026-11-15T13:36:04.680121+00:00",
+    "deploymentPullRequest": {
+      "url": "https://github.com/eclipse-xfsc/deployment/pull/17",
+      "draft": true,
+      "state": "open",
+      "sourceCommitBeforeRefresh": "5820e28adeecf731301a455df505a7a509a7689f"
+    },
+    "note": "Point-in-time GitHub facts collected before this records commit. Approval submissions refer to their recorded commits. Original commits/files/sizeExcludingGenerated describe the prepared work packages; sizeOnGitHub contains the actual GitHub PR totals. Merge, publication, deployment and acceptance are never inferred from the plan."
+  }
+}

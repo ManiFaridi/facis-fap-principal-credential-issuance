@@ -1,5 +1,5 @@
 {
-  "version": "0.5.0-rc.12",
+  "version": "0.5.0-rc.16",
   "srs": "Supplied FACIS.FAP_PCI Software Requirements Specification, 2026, CC BY 4.0",
   "technicalRequirements": "Supplied FACIS.FAP_PCI Technical Development Requirements",
   "items": [
@@ -1087,12 +1087,12 @@
       "id": "FR-PCI-61",
       "title": "UX Tests",
       "priority": "MUST",
-      "implementation": "test/bdd; test/live/wallet.mjs; test/browser/runtime.mjs; test/bdd/features/native-wallet.feature",
-      "checks": "test/bdd/requirements.txt; .github/workflows/ci.yml; test/tests/integration/rc5-closure.test.mjs",
+      "implementation": "scripts/run-ux-bdd.py; scripts/collect-ux-environment.py; test/bdd/features/steps/administration.py; test/bdd/features/steps/pci.py",
+      "checks": "test/bdd/features/administration.feature; test/bdd/features/offer.feature; test/bdd/features/runtime.feature; test/ux-runner/test_summary.py; .github/workflows/ci.yml; test/tests/integration/rc5-closure.test.mjs",
       "status": "NOT_REASSESSED_FOR_ACCEPTANCE",
       "acceptance": "Run supplied XFSC Executor browser/runtime/lifecycle cases on a synthetic tenant. Complete real registration/IdP/PCM and accessibility evidence from the walkthrough; no browser or wallet execution was available here.",
       "development": "SOURCE_REFERENCED",
-      "implementationSummary": "test/bdd; test/live/wallet.mjs; test/browser/runtime.mjs; test/bdd/features/native-wallet.feature",
+      "implementationSummary": "scripts/run-ux-bdd.py; scripts/collect-ux-environment.py; test/bdd/features/steps/administration.py; test/bdd/features/steps/pci.py",
       "historicalLabels": {
         "baselineCommit": "2fa3a8af9e4a329f01d629b3510a03d95b3fb397",
         "status": "DONE",

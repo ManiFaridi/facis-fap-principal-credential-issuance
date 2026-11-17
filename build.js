@@ -29,6 +29,7 @@ await mkdir(buildDir, { recursive: true });
 for (const script of [
   "tools/build-requirements.mjs",
   "tools/build-requirement-audit.mjs",
+  "tools/build-requirement-test-matrix.mjs",
   "tools/build-lifecycle-flow.mjs",
   "tools/build-test-source.mjs",
   "tools/build-sr2-api.mjs",

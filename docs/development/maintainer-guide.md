@@ -100,6 +100,24 @@ maintainers. `test/tests/static/release-versions.test.mjs` fails when a site tha
 states the release version (ground-zero, charts, package, reviewed installer
 versions) disagrees with `VERSION`.
 
+## Pull-request record
+
+`docs/release/pull-requests.json` lists the pull requests of a release with their
+planned author and reviewer. Once they exist on GitHub, the author of the release pull
+request fills the GitHub facts from the pull requests themselves and commits the result
+on that branch (the committer merges and does not author pull requests):
+
+```bash
+node tools/record-pull-requests.mjs --map <map.json>   # {"R1-1": 12, ...}
+```
+
+The script reads each pull request and its reviews through the authenticated `gh`
+client and records number, URL, author, the issues closed (closing keywords only),
+the size as GitHub counts it, the merge, and a review record only when a person other
+than the author approved; the review start and completion are taken from the
+pull-request description as the reviewer entered them. `--check` exits 1 when the
+file would change. Nothing is filled from the plan.
+
 ## Changing a feature
 
 Change the action module and the view panel, not the generated flow in `dist/` or the

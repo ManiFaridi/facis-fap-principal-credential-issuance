@@ -24,6 +24,7 @@ const directories = [
   'docs',
   'reference',
   'scripts',
+  'security',
   'shared',
   'src',
   'tools',

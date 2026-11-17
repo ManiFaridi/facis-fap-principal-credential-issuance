@@ -70,9 +70,11 @@ built by the `Images` workflow from the tagged source: the mandated ORCE image
 dependencies and a first-start seeding under `/opt/fap-pci`
 (`deployment/image/Dockerfile`). The image carries no captured runtime state. The
 participant service image is built from `reference/participant-data-repository/
-Dockerfile` by the same workflow. Both are published to the Harbor project of
-`harbor.config` on every merge to `main` and every release candidate tag; the release
-notes and the deployment record name the image digests.
+Dockerfile` by the same workflow. The tested image archives are published to `ecofacis/fap-pci` and
+`ecofacis/fap-pci-participant` on Docker Hub. Main publishes immutable commit tags;
+release candidates publish their exact version tags. All three Helm packages and
+publication receipts are attached to the committer-created GitHub release.
+The release notes and deployment record name the image digests.
 
 The ORCE deployment stays the one prepared by G0: the same ConfigMap, Secrets, service
 account, `/data` claim and Gateway routes. What changes is the image of the ORCE

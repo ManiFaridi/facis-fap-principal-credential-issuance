@@ -56,6 +56,8 @@ nav:
       - Deployed UX tests: testing/ux-bdd-runbook.md
   - Requirements and evidence:
       - Requirements: requirements/traceability.md
+      - Requirement-to-test matrix: release/requirement-test-matrix.md
+      - Quality assurance commitments: release/qa-commitments.md
       - Technical clauses: requirements/technical-clauses.md
       - Implementation catalogue: release/requirement-audit.md
       - Executed checks: release/completion.md
@@ -70,6 +72,7 @@ nav:
       - Maintainer guide: development/maintainer-guide.md
       - Contribution and review workflow: development/official-workflow.md
   - Releases and upgrades:
+      - Release candidate rc.16: release/0.5.0-rc.16.md
       - Release rc.12: release/0.5.0-rc.12.md
       - Upgrade prepared PCI to rc.12: operations/upgrade-0.5.0-rc.12.md
       - Release rc.11: release/0.5.0-rc.11.md
