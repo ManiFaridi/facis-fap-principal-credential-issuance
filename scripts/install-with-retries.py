@@ -85,6 +85,12 @@ def run_installer(command, env, source, log, timeout=300):
     return code, "".join(lines), submitted, expired.is_set()
 
 
+# Releases whose ground-zero arguments this helper was reviewed against. A release
+# pull request that changes VERSION adds its version here after that review
+# (test/tests/static/release-versions.test.mjs fails otherwise).
+REVIEWED_VERSIONS = {"0.5.0-rc.6", "0.5.0-rc.7", "0.5.0-rc.8", "0.5.0-rc.9", "0.5.0-rc.12"}
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--source", type=Path, default=Path.cwd())
@@ -101,8 +107,9 @@ def main():
     os.umask(0o077)
     source = args.source.resolve()
     version = (source / "VERSION").read_text().strip()
-    if version not in {"0.5.0-rc.6", "0.5.0-rc.7", "0.5.0-rc.8", "0.5.0-rc.9"}:
-        parser.error("this helper was reviewed against 0.5.0-rc.6, 0.5.0-rc.7, 0.5.0-rc.8 and 0.5.0-rc.9")
+    if version not in REVIEWED_VERSIONS:
+        parser.error("this helper was reviewed against " + ", ".join(sorted(REVIEWED_VERSIONS)) +
+                     "; review it against the ground-zero arguments of " + version + " and add the version to REVIEWED_VERSIONS")
     config = json.loads(args.config.read_text())
     options = config["g0Args"]
 
