@@ -8,13 +8,13 @@
 //
 // Prepared with AI-assisted tools and reviewed by the author.
 // Assisted-by: AI
-import test from 'node:test';
-import assert from 'node:assert/strict';
-import fs from 'node:fs';
-import vm from 'node:vm';
-import crypto from 'node:crypto';
-import * as url from 'node:url';
-import { fixture } from '../../support/sr2-fixture.mjs';
+import test from "node:test";
+import assert from "node:assert/strict";
+import fs from "node:fs";
+import vm from "node:vm";
+import crypto from "node:crypto";
+import * as url from "node:url";
+import { fixture } from "../../support/sr2-fixture.mjs";
 const flows = JSON.parse(fs.readFileSync('dist/fap-pci-flow.json', 'utf8'));
 const captured = JSON.parse(fs.readFileSync('test/fixtures/wellknown-1.5.2-metadata.json', 'utf8'));
 const clone = value => JSON.parse(JSON.stringify(value));
