@@ -1,0 +1,328 @@
+name: Images
+
+# Builds the application image (deployment/image/Dockerfile, on the mandated
+# ORCE base image referenced by digest) and the participant service image for
+# every pull request, every push to main and every release candidate tag.
+# Pull requests from forks have no repository secrets: their images are built,
+# scanned, given an SBOM and started, but not pushed. Pushes to main and tags
+# publish the tested image archives to Docker Hub using DOCKERHUB_TOKEN.
+# Release charts and publication receipts are attached to the existing GitHub release.
+on:
+  workflow_dispatch:
+  pull_request:
+  push:
+    branches: [main]
+    tags: ['v*']
+
+permissions:
+  contents: read
+
+concurrency:
+  group: images-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  TRIVY_VERSION: 0.76.2
+  SYFT_VERSION: v1.54.1
+
+jobs:
+  base-image:
+    name: Resolve and verify the base image
+    runs-on: ubuntu-24.04
+    outputs:
+      reference: ${{ steps.lock.outputs.reference }}
+      digest: ${{ steps.lock.outputs.digest }}
+      uibuilder: ${{ steps.lock.outputs.uibuilder }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Read base-image.lock and check the tag still resolves to the recorded digest
+        id: lock
+        run: |
+          set -euo pipefail
+          source <(grep -E '^[A-Z_]+=' deployment/image/base-image.lock | sed 's/^/export /')
+          test -n "${BASE_DIGEST}" || { echo "::error::BASE_DIGEST is empty in deployment/image/base-image.lock; inspect the base image and record its digest"; exit 1; }
+          test -n "${BASE_ENTRYPOINT}" || { echo "::error::BASE_ENTRYPOINT is empty in deployment/image/base-image.lock"; exit 1; }
+          CURRENT="$(docker buildx imagetools inspect "${BASE_REFERENCE}" --format '{{json .Manifest.Digest}}' | tr -d '"')"
+          if [ "${CURRENT}" != "${BASE_DIGEST}" ]; then
+            echo "::error::${BASE_REFERENCE} now resolves to ${CURRENT}, not to the recorded ${BASE_DIGEST}. Review the change and update the lock file deliberately."
+            exit 1
+          fi
+          echo "reference=${BASE_REFERENCE}@${BASE_DIGEST}" >> "$GITHUB_OUTPUT"
+          echo "digest=${BASE_DIGEST}" >> "$GITHUB_OUTPUT"
+          echo "uibuilder=${UIBUILDER_VERSION}" >> "$GITHUB_OUTPUT"
+
+  application-image:
+    name: Build, scan and start the application image
+    needs: base-image
+    runs-on: ubuntu-24.04
+    env:
+      PCI_ORCE_BASE_PATH: ''
+    steps:
+      - uses: actions/checkout@v4
+      - uses: docker/setup-buildx-action@v3
+      - name: Build
+        run: |
+          set -euo pipefail
+          docker buildx build --load \
+            --file deployment/image/Dockerfile \
+            --build-arg "ORCE_BASE=${{ needs.base-image.outputs.reference }}" \
+            --build-arg "UIBUILDER_VERSION=${{ needs.base-image.outputs.uibuilder }}" \
+            --build-arg "SOURCE_COMMIT=${GITHUB_SHA}" \
+            --build-arg "SOURCE_VERSION=$(cat VERSION)" \
+            --tag fap-pci:ci .
+          docker image inspect fap-pci:ci > image-application.json
+      - name: Install Trivy
+        run: |
+          set -euo pipefail
+          curl -sSfL "https://github.com/aquasecurity/trivy/releases/download/v${TRIVY_VERSION}/trivy_${TRIVY_VERSION}_Linux-64bit.tar.gz" -o trivy.tgz
+          curl -sSfL "https://github.com/aquasecurity/trivy/releases/download/v${TRIVY_VERSION}/trivy_${TRIVY_VERSION}_checksums.txt" -o trivy.sums
+          awk -v archive="trivy_${TRIVY_VERSION}_Linux-64bit.tar.gz" '$2 == archive { print $1 "  trivy.tgz" }' trivy.sums | sha256sum --strict -c -
+          tar -xzf trivy.tgz trivy && sudo mv trivy /usr/local/bin/trivy
+      - name: Scan the base image and the application image
+        run: |
+          set -euo pipefail
+          trivy image --format json --output scan-base.json --severity HIGH,CRITICAL --scanners vuln "${{ needs.base-image.outputs.reference }}"
+          trivy image --format json --output scan-application.json --severity HIGH,CRITICAL --scanners vuln fap-pci:ci
+          node tools/check-image-scan.mjs --base scan-base.json --image scan-application.json --exceptions security/image-scan-exceptions.json
+      - name: SBOM of the application image
+        uses: anchore/sbom-action@e22c389904149dbc22b58101806040fa8d37a610
+        with:
+          image: fap-pci:ci
+          syft-version: ${{ env.SYFT_VERSION }}
+          format: cyclonedx-json
+          output-file: sbom-application.cdx.json
+          upload-artifact: false
+          upload-release-assets: false
+      - name: Start-up check (seeding, health and readiness, PCI flows loaded)
+        run: |
+          set -euo pipefail
+          docker volume create pci-data >/dev/null
+          docker run -d --name pci --publish 1880:1880 \
+            --volume pci-data:/data \
+            --env-file deployment/image/startup-check.env \
+            fap-pci:ci
+          for i in $(seq 1 60); do
+            if curl -sSf "http://127.0.0.1:1880${PCI_ORCE_BASE_PATH:-}/healthz" >/dev/null 2>&1; then break; fi
+            sleep 5
+          done
+          curl -sSf "http://127.0.0.1:1880${PCI_ORCE_BASE_PATH:-}/healthz"
+          curl -sS "http://127.0.0.1:1880${PCI_ORCE_BASE_PATH:-}/readyz" || true
+          docker exec pci node -e '
+            const fs = require("fs");
+            const marker = JSON.parse(fs.readFileSync("/data/fap-pci/install/image-release.json", "utf8"));
+            const flows = JSON.parse(fs.readFileSync("/data/" + (process.env.FLOW_FILE || "flows.json"), "utf8"));
+            const tabs = flows.filter(n => n.type === "tab" && /^M\d+_PCI-|^PCI_Interface$/.test(n.label || ""));
+            if (tabs.length < 10) throw new Error("PCI tabs not loaded: " + tabs.length);
+            console.log(JSON.stringify({ release: marker.release, commit: marker.commit, pciTabs: tabs.length }));
+          '
+          docker logs pci > startup-check.log 2>&1
+      - name: Preserve the tested image for publication
+        if: github.repository == 'eclipse-xfsc/facis-fap-principal-credential-issuance' && (github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && github.ref_type == 'tag'))
+        run: |
+          set -euo pipefail
+          docker image save fap-pci:ci | gzip -1 > application-image.tar.gz
+          sha256sum application-image.tar.gz > application-image.tar.gz.sha256
+      - name: Keep the records
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: application-image-${{ github.sha }}
+          path: |
+            image-application.json
+            application-image.tar.gz
+            application-image.tar.gz.sha256
+            scan-base.json
+            scan-application.json
+            sbom-application.cdx.json
+            startup-check.log
+
+      - name: Preserve release evidence separately from the image archive
+        if: github.repository == 'eclipse-xfsc/facis-fap-principal-credential-issuance' && github.ref_type == 'tag' && (github.event_name == 'push' || github.event_name == 'workflow_dispatch')
+        uses: actions/upload-artifact@v4
+        with:
+          name: application-release-evidence-${{ github.sha }}
+          path: |
+            image-application.json
+            sbom-application.cdx.json
+            scan-base.json
+            scan-application.json
+            startup-check.log
+
+  participant-image:
+    name: Build and scan the participant image
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: docker/setup-buildx-action@v3
+      - name: Build
+        run: |
+          set -euo pipefail
+          docker buildx build --load --platform linux/amd64 \
+            --file reference/participant-data-repository/Dockerfile \
+            --build-arg "SOURCE_COMMIT=${GITHUB_SHA}" \
+            --build-arg "SOURCE_VERSION=$(cat VERSION)" \
+            --tag fap-pci-participant:ci .
+          docker image inspect fap-pci-participant:ci > image-participant.json
+      - name: Install Trivy
+        run: |
+          set -euo pipefail
+          curl -sSfL "https://github.com/aquasecurity/trivy/releases/download/v${TRIVY_VERSION}/trivy_${TRIVY_VERSION}_Linux-64bit.tar.gz" -o trivy.tgz
+          curl -sSfL "https://github.com/aquasecurity/trivy/releases/download/v${TRIVY_VERSION}/trivy_${TRIVY_VERSION}_checksums.txt" -o trivy.sums
+          awk -v archive="trivy_${TRIVY_VERSION}_Linux-64bit.tar.gz" '$2 == archive { print $1 "  trivy.tgz" }' trivy.sums | sha256sum --strict -c -
+          tar -xzf trivy.tgz trivy && sudo mv trivy /usr/local/bin/trivy
+      - name: Scan (fails on HIGH or CRITICAL; the distroless base carries no inherited findings to exclude)
+        run: trivy image --exit-code 1 --severity HIGH,CRITICAL --scanners vuln --format json --output scan-participant.json fap-pci-participant:ci
+      - name: SBOM of the participant image
+        uses: anchore/sbom-action@e22c389904149dbc22b58101806040fa8d37a610
+        with:
+          image: fap-pci-participant:ci
+          syft-version: ${{ env.SYFT_VERSION }}
+          format: cyclonedx-json
+          output-file: sbom-participant.cdx.json
+          upload-artifact: false
+          upload-release-assets: false
+      - name: Preserve the tested image for publication
+        if: github.repository == 'eclipse-xfsc/facis-fap-principal-credential-issuance' && (github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && github.ref_type == 'tag'))
+        run: |
+          set -euo pipefail
+          docker image save fap-pci-participant:ci | gzip -1 > participant-image.tar.gz
+          sha256sum participant-image.tar.gz > participant-image.tar.gz.sha256
+      - name: Keep the records
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: participant-image-${{ github.sha }}
+          path: |
+            image-participant.json
+            participant-image.tar.gz
+            participant-image.tar.gz.sha256
+            scan-participant.json
+            sbom-participant.cdx.json
+
+      - name: Preserve release evidence separately from the image archive
+        if: github.repository == 'eclipse-xfsc/facis-fap-principal-credential-issuance' && github.ref_type == 'tag' && (github.event_name == 'push' || github.event_name == 'workflow_dispatch')
+        uses: actions/upload-artifact@v4
+        with:
+          name: participant-release-evidence-${{ github.sha }}
+          path: |
+            image-participant.json
+            sbom-participant.cdx.json
+            scan-participant.json
+
+  publish-application:
+    name: Publish tested application to Docker Hub
+    if: github.repository == 'eclipse-xfsc/facis-fap-principal-credential-issuance' && (github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && github.ref_type == 'tag'))
+    needs: [base-image, application-image]
+    runs-on: ubuntu-24.04
+    env:
+      DOCKERHUB_NAMESPACE: ecofacis
+    steps:
+      - uses: actions/checkout@v4
+      - uses: docker/setup-buildx-action@v3
+      - uses: actions/download-artifact@v4
+        with:
+          name: application-image-${{ github.sha }}
+      - name: Authenticate Docker Hub publisher
+        env:
+          DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          test -n "$DOCKERHUB_TOKEN" || { echo '::error::The repository maintainer must configure DOCKERHUB_TOKEN for ecofacis.'; exit 1; }
+          printf '%s' "$DOCKERHUB_TOKEN" | docker login --username ecofacis --password-stdin
+      - name: Publish and verify the tested image
+        run: python3 scripts/publish-tested-image.py application --out publication-application.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: publication-application-${{ github.sha }}
+          path: publication-application.json
+          if-no-files-found: error
+      - name: End registry session
+        if: always()
+        run: docker logout
+
+  publish-participant:
+    name: Publish tested participant to Docker Hub
+    if: github.repository == 'eclipse-xfsc/facis-fap-principal-credential-issuance' && (github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && github.ref_type == 'tag'))
+    needs: participant-image
+    runs-on: ubuntu-24.04
+    env:
+      DOCKERHUB_NAMESPACE: ecofacis
+    steps:
+      - uses: actions/checkout@v4
+      - uses: docker/setup-buildx-action@v3
+      - uses: actions/download-artifact@v4
+        with:
+          name: participant-image-${{ github.sha }}
+      - name: Authenticate Docker Hub publisher
+        env:
+          DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          test -n "$DOCKERHUB_TOKEN" || { echo '::error::The repository maintainer must configure DOCKERHUB_TOKEN for ecofacis.'; exit 1; }
+          printf '%s' "$DOCKERHUB_TOKEN" | docker login --username ecofacis --password-stdin
+      - name: Publish and verify the tested image
+        run: python3 scripts/publish-tested-image.py participant --out publication-participant.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: publication-participant-${{ github.sha }}
+          path: publication-participant.json
+          if-no-files-found: error
+      - name: End registry session
+        if: always()
+        run: docker logout
+
+  publish-charts:
+    name: Attach release charts and image records
+    if: github.repository == 'eclipse-xfsc/facis-fap-principal-credential-issuance' && github.ref_type == 'tag' && (github.event_name == 'push' || github.event_name == 'workflow_dispatch')
+    needs: [publish-application, publish-participant]
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: write
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      GH_REPO: ${{ github.repository }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: azure/setup-helm@v4
+        with:
+          version: v3.17.4
+      - uses: actions/download-artifact@v4
+        with:
+          name: publication-application-${{ github.sha }}
+          path: release-assets
+      - uses: actions/download-artifact@v4
+        with:
+          name: application-release-evidence-${{ github.sha }}
+          path: release-assets
+      - uses: actions/download-artifact@v4
+        with:
+          name: publication-participant-${{ github.sha }}
+          path: release-assets
+      - uses: actions/download-artifact@v4
+        with:
+          name: participant-release-evidence-${{ github.sha }}
+          path: release-assets
+      - name: Package all three release charts
+        run: |
+          set -euo pipefail
+          test "$GITHUB_REF_NAME" = "v$(cat VERSION)"
+          for chart in fap-pci observability participant; do
+            helm package "deployment/helm/$chart" --destination release-assets
+          done
+          git rev-parse HEAD > release-assets/charts-source-commit.txt
+          (cd release-assets && sha256sum ./*.tgz > charts-sha256.txt)
+      - uses: actions/upload-artifact@v4
+        with:
+          name: release-charts-and-images-${{ github.sha }}
+          path: release-assets/
+          if-no-files-found: error
+      - name: Attach to the committer-created release
+        run: |
+          set -euo pipefail
+          found=false
+          for attempt in $(seq 1 30); do
+            if gh release view "$GITHUB_REF_NAME" >/dev/null 2>&1; then found=true; break; fi
+            sleep 10
+          done
+          test "$found" = true || { echo '::error::The committer must create the release for this existing tag, then rerun this failed job.'; exit 1; }
+          gh release upload "$GITHUB_REF_NAME" release-assets/* --clobber

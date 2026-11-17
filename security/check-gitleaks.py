@@ -90,6 +90,10 @@ def main():
          "generic-api-key"),
         ("credential-in-checksum-field", INVENTORY,
          {"files": {key: token}}, "github-pat"),
+        ("startup-ci-password", "startup.json",
+         {"PCI_INTERNAL_SERVICE_TOKEN": "startup-check"}, None),
+        ("startup-file-credential", "deployment/image/startup-check.env",
+         {"REGISTRY_TOKEN": token}, "github-pat"),
         ("synthetic-ci-password", "ci.json",
          {"POSTGRES_PASSWORD": "ephemeral-ci-only"}, None),
     ])
