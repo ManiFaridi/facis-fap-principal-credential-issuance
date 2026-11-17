@@ -10,6 +10,7 @@
 // Assisted-by: AI
 import { createApp, computed, onMounted, onUnmounted, ref } from "vue";
 import { api, request } from "./services/api.js";
+import { applyPciTheme, pciThemeVariables } from "./state/theme.js";
 import { beginLogin, completeLoginFromLocation } from "./services/auth.js";
 import { store } from "./state/store.js";
 import { runtime, applyPublicConfiguration } from "./config/runtime.js";
@@ -36,7 +37,7 @@ const App = {
     const submission = ref(null);
     const verification = ref({ state: "idle", message: "" });
     const hashRoute = ref(window.location.hash || "#/register");
-    const tenantTheme = computed(() => ({ '--tenant-width': store.tenant?.branding?.layout === 'focused' ? '1040px': '1200px' }));
+    const tenantTheme = computed(() => pciThemeVariables(store.tenant?.branding));
     const providerTab = ref('applications');
     const isTenantHost = computed(() => Boolean(store.tenant));
     const isProvider = computed(() => hashRoute.value.startsWith("#/provider"));
@@ -60,6 +61,7 @@ const App = {
         try {
           store.tenant.branding = (await request('/api/v1/public/branding')).branding;
         } catch {}
+        applyPciTheme(document.documentElement, store.tenant?.branding);
       } catch (error) {
         if (error.status === 404) store.tenant = null;
         else setError(error);

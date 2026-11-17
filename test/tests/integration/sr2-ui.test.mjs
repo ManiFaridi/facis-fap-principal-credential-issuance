@@ -66,8 +66,12 @@ function vueContext() {
     reactive: ctx.Vue.reactive
   });
   ctx.onBridgeReconnect = () => () => {};
-  for (const file of ['src/state/store.js', 'src/state/reducers.js', 'src/components/feedback.js']) vm.runInContext(stripModuleSyntax(fs
-    .readFileSync(file, 'utf8'), file), ctx);
+  for (const file of [
+    'src/state/store.js',
+    'src/state/reducers.js',
+    'src/state/theme.js',
+    'src/components/feedback.js'
+  ]) vm.runInContext(stripModuleSyntax(fs.readFileSync(file, 'utf8'), file), ctx);
   vm.runInContext(issuerSource() + '\nglobalThis.component=Sr2Console;', ctx);
   return { ctx, messages };
 }

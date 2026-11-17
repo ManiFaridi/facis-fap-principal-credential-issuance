@@ -33,16 +33,55 @@ export const pciTenantPanelTemplate = `
         </textarea>
       </label>
       <p class="form-guidance">
-        Your title, description and logo identify your organization. Colors, typography and corners follow the
-        shared FACIS interface standard.
+        Your title, description, logo, colors, typography, corners and page width apply to your tenant's pages as
+        soon as the branding is activated. The defaults follow the FACIS interface standard. Colors must keep a
+        contrast of at least 4.5:1: the accent with white text, the text color on the page and on white cards.
       </p>
+      <div class="theme-colors">
+        <label>
+          Accent color
+          <input v-model="brandingForm.accent" type="color">
+        </label>
+        <label>
+          Page color
+          <input v-model="brandingForm.background" type="color">
+        </label>
+        <label>
+          Text color
+          <input v-model="brandingForm.foreground" type="color">
+        </label>
+      </div>
+      <label>
+        Font
+        <select v-model="brandingForm.font">
+          <option value="system">FACIS system sans-serif</option>
+          <option value="sans">Classic sans-serif</option>
+          <option value="serif">Serif</option>
+          <option value="rounded">Rounded sans-serif</option>
+          <option value="mono">Monospace</option>
+        </select>
+      </label>
+      <label>
+        Corners
+        <select v-model="brandingForm.corners">
+          <option value="rounded">Rounded (FACIS)</option>
+          <option value="soft">Slightly rounded</option>
+          <option value="square">Square</option>
+        </select>
+      </label>
       <label>
         Content width
         <select v-model="brandingForm.layout">
           <option value="wide">Standard shell</option>
           <option value="focused">Focused shell</option>
+          <option value="full">Full page width</option>
         </select>
       </label>
+      <button
+        type="button"
+        class="secondary"
+        @click="brandingForm.accent='#005FFF';brandingForm.background='#E1E7EF';brandingForm.foreground='#1F2937';brandingForm.font='system';brandingForm.corners='rounded';brandingForm.layout='wide'"
+      >Reset to FACIS defaults</button>
       <label>
         Footer text
         <textarea v-model="brandingForm.footer" maxlength="500">

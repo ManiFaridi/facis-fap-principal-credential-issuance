@@ -95,16 +95,26 @@ const schemas = {
     description: str(1000),
     accent: {
       type: 'string',
-      pattern: '^#005[fF]{3}$',
+      pattern: '^#[0-9a-fA-F]{6}$',
       default: '#005FFF',
-      description: 'Shared FACIS primary action color.'
+      description: 'Primary action color; at least 4.5:1 contrast with white text. Default: FACIS blue.'
     },
     logoAssetId: nullableId,
-    background: { type: 'string', pattern: '^#[eE]1[eE]7[eE][fF]$', default: '#E1E7EF' },
-    foreground: { type: 'string', pattern: '^#1[fF]2937$', default: '#1F2937' },
-    font: { type: 'string', enum: ['system'] },
-    layout: { type: 'string', enum: ['wide', 'focused'] },
-    corners: { type: 'string', enum: ['rounded'] },
+    background: {
+      type: 'string',
+      pattern: '^#[0-9a-fA-F]{6}$',
+      default: '#E1E7EF',
+      description: 'Page canvas color.'
+    },
+    foreground: {
+      type: 'string',
+      pattern: '^#[0-9a-fA-F]{6}$',
+      default: '#1F2937',
+      description: 'Text color; at least 4.5:1 contrast on the canvas and on white cards.'
+    },
+    font: { type: 'string', enum: ['system', 'sans', 'serif', 'rounded', 'mono'], default: 'system' },
+    layout: { type: 'string', enum: ['wide', 'focused', 'full'], default: 'wide' },
+    corners: { type: 'string', enum: ['rounded', 'soft', 'square'], default: 'rounded' },
     footer: str(500)
   }, ['title', 'description']),
   Sr2Step: obj({
