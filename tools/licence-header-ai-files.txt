@@ -49,7 +49,9 @@ backend/sr2/wire.js
 build.js
 deployment/image/entrypoint.sh
 deployment/image/seed-data.mjs
+scripts/collect-privacy-captures.py
 scripts/collect-ux-environment.py
+scripts/record-deployment.py
 scripts/run-ux-bdd.py
 shared/public-url.js
 src/components/feedback.js
