@@ -14,7 +14,7 @@ Eclipse Dash is an independent workflow. Run `38727256204` concluded `failure`; 
 
 ## Documentation publication
 
-`docs.yml` runs `mkdocs build --strict` and preserves the generated site artifact on pushes and pull requests. To publish an updated site, dispatch **Documentation** on the committed branch with `publish=true`. Its `publish` job deploys the built Pages artifact. Build and publication results identify the exact documentation revision.
+`docs.yml` runs `mkdocs build --strict` and preserves the generated site artifact on pushes and pull requests. Every push to `main` and every release candidate tag publishes the built site to GitHub Pages; the site carries `VERSION.txt` with the version and commit it was built from. Dispatching **Documentation** with `publish=true` republishes on demand. Build and publication results identify the exact documentation revision.
 
 ## Container and release workflows
 
