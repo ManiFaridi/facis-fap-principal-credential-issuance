@@ -89,7 +89,11 @@ while [[ $# -gt 0 ]]; do case "$1" in
 esac; done
 case "$url" in
  */auth/token)
- if node -e 'const fs=require("node:fs");const p=new URLSearchParams(fs.readFileSync(process.argv[1],"utf8"));process.exit(p.get("password")==="local-fixture-password"&&p.get("username")==="admin"&&p.get("scope")==="*"?0:1)' "$data"; then result='{"access_token":"fixture-editor-token"}'; else echo 'Authentication body changed credentials' >&2; exit 1; fi ;;
+ if node -e 'const fs=require("node:fs");
+const p=new URLSearchParams(fs.readFileSync(process.argv[1],"utf8"));
+process.exit(p.get("password")==="local-fixture-password"&&p.get("username")==="admin"&&p.get("scope")==="*"?0:1)' "$data";
+ then result='{"access_token":"fixture-editor-token"}';
+ else echo 'Authentication body changed credentials' >&2; exit 1; fi ;;
 
  */healthz) result='{"status":"ok","version":"${releaseVersion}"}' ;;
  */readyz) result='{"status":"ready","version":"${releaseVersion}"}' ;;

@@ -10,12 +10,12 @@
 // Assisted-by: AI
 // Local development fixture only. No real identity, wallet, cluster or database.
 // Always binds loopback; every restart discards the synthetic in-memory state.
-import fs from 'node:fs';
-import http from 'node:http';
-import { stripModuleSyntax } from '../../tools/lib/module-source.mjs';
-import { issuerSource } from './ui-source.mjs';
-import { fixture, alpha } from './sr2-fixture.mjs';
-import { httpHarness } from './sr2-http.mjs';
+import fs from "node:fs";
+import http from "node:http";
+import { stripModuleSyntax } from "../../tools/lib/module-source.mjs";
+import { issuerSource } from "./ui-source.mjs";
+import { fixture, alpha } from "./sr2-fixture.mjs";
+import { httpHarness } from "./sr2-http.mjs";
 export async function createBrowserFixtureServer({ port = 0 } = {}) {
   if (!Number.isInteger(port) || port < 0 || port > 65535) throw new TypeError('Invalid local preview port');
   const f = fixture(),
@@ -46,14 +46,29 @@ const onBridgeReconnect=()=>()=>{};const initializeBridge=()=>{store.live.connec
 ${source('src/state/store.js')}
 ${source('src/state/reducers.js')}
 ${source('src/components/feedback.js')}
-const request=async(path,options={})=>{const response=await fetch(path,{...options,headers:{accept:'application/json',...(options.body?{'content-type':'application/json'}:{}),...(options.headers||{})}});return decodeHttpResponse(response);};
-const api={registrationConfig:async()=>({orceBasePath:'/pci-orce',registrationMode:'public',hostnameTemplate:'{slug}-pci.example.com'}),session:async()=>({session:${JSON.stringify(session)}}),tenantContext:async()=>{const tenant=${JSON.stringify(tenantData)};if(!tenant)throw Object.assign(Error('No tenant'),{status:404});return {tenant};},tenantMembers:async()=>({items:[{subject:'principal',username:'Principal',enabled:true,roles:['principal']}]}),platformStatus:async()=>({ready:true}),registrations:async()=>({items:[]}),tenants:async()=>({items:[]})};
+const request=async(path,options={})=>{
+  const response=await fetch(path,{...options,headers:{accept:'application/json',...(options.body?{'content-type':'application/json'}:{}),...(options.headers||{})}});
+  return decodeHttpResponse(response);};
+const api={
+  registrationConfig:async()=>({orceBasePath:'/pci-orce',registrationMode:'public',hostnameTemplate:'{slug}-pci.example.com'}),
+  session:async()=>({session:${JSON.stringify(session)}}),
+  tenantContext:async()=>{const tenant=${JSON.stringify(tenantData)};if(!tenant)throw Object.assign(Error('No tenant'),
+  {status:404});return {tenant};},tenantMembers:async()=>({items:[{subject:'principal',username:'Principal',enabled:true,roles:['principal']}]}),
+  platformStatus:async()=>({ready:true}),
+  registrations:async()=>({items:[]}),
+  tenants:async()=>({items:[]})};
 ${source('src/qr-tables.js')}
 ${source('src/qr.js')}
 ${issuerSource()}
 ${source('src/main.js')}`;
         res.setHeader('Content-Type', 'text/html; charset=utf-8');
-        return res.end(`<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>PCI offline UI regression</title><style>${fs.readFileSync('src/styles.css','utf8')}</style></head><body><div id="app"></div><script>${fs.readFileSync('vendor/vue.global.prod.js','utf8')}</script><script>${script}</script></body></html>`);
+        return res.end(`<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>PCI offline UI regression</title>
+<style>${fs.readFileSync('src/styles.css','utf8')}</style></head>
+<body><div id="app"></div>
+<script>${fs.readFileSync('vendor/vue.global.prod.js','utf8')}</script>
+<script>${script}</script></body></html>`);
       }
       if (url.pathname === '/pci-orce/ui/facis-logo.svg') {
         res.setHeader('Content-Type', 'image/svg+xml');

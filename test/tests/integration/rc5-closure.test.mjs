@@ -96,7 +96,11 @@ test('cleanup discovers a pre-registration orphan with exact ownership and never
   assert.equal(deleted.length, 1);
 });
 test('legacy baseline imports exact trusted values and rejects live drift and another deployment', () => {
-  const script = `import importlib.util,json,sys\ns=importlib.util.spec_from_file_location('legacy','scripts/import-legacy-baseline.py');m=importlib.util.module_from_spec(s);sys.path.insert(0,'scripts');s.loader.exec_module(m)\nv=json.load(sys.stdin)\ntry: print(json.dumps({'patch':m.plan(v['current'],v['baseline'])}))\nexcept ValueError: print(json.dumps({'rejected':True}))`;
+  const script = `import importlib.util,json,sys
+s=importlib.util.spec_from_file_location('legacy','scripts/import-legacy-baseline.py');m=importlib.util.module_from_spec(s);sys.path.insert(0,'scripts');s.loader.exec_module(m)
+v=json.load(sys.stdin)
+try: print(json.dumps({'patch':m.plan(v['current'],v['baseline'])}))
+except ValueError: print(json.dumps({'rejected':True}))`;
   const current = {
     metadata: { name: 'orce', namespace: 'pci', uid: 'uid', resourceVersion: '1' },
     spec: {
@@ -154,7 +158,16 @@ test('ground-zero mesh mode protects bootstrap jobs and lets native sidecars fin
   }
 });
 test('all-hop renderer demands complete role coverage and rejects bypasses and replacement UIDs', () => {
-  const script = `import importlib.util,json,sys\ns=importlib.util.spec_from_file_location('mesh','tools/prepare-all-hop-tls.py');m=importlib.util.module_from_spec(s);s.loader.exec_module(m)\nv=json.load(sys.stdin);i={'meshRevision':'approved','workloads':{'all':{'kind':'Deployment','name':'runtime','namespace':'pci','uid':'uid'},'edge':{'kind':'EnvoyProxy','name':'edge','namespace':'pci','uid':'edge'}},'roles':{r:('edge' if r=='gateway' else 'all') for r in m.ROLES}}\nif v.get('missing'):i['roles'].pop('nats')\ntry:print(json.dumps({'result':m.render(i,{'all':v['object'],'edge':{'kind':'EnvoyProxy','metadata':{'name':'edge','namespace':'pci','uid':'edge','resourceVersion':'1'},'spec':{'provider':{'kubernetes':{'envoyDeployment':{}}}}}})}))\nexcept ValueError:print(json.dumps({'rejected':True}))`;
+  const script = `import importlib.util,json,sys
+s=importlib.util.spec_from_file_location('mesh','tools/prepare-all-hop-tls.py');m=importlib.util.module_from_spec(s);s.loader.exec_module(m)
+v=json.load(sys.stdin)
+i={'meshRevision':'approved',
+  'workloads':{'all':{'kind':'Deployment','name':'runtime','namespace':'pci','uid':'uid'},
+    'edge':{'kind':'EnvoyProxy','name':'edge','namespace':'pci','uid':'edge'}},
+  'roles':{r:('edge' if r=='gateway' else 'all') for r in m.ROLES}}
+if v.get('missing'):i['roles'].pop('nats')
+try:print(json.dumps({'result':m.render(i,{'all':v['object'],'edge':{'kind':'EnvoyProxy','metadata':{'name':'edge','namespace':'pci','uid':'edge','resourceVersion':'1'},'spec':{'provider':{'kubernetes':{'envoyDeployment':{}}}}}})}))
+except ValueError:print(json.dumps({'rejected':True}))`;
   const object = {
     kind: 'Deployment',
     metadata: { name: 'runtime', namespace: 'pci', uid: 'uid', resourceVersion: '1' },

@@ -5,17 +5,36 @@
 // https://www.apache.org/licenses/LICENSE-2.0.
 //
 // SPDX-License-Identifier: Apache-2.0
-import test from 'node:test';
-import assert from 'node:assert/strict';
-import fs from 'node:fs';
-import vm from 'node:vm';
-import { spawnSync } from 'node:child_process';
+import test from "node:test";
+import assert from "node:assert/strict";
+import fs from "node:fs";
+import vm from "node:vm";
+import { spawnSync } from "node:child_process";
 function python(source) {
   const result = spawnSync('python3', ['-B', '-'], { input: source, encoding: 'utf8' });
   assert.equal(result.status, 0, result.stderr);
   return JSON.parse(result.stdout);
 }
-const load = `import importlib.util,json,argparse,copy,tempfile,ast\nfrom pathlib import Path\nspec=importlib.util.spec_from_file_location('source_setup','scripts/deploy-test-source.py')\nm=importlib.util.module_from_spec(spec);spec.loader.exec_module(m)\na=argparse.Namespace(tenant_id='11111111-1111-4111-8111-111111111111',configuration_id='22222222-2222-4222-8222-222222222222',subject='33333333-3333-4333-8333-333333333333',namespace='xfsc-orce-pci-source',pci_namespace='xfsc-orce-pci-orce',gateway_namespace='infrastructure',gateway='pci-gateway',listener='https',host='pci.facis.cloud',path_prefix='/participant-source',image='ecofacis/xfsc-orce:2.0.13',node_red_cli='/data/node_modules/node-red/red.js',context='test-context',kubeconfig=__file__)\n`;
+const load = `import importlib.util,json,argparse,copy,tempfile,ast
+from pathlib import Path
+spec=importlib.util.spec_from_file_location('source_setup','scripts/deploy-test-source.py')
+m=importlib.util.module_from_spec(spec);spec.loader.exec_module(m)
+a=argparse.Namespace(
+    tenant_id='11111111-1111-4111-8111-111111111111',
+    configuration_id='22222222-2222-4222-8222-222222222222',
+    subject='33333333-3333-4333-8333-333333333333',
+    namespace='xfsc-orce-pci-source',
+    pci_namespace='xfsc-orce-pci-orce',
+    gateway_namespace='infrastructure',
+    gateway='pci-gateway',
+    listener='https',
+    host='pci.example.com',
+    path_prefix='/participant-source',
+    image='ecofacis/xfsc-orce:2.0.13',
+    node_red_cli='/data/node_modules/node-red/red.js',
+    context='test-context',
+    kubeconfig=__file__)
+`;
 test('source settings keep baked modules readable, disable the editor and require TLS 1.3', () => {
   const settings = python(load + `print(json.dumps(m.source_settings(a.path_prefix)))`),
   reads = [];
@@ -78,22 +97,59 @@ test('the authored record flow rejects unauthenticated and foreign scopes and ac
   });
 });
 test('source ownership and private-file guards reject replacement owners and conflicting records', () => {
-  const result = python(load +
-    `\nlabels={'owner':'current'}\nm.assert_owned(None,labels)\nm.assert_owned({'metadata':{'labels':labels}},labels)\ntry:m.assert_owned({'metadata':{'labels':{'owner':'other'}}},labels);raise AssertionError('foreign owner accepted')\nexcept m.SourceSetupError:pass\nwith tempfile.TemporaryDirectory() as directory:\n p=Path(directory)/'records.json';m.private_json(p,{'only':'synthetic'});m.private_json(p,{'only':'synthetic'})\n try:m.private_json(p,{'changed':True});raise AssertionError('overwritten')\n except m.SourceSetupError:pass\n link=Path(directory)/'link.json';link.symlink_to(p)\n try:m.private_json(link,{'only':'synthetic'});raise AssertionError('symlink accepted')\n except m.SourceSetupError:pass\n assert json.loads(p.read_text())=={'only':'synthetic'}\nprint(json.dumps({'guards':'PASS'}))`);
+  const result = python(load + `
+labels={'owner':'current'}
+m.assert_owned(None,labels)
+m.assert_owned({'metadata':{'labels':labels}},labels)
+try:m.assert_owned({'metadata':{'labels':{'owner':'other'}}},labels);raise AssertionError('foreign owner accepted')
+except m.SourceSetupError:pass
+with tempfile.TemporaryDirectory() as directory:
+ p=Path(directory)/'records.json';m.private_json(p,{'only':'synthetic'});m.private_json(p,{'only':'synthetic'})
+ try:m.private_json(p,{'changed':True});raise AssertionError('overwritten')
+ except m.SourceSetupError:pass
+ link=Path(directory)/'link.json';link.symlink_to(p)
+ try:m.private_json(link,{'only':'synthetic'});raise AssertionError('symlink accepted')
+ except m.SourceSetupError:pass
+ assert json.loads(p.read_text())=={'only':'synthetic'}
+print(json.dumps({'guards':'PASS'}))`);
   assert.equal(result.guards, 'PASS');
 });
 test('source readiness refuses stale policy generations and another gateway', () => {
-  const result = python(load +
-    `\nobj={'metadata':{'generation':3},'status':{'parents':[{'parentRef':{'name':a.gateway,'namespace':a.gateway_namespace},'conditions':[{'type':'Accepted','status':'True','observedGeneration':2},{'type':'ResolvedRefs','status':'True','observedGeneration':3}]}]}}\nassert not m.current_conditions(obj,'parents',a.gateway,a.gateway_namespace,['Accepted','ResolvedRefs'])\nobj['status']['parents'][0]['conditions'][0]['observedGeneration']=3\nassert m.current_conditions(obj,'parents',a.gateway,a.gateway_namespace,['Accepted','ResolvedRefs'])\nassert not m.current_conditions(obj,'parents','other-gateway',a.gateway_namespace,['Accepted','ResolvedRefs'])\nprint(json.dumps({'conditions':'PASS'}))`);
+  const result = python(load + `
+obj={'metadata':{'generation':3},'status':{'parents':[{'parentRef':{'name':a.gateway,'namespace':a.gateway_namespace},
+    'conditions':[{'type':'Accepted','status':'True','observedGeneration':2},
+        {'type':'ResolvedRefs','status':'True','observedGeneration':3}]}]}}
+assert not m.current_conditions(obj,'parents',a.gateway,a.gateway_namespace,['Accepted','ResolvedRefs'])
+obj['status']['parents'][0]['conditions'][0]['observedGeneration']=3
+assert m.current_conditions(obj,'parents',a.gateway,a.gateway_namespace,['Accepted','ResolvedRefs'])
+assert not m.current_conditions(obj,'parents','other-gateway',a.gateway_namespace,['Accepted','ResolvedRefs'])
+print(json.dumps({'conditions':'PASS'}))`);
   assert.equal(result.conditions, 'PASS');
 });
 test('source reapplication keeps its template stable and reloads changed flow code or TLS certificates', () => {
-  const result = python(load +
-    `\nflow=json.loads(Path('reference/participant-data-source/flows.json').read_text())\ndef revision(nodes):return next(o for o in m.build_objects(a,{},nodes) if o['kind']=='Deployment')['spec']['template']['metadata']['annotations']['fap-pci.xfsc.org/source-code-revision']\noriginal=revision(flow);assert revision(flow)==original\na.certificate_revision='new-approved-certificate';assert revision(flow)!=original\na.certificate_revision='';changed=copy.deepcopy(flow);next(n for n in changed if n.get('type')=='function')['func']+='\\n// reviewed source change'\nassert revision(changed)!=original\nprint(json.dumps({'revision':'PASS'}))`);
+  const result = python(load + `
+flow=json.loads(Path('reference/participant-data-source/flows.json').read_text())
+def revision(nodes):return next(o for o in m.build_objects(a,{},nodes) if o['kind']=='Deployment')['spec']['template']['metadata']['annotations']['fap-pci.xfsc.org/source-code-revision']
+original=revision(flow);assert revision(flow)==original
+a.certificate_revision='new-approved-certificate';assert revision(flow)!=original
+a.certificate_revision='';changed=copy.deepcopy(flow);next(n for n in changed if n.get('type')=='function')['func']+='\
+// reviewed source change'
+assert revision(changed)!=original
+print(json.dumps({'revision':'PASS'}))`);
   assert.equal(result.revision, 'PASS');
 });
 test('participant deployment prints internal-signing connector values without a removed CLI option', () => {
-  const result = python(`import ast,argparse,json\nfrom pathlib import Path\ncode=ast.parse(Path('scripts/deploy-participant.py').read_text())\nexpression=next(n.value for n in code.body if isinstance(n,ast.Assign) and any(isinstance(t,ast.Name) and t.id=='connector' for t in n.targets))\na=argparse.Namespace(configuration_id='test-config',jwt_audience='participant-data',jwt_scopes='credential:issue',crypto_endpoint=None)\nenv={'a':a,'server':'participant.internal','trust_name':'trusted-client','issuer':'https://identity.facis.cloud'}\ndef evaluate():return eval(compile(ast.Expression(expression),'connector','eval'),env)\nassert evaluate()['signingModes']==['internal-signing']\na.crypto_endpoint='approved-core:443'\nassert evaluate()['signingModes']==['internal-signing','participant-signed']\nprint(json.dumps({'connector':'PASS'}))`);
+  const result = python(`import ast,argparse,json
+from pathlib import Path
+code=ast.parse(Path('scripts/deploy-participant.py').read_text())
+expression=next(n.value for n in code.body if isinstance(n,ast.Assign) and any(isinstance(t,ast.Name) and t.id=='connector' for t in n.targets))
+a=argparse.Namespace(configuration_id='test-config',jwt_audience='participant-data',jwt_scopes='credential:issue',crypto_endpoint=None)
+env={'a':a,'server':'participant.internal','trust_name':'trusted-client','issuer':'https://identity.facis.cloud'}
+def evaluate():return eval(compile(ast.Expression(expression),'connector','eval'),env)
+assert evaluate()['signingModes']==['internal-signing']
+a.crypto_endpoint='approved-core:443'
+assert evaluate()['signingModes']==['internal-signing','participant-signed']
+print(json.dumps({'connector':'PASS'}))`);
   assert.equal(result.connector, 'PASS');
 });
 test('source CLI creates a private token on first install and preserves it on retry', () => {
@@ -133,7 +189,8 @@ import ast,json,tempfile,subprocess
 from pathlib import Path
 tree=ast.parse(Path('scripts/deploy-participant.py').read_text())
 definition=next(n for n in ast.walk(tree) if isinstance(n,ast.FunctionDef) and n.name=='openssl')
-ca=next(n for n in ast.walk(tree) if isinstance(n,ast.Expr) and isinstance(n.value,ast.Call) and isinstance(n.value.func,ast.Name) and n.value.func.id=='openssl' and len(n.value.args)>1 and isinstance(n.value.args[1],ast.Constant) and n.value.args[1].value=='-x509')
+ca=next(n for n in ast.walk(tree) if isinstance(n,ast.Expr) and isinstance(n.value,ast.Call) and isinstance(n.value.func,ast.Name)
+    and n.value.func.id=='openssl' and len(n.value.args)>1 and isinstance(n.value.args[1],ast.Constant) and n.value.args[1].value=='-x509')
 loop=next(n for n in ast.walk(tree) if isinstance(n,ast.For) and isinstance(n.target,ast.Tuple) and [x.id for x in n.target.elts]==['role','dns','usage'])
 server='pci-participant.pci-participant-11111111-1111-4111-8111-111111111111.svc.cluster.local';client='pci-11111111-1111-4111-8111-111111111111.internal'
 assert len(server)>64

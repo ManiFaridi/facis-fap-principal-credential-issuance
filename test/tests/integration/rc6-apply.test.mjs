@@ -11,7 +11,10 @@ import { execFileSync } from 'node:child_process';
 const runner = String.raw `
 import importlib.util,json,sys,types,contextlib,io
 s=importlib.util.spec_from_file_location('apply','automation/stage1/apply-resources.py');m=importlib.util.module_from_spec(s);s.loader.exec_module(m)
-v=json.load(sys.stdin);kind=v.get('kind','ConfigMap');ns='' if kind in ['Namespace','ClusterRole','GatewayClass'] else 'pci';name='pci' if kind=='Namespace' else 'envoy' if kind=='GatewayClass' else 'fap-pci-orce-discovery' if kind=='ClusterRole' else 'fap-pci-config'
+v=json.load(sys.stdin)
+kind=v.get('kind','ConfigMap')
+ns='' if kind in ['Namespace','ClusterRole','GatewayClass'] else 'pci'
+name='pci' if kind=='Namespace' else 'envoy' if kind=='GatewayClass' else 'fap-pci-orce-discovery' if kind=='ClusterRole' else 'fap-pci-config'
 meta={'name':name,'uid':'one','resourceVersion':'7','annotations':{'meta.helm.sh/release-name':v.get('release','fap-pci'),'meta.helm.sh/release-namespace':v.get('releaseNs','pci')},'managedFields':[{'manager':'helm'}]}
 if ns:meta['namespace']=ns
 obj={'apiVersion':'v1','kind':kind,'metadata':{'name':name},'data':{'key':'synthetic'}}

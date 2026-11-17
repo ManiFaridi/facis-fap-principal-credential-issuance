@@ -8,13 +8,13 @@
 //
 // Prepared with AI-assisted tools and reviewed by the author.
 // Assisted-by: AI
-import test from 'node:test';
-import assert from 'node:assert/strict';
-import fs from 'node:fs';
-import vm from 'node:vm';
-import crypto from 'node:crypto';
-import * as url from 'node:url';
-import { fixture } from '../../support/sr2-fixture.mjs';
+import test from "node:test";
+import assert from "node:assert/strict";
+import fs from "node:fs";
+import vm from "node:vm";
+import crypto from "node:crypto";
+import * as url from "node:url";
+import { fixture } from "../../support/sr2-fixture.mjs";
 const flows = JSON.parse(fs.readFileSync('dist/fap-pci-flow.json', 'utf8'));
 const captured = JSON.parse(fs.readFileSync('test/fixtures/wellknown-1.5.2-metadata.json', 'utf8'));
 const clone = value => JSON.parse(JSON.stringify(value));
@@ -69,9 +69,10 @@ function sandbox(name, injected = {}) {
   assert.equal(vm.runInContext('typeof structuredClone', context), 'undefined');
   // Keep the generated application code intact; replace only final HTTP dispatch
   // with test exports so the same native/service code can be invoked explicitly.
-  return vm.runInContext('(function(){' + node.func.slice(0, marker) +
-    '\nreturn {pciContains,pciCompleteClaimDisplay,pciNativeMetadata,pciPublicCatalogue,pciPublicJwks,pciWalletMetadata,pciCredentialRequest,pciCredentialResponse,handlePciNative,createSr2Store,createPciNativeAdapters,createSr2Service,pciEvent};})()',
-    context, { filename: `Function node:${node.id} [${name}]` });
+  return vm.runInContext('(function(){' + node.func.slice(0, marker) + '\nreturn {' +
+    'pciContains,pciCompleteClaimDisplay,pciNativeMetadata,pciPublicCatalogue,pciPublicJwks,pciWalletMetadata,pciCredentialRequest,pciCredentialResponse,handlePciNative,' +
+    'createSr2Store,createPciNativeAdapters,createSr2Service,pciEvent' + '};})()', context,
+    { filename: `Function node:${node.id} [${name}]` });
 }
 function nativeAdapter(api, mutate = () => {}, fast = false) {
   let metadata,

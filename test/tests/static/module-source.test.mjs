@@ -8,22 +8,22 @@
 //
 // Prepared with AI-assisted tools and reviewed by the author.
 // Assisted-by: AI
-import test from 'node:test';
-import assert from 'node:assert/strict';
-import vm from 'node:vm';
-import fs from 'node:fs';
+import test from "node:test";
+import assert from "node:assert/strict";
+import vm from "node:vm";
+import fs from "node:fs";
 import {
   stripModuleSyntax,
   validateScript,
   validateFunctionBody
-} from '../../../tools/lib/module-source.mjs';
-import path from 'node:path';
-import os from 'node:os';
-import { fileURLToPath } from 'node:url';
-import { spawnSync } from 'node:child_process';
-import { formatSource } from '../../../tools/format-source.mjs';
-import { parse } from 'acorn';
-import { PCI_UI_MODULES, PCI_SR2_MODULES } from '../../../tools/lib/bundle-inputs.mjs';
+} from "../../../tools/lib/module-source.mjs";
+import { formatSource } from "../../../tools/format-source.mjs";
+import { parse } from "acorn";
+import path from "node:path";
+import os from "node:os";
+import { fileURLToPath } from "node:url";
+import { spawnSync } from "node:child_process";
+import { PCI_UI_MODULES, PCI_SR2_MODULES } from "../../../tools/lib/bundle-inputs.mjs";
 test('bundle transformation preserves executable statements after same-line imports', () => {
   const source = "import crypto from 'node:crypto'; export const answer = 42;";
   const transformed = stripModuleSyntax(source);
