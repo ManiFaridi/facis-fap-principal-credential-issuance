@@ -5,16 +5,16 @@
 // https://www.apache.org/licenses/LICENSE-2.0.
 //
 // SPDX-License-Identifier: Apache-2.0
-import test from 'node:test';
-import assert from 'node:assert/strict';
-import crypto from 'node:crypto';
+import test from "node:test";
+import assert from "node:assert/strict";
+import crypto from "node:crypto";
 import {
   createPciNativeAdapters,
   pciNativeMetadata,
   pciLdpContext
-} from '../../../backend/sr2/native.js';
-import { pciWalletMetadata } from '../../../backend/sr2/profiles.js';
-import { pciEvent } from '../../../backend/sr2/wire.js';
+} from "../../../backend/sr2/native.js";
+import { pciWalletMetadata } from "../../../backend/sr2/profiles.js";
+import { pciEvent } from "../../../backend/sr2/wire.js";
 const tid = '11111111-1111-4111-8111-111111111111', rid = '22222222-2222-4222-8222-222222222222', origin =
   'https://alpha.example.com', did = 'did:web:alpha.example.com';
 function setup(format, claims = { name: 'Synthetic' }) {

@@ -8,18 +8,18 @@
 //
 // Prepared with AI-assisted tools and reviewed by the author.
 // Assisted-by: AI
-import { stripModuleSyntax } from '../../../tools/lib/module-source.mjs';
-import { issuerSource } from '../../support/ui-source.mjs';
-import test from 'node:test';
-import assert from 'node:assert/strict';
-import fs from 'node:fs';
-import vm from 'node:vm';
-import { fixture, alpha } from '../../support/sr2-fixture.mjs';
-import { httpHarness } from '../../support/sr2-http.mjs';
-import crypto from 'node:crypto';
-import { pciQrImage } from '../../../src/qr.js';
 // Executes the checked-in Vue compiler and renderer with an in-memory host.
 // This is component integration, not a browser/layout/accessibility claim.
+import { stripModuleSyntax } from "../../../tools/lib/module-source.mjs";
+import { issuerSource } from "../../support/ui-source.mjs";
+import test from "node:test";
+import assert from "node:assert/strict";
+import fs from "node:fs";
+import vm from "node:vm";
+import { fixture, alpha } from "../../support/sr2-fixture.mjs";
+import { httpHarness } from "../../support/sr2-http.mjs";
+import crypto from "node:crypto";
+import { pciQrImage } from "../../../src/qr.js";
 function vueContext() {
   const messages = [];
   const document = {

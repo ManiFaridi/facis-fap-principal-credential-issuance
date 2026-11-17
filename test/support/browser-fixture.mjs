@@ -10,12 +10,12 @@
 // Assisted-by: AI
 // Local development fixture only. No real identity, wallet, cluster or database.
 // Always binds loopback; every restart discards the synthetic in-memory state.
-import fs from 'node:fs';
-import http from 'node:http';
-import { stripModuleSyntax } from '../../tools/lib/module-source.mjs';
-import { issuerSource } from './ui-source.mjs';
-import { fixture, alpha } from './sr2-fixture.mjs';
-import { httpHarness } from './sr2-http.mjs';
+import fs from "node:fs";
+import http from "node:http";
+import { stripModuleSyntax } from "../../tools/lib/module-source.mjs";
+import { issuerSource } from "./ui-source.mjs";
+import { fixture, alpha } from "./sr2-fixture.mjs";
+import { httpHarness } from "./sr2-http.mjs";
 export async function createBrowserFixtureServer({ port = 0 } = {}) {
   if (!Number.isInteger(port) || port < 0 || port > 65535) throw new TypeError('Invalid local preview port');
   const f = fixture(),

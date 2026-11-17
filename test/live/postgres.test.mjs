@@ -5,12 +5,12 @@
 // https://www.apache.org/licenses/LICENSE-2.0.
 //
 // SPDX-License-Identifier: Apache-2.0
-import test from 'node:test';
-import assert from 'node:assert/strict';
-import crypto from 'node:crypto';
-import pg from 'pg';
-import { schema } from '../../tools/extract-schema.mjs';
-import { createSr2Store } from '../../backend/sr2/store.js';
+import test from "node:test";
+import assert from "node:assert/strict";
+import crypto from "node:crypto";
+import pg from "pg";
+import { schema } from "../../tools/extract-schema.mjs";
+import { createSr2Store } from "../../backend/sr2/store.js";
 const url = process.env.PCI_TEST_DATABASE_URL;
 if (!url) throw new Error('PCI_TEST_DATABASE_URL is required; this test never silently skips');
 test('real PostgreSQL migration, immutable versions, tenant isolation and concurrent limits', async t => {
