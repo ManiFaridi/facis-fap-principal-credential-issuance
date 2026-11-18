@@ -1,4 +1,4 @@
-// Copyright (c) 2026 LEANEA GmbH and others.
+// Copyright (c) 2026 Contributors to this project.
 //
 // This program and the accompanying materials are made available under the
 // terms of the Apache License, Version 2.0 which is available at
@@ -12,7 +12,7 @@
 // it. Fails on HIGH or CRITICAL findings that are not already present in the
 // base image, unless security/image-scan-exceptions.json lists the finding
 // (vulnerability id + package) with its reason and issue. Findings of the
-// mandated base image are reported, not failed: LEANEA cannot fix them and
+// mandated base image are reported, not failed: the application team cannot fix them and
 // reports them to the principal in writing.
 // Usage: node tools/check-image-scan.mjs --base base.json --image image.json [--exceptions FILE]
 import fs from 'node:fs';

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# Copyright (c) 2026 LEANEA GmbH and others.
+# Copyright (c) 2026 Contributors to this project.
 # SPDX-License-Identifier: Apache-2.0
 # Local HTTP compatibility checks; no cloud services are used.
 

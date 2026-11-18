@@ -6,7 +6,7 @@ FAP PCI runs inside XFSC ORCE and provides tenant onboarding, delegated issuer a
 
 | Distribution | Reference |
 |---|---|
-| Application source version | `0.5.0-rc.16`, as recorded in `VERSION` and `package.json` |
+| Application source version | `0.5.0-rc.17`, as recorded in `VERSION` and `package.json` |
 | Packaged PCI container | [`ecofacis/fap-pci:1.0.0`](https://hub.docker.com/r/ecofacis/fap-pci/tags?name=1.0.0), built from source `0.5.0-rc.12` at commit `3fef8e3048f3`; it does not contain changes merged after that commit and is superseded by the image of the next release candidate |
 | Packaging base | `ecofacis/xfsc-orce:2.0.15` |
 | Published documentation | [FAP PCI documentation](https://eclipse-xfsc.github.io/facis-fap-principal-credential-issuance/) |

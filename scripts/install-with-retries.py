@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# Copyright (c) 2026 LEANEA GmbH and others.
+# Copyright (c) 2026 Contributors to this project.
 #
 # This program and the accompanying materials are made available under the
 # terms of the Apache License, Version 2.0 which is available at
@@ -88,7 +88,7 @@ def run_installer(command, env, source, log, timeout=300):
 # Releases whose ground-zero arguments this helper was reviewed against. A release
 # pull request that changes VERSION adds its version here after that review
 # (test/tests/static/release-versions.test.mjs fails otherwise).
-REVIEWED_VERSIONS = {"0.5.0-rc.6", "0.5.0-rc.7", "0.5.0-rc.8", "0.5.0-rc.9", "0.5.0-rc.12", "0.5.0-rc.16"}
+REVIEWED_VERSIONS = {"0.5.0-rc.6", "0.5.0-rc.7", "0.5.0-rc.8", "0.5.0-rc.9", "0.5.0-rc.12", "0.5.0-rc.17"}
 
 
 def main():
