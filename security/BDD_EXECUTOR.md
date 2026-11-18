@@ -3,8 +3,9 @@
 Official source: https://github.com/eclipse-xfsc/bdd-executor
 Pinned commit: 478909cdd735bbab8bb63ce955183713d6bb387b
 
-The tracked patch changes only the Requests pin from 2.31.0 to 2.33.0
-in setup.cfg and requirements-dev.txt. Application source is unchanged.
+The tracked patch updates Requests from 2.31.0 to 2.33.0 in setup.cfg
+and requirements-dev.txt. It also removes the unused licensecheck runtime
+dependency from setup.cfg.
 
 Run security/prepare-bdd.py --output <new-directory>/requirements.txt
 from the repository root. Install that generated requirements file with
