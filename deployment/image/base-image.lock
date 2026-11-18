@@ -13,3 +13,6 @@ BASE_ENTRYPOINT=["/usr/src/node-red/entrypoint.sh"]
 BASE_CMD=["/bin/bash"]
 # The uibuilder version G0 installs into /data (automation/stage1/ground-zero.sh).
 UIBUILDER_VERSION=7.5.0
+
+# Original HTTP In module in the pinned ORCE base image (PCI #66).
+ORCE_HTTP_IN_SHA256=a5b03d988d2bd9d7779e28bdfcca19d062ace6e7a6df6a08eae701b02939e6db

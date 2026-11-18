@@ -116,6 +116,58 @@ jobs:
             console.log(JSON.stringify({ release: marker.release, commit: marker.commit, pciTabs: tabs.length }));
           '
           docker logs pci > startup-check.log 2>&1
+          docker exec -i pci node - <<'NODE'
+          const http = require('node:http');
+          const { randomUUID } = require('node:crypto');
+          const host = process.env.PCI_MAIN_HOST;
+          if (!host) throw new Error('PCI_MAIN_HOST is missing');
+          const base = (process.env.PCI_ORCE_BASE_PATH || '').replace(/\/$/, '');
+
+          function post(body) {
+            return new Promise((resolve, reject) => {
+              const req = http.request({
+                hostname: '127.0.0.1',
+                port: 1880,
+                path: `${base}/api/v1/auth/bridge`,
+                method: 'POST',
+                headers: {
+                  Host: host,
+                  Origin: `https://${host}`,
+                  'Sec-Fetch-Site': 'same-origin',
+                  'Content-Type': 'application/json'
+                },
+                signal: AbortSignal.timeout(15000)
+              }, res => {
+                let text = '';
+                res.setEncoding('utf8');
+                res.on('error', reject);
+                res.on('data', chunk => { text += chunk; });
+                res.on('end', () => {
+                  let data;
+                  try { data = JSON.parse(text); } catch {}
+                  const type = (res.headers['content-type'] || '').split(';')[0].trim();
+                  resolve({ status: res.statusCode, type, data });
+                });
+              });
+              req.on('error', reject);
+              req.end(JSON.stringify(body));
+            });
+          }
+
+          async function check(label, body, status, type, valid) {
+            const result = await post(body);
+            const ok = result.status === status && result.type === type && valid(result.data);
+            console.log(`${label}: HTTP ${result.status}, ${result.type}, ${ok ? 'PASS' : 'FAIL'}`);
+            if (!ok) process.exitCode = 1;
+          }
+
+          (async () => {
+            await check('empty JSON', {}, 400, 'application/problem+json',
+              data => typeof data?.code === 'string' && data.code.length > 0);
+            await check('anonymous bridge grant', { socketId: randomUUID() }, 200, 'application/json',
+              data => typeof data?.token === 'string' && data.token.length > 0 && Boolean(data.expiresAt));
+          })().catch(error => { console.error(error.message); process.exitCode = 1; });
+          NODE
       - name: Preserve the tested image for publication
         if: github.repository == 'eclipse-xfsc/facis-fap-principal-credential-issuance' && (github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && github.ref_type == 'tag'))
         run: |
