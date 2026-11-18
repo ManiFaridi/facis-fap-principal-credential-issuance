@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# Copyright (c) 2026 Contributors to this project.
+# Copyright (c) 2026 LEANEA GmbH and others.
 # SPDX-License-Identifier: Apache-2.0
 """Publish the exact tested archive; refuse to replace an existing different tag."""
 

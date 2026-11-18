@@ -1,6 +1,6 @@
 # Quality assurance commitments and their implementation
 
-Each quality assurance commitment of the contractor's tender and of the remediation plan of 30
+Each quality assurance commitment of LEANEA's tender and of the remediation plan of 30
 October 2026, the CI job or record that implements it, and where the evidence for the
 release candidate tag is found. The evidence column names the record; it is filled with
 the run or document for `v0.5.0-rc.16` before the internal QA sign-off and is empty

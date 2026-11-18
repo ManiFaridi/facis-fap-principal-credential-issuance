@@ -1,4 +1,4 @@
-// Copyright (c) 2026 Contributors to this project.
+// Copyright (c) 2026 LEANEA GmbH and others.
 // SPDX-License-Identifier: Apache-2.0
 import test from 'node:test';
 import assert from 'node:assert/strict';
