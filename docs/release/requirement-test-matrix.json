@@ -1,5 +1,5 @@
 {
-  "version": "0.5.0-rc.16",
+  "version": "0.5.0-rc.17",
   "purpose": "Requirement-to-test traceability for the resubmission of MS2: each SRS requirement and each technical provision with its tests, the pull requests that implement it and its evidence. Statuses of the requirements under reassessment come from requirement-deviations.json; the evidence column is filled from the runs on the release candidate tag.",
   "deviations": [
     {

@@ -1,6 +1,6 @@
 # FAP PCI documentation
 
-This documentation covers the `0.5.0-rc.16` application source and its application image, built from the tagged source on the ORCE 2.0.15 base image ([deploying the application image](operations/deployment.md#deploying-the-application-image)), and the earlier `ecofacis/fap-pci:1.0.0` container package, which embedded a captured `/data` and is superseded ([container image](operations/container-image.md)).
+This documentation covers the `0.5.0-rc.17` application source and its application image, built from the tagged source on the ORCE 2.0.15 base image ([deploying the application image](operations/deployment.md#deploying-the-application-image)), and the earlier `ecofacis/fap-pci:1.0.0` container package, which embedded a captured `/data` and is superseded ([container image](operations/container-image.md)).
 
 ## Start here
 
@@ -15,7 +15,7 @@ This documentation covers the `0.5.0-rc.16` application source and its applicati
 
 ## Releases and verification
 
-[Release candidate rc.16](release/0.5.0-rc.16.md), [acceptance gates](release/acceptance-gates.md), [requirement-to-test matrix](release/requirement-test-matrix.md), [container package 1.0.0](release/1.0.0.md), [application change record rc.12](release/0.5.0-rc.12.md), [executed CI checks](release/completion.md), [source provenance](source-baseline.md), and [compatibility](compatibility/compatibility-matrix.md).
+[Release candidate rc.17](release/0.5.0-rc.17.md), [acceptance gates](release/acceptance-gates.md), [requirement-to-test matrix](release/requirement-test-matrix.md), [container package 1.0.0](release/1.0.0.md), [application change record rc.12](release/0.5.0-rc.12.md), [executed CI checks](release/completion.md), [source provenance](source-baseline.md), and [compatibility](compatibility/compatibility-matrix.md).
 
 The CI results recorded in [executed checks](release/completion.md) and [workflow evidence](release/ci-evidence.json) belong to the commits they name. The checks of the current source run on every pull request and on the release candidate tag; the gates without a result for the current source are listed in the acceptance gates.
 

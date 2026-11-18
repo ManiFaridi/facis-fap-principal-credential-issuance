@@ -1,6 +1,6 @@
 # Requirement-to-test traceability matrix
 
-Version `0.5.0-rc.16`. Requirement-to-test traceability for the resubmission of MS2: each SRS requirement and each technical provision with its tests, the pull requests that implement it and its evidence. Statuses of the requirements under reassessment come from requirement-deviations.json; the evidence column is filled from the runs on the release candidate tag.
+Version `0.5.0-rc.17`. Requirement-to-test traceability for the resubmission of MS2: each SRS requirement and each technical provision with its tests, the pull requests that implement it and its evidence. Statuses of the requirements under reassessment come from requirement-deviations.json; the evidence column is filled from the runs on the release candidate tag.
 
 Status values: `NOT_REASSESSED_FOR_ACCEPTANCE` (in scope, implementation referenced, acceptance not reassessed for the current source), `PARTIAL`, `GAP`, `EVIDENCE_LINKED` (see [acceptance gates](acceptance-gates.md)). "Pull requests" names the pull requests of the remediation that changed a referenced file; requirements whose files no pull request changed are implemented by the baseline commit `2fa3a8af`.
 
