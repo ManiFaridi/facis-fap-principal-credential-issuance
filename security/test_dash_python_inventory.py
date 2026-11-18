@@ -1,4 +1,4 @@
-# Copyright (c) 2026 LEANEA GmbH and others.
+# Copyright (c) 2026 Contributors to this project.
 # SPDX-License-Identifier: Apache-2.0
 import copy
 import hashlib
