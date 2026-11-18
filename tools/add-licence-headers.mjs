@@ -1,4 +1,4 @@
-// Copyright (c) 2026 Contributors to this project.
+// Copyright (c) 2026 LEANEA GmbH and others.
 //
 // This program and the accompanying materials are made available under the
 // terms of the Apache License, Version 2.0 which is available at
@@ -34,7 +34,7 @@ const EXCLUDED = new Set([
 ]);
 const EXCLUDED_DIRS = ['node_modules', 'dist', '.build', 'vendor', 'fixtures', 'gen', 'wirepb', '__pycache__'];
 const AI_LIST = 'tools/licence-header-ai-files.txt';
-const COPYRIGHT = 'Copyright (c) 2026 Contributors to this project.';
+const COPYRIGHT = 'Copyright (c) 2026 LEANEA GmbH and others.';
 const LICENCE = [
   '',
   'This program and the accompanying materials are made available under the',

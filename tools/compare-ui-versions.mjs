@@ -1,4 +1,4 @@
-// Copyright (c) 2026 Contributors to this project.
+// Copyright (c) 2026 LEANEA GmbH and others.
 // SPDX-License-Identifier: Apache-2.0
 // Compare exact SemVer versions; ranges are rejected and build metadata is ignored.
 import { pathToFileURL } from 'node:url';
