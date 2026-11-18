@@ -32,6 +32,52 @@ RUN mkdir -p /stage/opt/fap-pci \
  && cat VERSION > /stage/opt/fap-pci/VERSION \
  && chmod 0755 /stage/opt/fap-pci/entrypoint.sh
 
+# PCI #66: patch the checksum-locked HTTP In module used by ORCE 4.0.9.
+FROM ${ORCE_BASE} AS orce-http-in-source
+
+FROM node:22-bookworm-slim AS bridge-fix
+WORKDIR /work
+COPY --from=orce-http-in-source /opt/maestro/MBE/packages/node_modules/@node-red/nodes/core/network/21-httpin.js ./original.js
+COPY deployment/image/base-image.lock ./base-image.lock
+RUN node - original.js base-image.lock 21-httpin.js <<'NODE'
+const fs = require('node:fs');
+const { createHash } = require('node:crypto');
+
+const [sourceFile, lockFile, outputFile] = process.argv.slice(2);
+const input = fs.readFileSync(sourceFile);
+const lock = fs.readFileSync(lockFile, 'utf8');
+const entries = [...lock.matchAll(/^ORCE_HTTP_IN_SHA256=([a-f0-9]{64})$/gm)];
+const actual = createHash('sha256').update(input).digest('hex');
+
+if (entries.length !== 1 || entries[0][1] !== actual) {
+  throw new Error(`ORCE HTTP In checksum mismatch. Review base image source (${actual}).`);
+}
+
+let source = input.toString('utf8');
+function replaceOnce(pattern, replacement) {
+  if ([...source.matchAll(pattern)].length !== 1) {
+    throw new Error(`Unexpected ORCE HTTP In source at ${pattern}`);
+  }
+  source = source.replace(pattern, replacement);
+}
+
+replaceOnce(
+  /var getBody = require\(['"]raw-body['"]\);/g,
+  "var rawBodyModule = require('raw-body');\n    var getBody = typeof rawBodyModule === 'function' ? rawBodyModule : rawBodyModule.default;"
+);
+replaceOnce(
+  /if\s*\(req\.skipRawBodyParser\)\s*\{\s*next\(\);\s*\}/g,
+  'if (req.skipRawBodyParser) { return next(); }'
+);
+replaceOnce(
+  /if\s*\(req\._body\)\s*\{\s*return next\(\);\s*\}/g,
+  'if (req._body || (req.readableEnded && req.body !== undefined)) { return next(); }'
+);
+
+fs.writeFileSync(outputFile, source);
+NODE
+RUN node --check /work/21-httpin.js
+
 FROM ${ORCE_BASE}
 ARG UIBUILDER_VERSION=7.5.0
 ARG SOURCE_COMMIT=unknown
@@ -43,6 +89,7 @@ LABEL org.opencontainers.image.title="FACIS FAP Principal Credential Issuance" \
       org.opencontainers.image.version="${SOURCE_VERSION}" \
       org.opencontainers.image.base.name="ecofacis/xfsc-orce:2.0.15"
 COPY --from=build /stage/opt/fap-pci /opt/fap-pci
+COPY --from=bridge-fix /work/21-httpin.js /opt/maestro/MBE/packages/node_modules/@node-red/nodes/core/network/21-httpin.js
 ENV FAP_PCI_IMAGE_ROOT=/opt/fap-pci \
     FAP_PCI_UIBUILDER_VERSION=${UIBUILDER_VERSION}
 # The wrapper seeds /data on first start and then runs the ORCE entrypoint and
