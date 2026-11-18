@@ -6,9 +6,11 @@ index 0c937f6..ffa57fc 100644
 -requests==2.31.0
 +requests==2.33.0
 diff --git a/setup.cfg b/setup.cfg
-index 990793d..e17f92f 100644
+index 990793d..edb0e3a 100644
 --- a/setup.cfg
 +++ b/setup.cfg
-@@ -18 +18 @@ install_requires =
+@@ -16 +15,0 @@ install_requires =
+-    licensecheck
+@@ -18 +17 @@ install_requires =
 -    requests==2.31.0
 +    requests==2.33.0

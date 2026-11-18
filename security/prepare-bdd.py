@@ -3,7 +3,7 @@
 #
 # SPDX-License-Identifier: Apache-2.0
 #
-# Prepare the pinned official BDD source with the tracked Requests patch.
+# Prepare the pinned official BDD source with the tracked dependency patch.
 
 import argparse
 import hashlib
@@ -71,6 +71,14 @@ def main():
         content[index] = content[index].replace(
             b"requests==2.31.0", b"requests==2.33.0", 1
         )
+        if name == "setup.cfg":
+            unused = [
+                i for i, line in enumerate(content)
+                if line.strip() == b"licensecheck"
+            ]
+            if len(unused) != 1:
+                raise SystemExit("STOP: Unexpected upstream licensecheck declaration.")
+            del content[unused[0]]
         expected[name] = b"".join(content)
 
     run("git", "-C", str(source), "apply", "--unidiff-zero", "--check", str(PATCH))
@@ -106,7 +114,7 @@ def main():
     output.with_suffix(".provenance.json").write_text(
         json.dumps(provenance, indent=2) + "\n"
     )
-    print("PASS: Official source SHA and exact two-line patch verified.")
+    print("PASS: Official source SHA and exact dependency patch verified.")
     print("Prepared requirements:", output)
 
 
